@@ -1,0 +1,20 @@
+.App {
+	text-align: center;
+	background-color: #856a5d;
+	min-height: 100vh;
+
+	font-family: Georgia, serif;
+}
+
+.errorText {
+	color: #fc6161;
+}
+
+#noRouteContainer {
+	width: 100vw;
+	height: 90vh;
+	font-size: x-large;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
