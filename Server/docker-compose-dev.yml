@@ -1,0 +1,29 @@
+version: "3"
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    volumes:
+      - bearmax-mongodb-data:/data/db
+  backend:
+    image: bearmax/backend
+    depends_on:
+      - mongo
+    volumes:
+      - .:/home/backend/app
+    build:
+      context: .
+    command:
+      - "dev"
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: "development"
+      MONGO_URI: "mongodb://mongo:27017/test"
+      MONGO_DB: "test"
+      SECRET_KEY: "vivalapluto"
+volumes:
+  bearmax-mongodb-data:

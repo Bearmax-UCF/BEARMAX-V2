@@ -1,0 +1,184 @@
+/* Settings */
+
+.calImg {
+	display: flex;
+	width: 20%;
+	height: 30%;
+
+	border-style: solid;
+	border-radius: 1%;
+	border-color: #333;
+
+	margin-left: 5%;
+	margin-top: 2%;
+}
+
+.calibrateText {
+	display: inline-block;
+}
+
+#settingsContainer {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 10vh;
+}
+
+#settingBear {
+	height: 300px;
+}
+
+#settingsTextContainer {
+	margin-left: 30px;
+	width: 40vw;
+}
+
+#settingsHeader {
+	font-size: 2.5em;
+}
+
+.userInfoDisplay {
+	font-size: 1.2em;
+}
+
+#logoutButton {
+	display: block;
+	margin: auto;
+	margin-top: 30px;
+	padding-top: 10px;
+	background-color: #2e3138;
+	border: none;
+	color: #56b19c;
+	padding: 7px 2px;
+	text-align: center;
+	font-size: larger;
+	border-radius: 12px;
+	width: 150px;
+}
+
+/* Dashboard */
+
+#dashContainer {
+	display: flex;
+	justify-content: center;
+	padding: 30px 50px;
+}
+
+#dashNoteContainer {
+	flex: 1;
+	max-width: 700px;
+	margin-left: 5vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#dashNoteTitle {
+	width: 100%;
+	height: 40px;
+	margin-bottom: 15px;
+	font-size: 1.3em;
+	font-weight: bold;
+}
+
+#dashNoteNote {
+	flex: 1;
+	width: 100%;
+	font-size: 1.3em;
+}
+
+#dashNoteTitle,
+#dashNoteNote {
+	border-radius: 5px;
+	border: none;
+	padding: 5px 10px;
+}
+
+#dashSaveNoteButton {
+	margin-top: 15px;
+}
+
+@media screen and (max-width: 1100px) {
+	#dashContainer {
+		flex-direction: column;
+	}
+
+	#dashNoteContainer {
+		margin: 0px;
+		margin-top: 50px;
+		min-height: 300px;
+		width: 100%;
+		max-width: none;
+	}
+}
+
+/* How To Use */
+
+.useHead {
+	font-size: 2.5em;
+}
+
+.useList {
+	max-width: fit-content;
+	margin: auto;
+	text-align: left;
+}
+
+.useContainer {
+	display: flex;
+	padding: 30px;
+}
+
+.useContainer > * {
+	width: 50%;
+}
+
+.modeHeader {
+	font-size: 1.8em;
+}
+
+/* Top container */
+
+.textUse1 {
+	text-align: left;
+	padding: 10px;
+}
+
+.bearContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.useBear {
+	max-width: 400px;
+	width: 100%;
+}
+
+/* Bottom container */
+
+.categoryHeader {
+	font-size: 1.3em;
+	margin: 20px 10px;
+}
+
+.catOne,
+.catTwo {
+	width: 40%;
+	height: 8vw;
+	object-fit: contain;
+}
+
+.catA,
+.catB {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.textUse2 {
+	text-align: left;
+	padding: 10px;
+}
