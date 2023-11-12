@@ -15,7 +15,7 @@ export default (io: Server) => {
 
 	// Ensure websocket clients have a valid client certificate
 	if (constants.isProduction) {
-		io.engine.on("connection", (rawSocket) => {
+		io.engine.on("connection", (rawSocket: any) => {
 			const auth_header: String | undefined =
 				rawSocket.request.headers.authorization;
 			const token = auth_header?.replace("Bearer", "").trim();
@@ -31,7 +31,7 @@ export default (io: Server) => {
 				rawSocket.emit("connect_error", err);
 				rawSocket.close();
 			} else if (!isAuthorized && token) {
-				passport.authenticate("jwt", { session: false }, (e, user) => {
+				passport.authenticate("jwt", { session: false }, (e, user: any) => {
 					if (!user) {
 						const err = new Error("not authorized");
 						(err as Error & { data: { content: string } }).data = {
