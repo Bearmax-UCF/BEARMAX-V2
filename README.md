@@ -22,3 +22,4 @@ docker ps
 ```bash
 docker stop <CONTAINER_ID>
 ```
+- To test locally, use http://localhost:8080/api
