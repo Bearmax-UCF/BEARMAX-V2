@@ -31,7 +31,7 @@ export default (io: Server) => {
 				rawSocket.emit("connect_error", err);
 				rawSocket.close();
 			} else if (!isAuthorized && token) {
-				passport.authenticate("jwt", { session: false }, (e, user: any) => {
+				passport.authenticate("jwt", { session: false }, (e: any, user: any) => {
 					if (!user) {
 						const err = new Error("not authorized");
 						(err as Error & { data: { content: string } }).data = {

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
 
 const requireLocalAuth = (req: Request, res: Response, next: NextFunction) => {
-  passport.authenticate('local', (err, user, info) => {
+  passport.authenticate('local', (err: any, user: any, info: any) => {
     if (err) {
       return next(err);
     }
