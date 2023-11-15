@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "dev": "npx nodemon",
+    "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test-client": "ts-node test-client.ts"
   },
