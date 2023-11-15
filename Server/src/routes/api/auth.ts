@@ -4,6 +4,11 @@ import requireLocalAuth from "../../middleware/requireLocalAuth";
 import AuthToken from "../../models/AuthToken";
 import User from "../../models/User";
 import jwt from "jsonwebtoken";
+import constants from "../../utils/constants";
+import mailgun from '../../services/mailgunService';
+import bcrypt from "bcrypt";
+import crypto from "crypto";
+
 const router = Router();
 
 router.get("/ping", async (_, res) => {
@@ -41,11 +46,46 @@ router.post("/register", async (req, res, next) => {
 	}
 
 	try {
-		new User({ email, firstName, lastName, password, isVerified}).save();
-
+		const unhashToken = crypto.randomBytes(32).toString('hex');
+		const hashToken = await bcrypt.hash(unhashToken, constants.bcrypt_log_rounds);
+		const user = await new User({ email, firstName, lastName, password, isVerified, hashToken}).save();
+	
+		// send email to user on registration
+		mailgun.send(email, 
+			'Password Verification',
+			 `<h1>Hello!</h1>
+			 <p> Please verify your bearmax account by clicking the following link: http://localhost:8080/api/auth/verify?token=${unhashToken}&id=${user._id}</p>
+			 `
+			 )
+		.catch((err) => console.log(err));
 		res.status(201).send({ message: "User created successfully!" });
 	} catch (err) {
 		return next(err);
+	}
+});
+
+router.get("/verify", async (req, res, next) => {
+	try {
+		const token = req.query.token as string;
+		const id = req.query.id as string;
+		const user = await User.findById(id);
+		if(!user)
+			return res.status(400).send({ message: "User not found." });
+		if(user.isVerified) 
+			return res.status(400).send({ message: "User already verified." });
+		if(token) {
+			const compare = await bcrypt.compare(token, user.hashToken as string);
+			if(compare) {
+				user.hashToken = "";
+				user.isVerified = true;
+				user.save();
+				return res.status(201).send({ message: "User verified!" });
+			} else {
+				return res.status(400).send({ message: "Invalid token." });
+			}
+		}
+	} catch (error) {
+		return next(error);
 	}
 });
 

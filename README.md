@@ -4,6 +4,19 @@ BEARMAX but version 2
 ## How to set up backend locally
 - First make sure you have docker installed on your machine. A link to get the installation in the following: https://docs.docker.com/engine/install/.
 - Then cd to the Server folder for backend.
+- create a .env file in the Server folder
+- the following variables should be in the file
+
+```
+MAILGUN_API_KEY
+MAILGUN_DOMAIN
+MONGO_URI
+SECRET_KEY
+BCRYPT_LOG_ROUNDS
+TOKEN_EXPIRES_IN
+```
+
+- NOTE: before running the docker scripts, make sure to ask the team for the variables
 - Then run the script provided just below in the terminal:
 ```bash
 docker build -t bearmax-backend .
@@ -12,7 +25,7 @@ NOTE: Do not forget the period in the bash command as it is essential or else yo
 
 - Once the script is finished building, run the following script:
 ```bash
-docker run -d -p 8080:8080 bearmax-backend
+docker run --env-file .env -d -p 8080:8080 bearmax-backend
 ```
 
 - To stop the backend from running use the bottom script to see what containers are currently running

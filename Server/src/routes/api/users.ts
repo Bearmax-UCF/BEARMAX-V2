@@ -20,15 +20,18 @@ router.delete("/:id", requireJwtAuth, async (req, res, next) => {
 	}
 });
 // TODO: implement update user
+/*
 router.patch("/:id", requireJwtAuth, async (req, res, next) => {
+	
 	try {
-		const user = await User.findById(req.params.id);
+		const user = await User.findByIdAndUpdate(req.params.id);
 		res.status(200).json({ user });
 	} catch (err) {
 		next(err);
 	}
 	
 });
+*/
 
 
 export const basePath = "/users";

@@ -13,6 +13,7 @@ interface IUser {
   isVerified: boolean;
   oldPasswords?: Types.Array<string>;
   accountType?: boolean;
+  hashToken?: string;
 }
 
 interface IUserMethods {
@@ -49,6 +50,7 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
   isVerified: { type: Boolean, required: true, default: false},
   oldPasswords: { type: Array },
   accountType: { type: Boolean },
+  hashToken: { type: String, required: false},
 });
 
 UserSchema.pre("save", function (next) {
