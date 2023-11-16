@@ -1,8 +1,10 @@
 export default {
 	port: process.env.PORT || 8080,
+	mailgun_api_key: process.env.MAILGUN_API_KEY || "",
+	mailgun_domain: process.env.MAILGUN_DOMAIN || "",
 	mongo_uri:
 		process.env.MONGO_URI ||
-		"mongodb+srv://bearMaxV2:9OZ0mL0i6y7kHWV8@bearmax.glw4y8i.mongodb.net/?retryWrites=true&w=majority",
+		"",
 	mongo_db: process.env.MONGO_DB || "test",
 	isProduction: process.env.NODE_ENV === "test",
 	secret_key: process.env.SECRET_KEY || "dontkeepme",

@@ -14,12 +14,20 @@ const strategy = new LocalStrategy(
         } else {
           user.comparePassword(password).then((isMatch) => {
             if (isMatch) {
-              return done(null, user);
+              user.verified().then((isVerified) => {
+                if (!isVerified) {
+                  return done(null, false, {
+                    message: "Account not verified.",
+                  });
+                } else {
+                  return done(null, user);
+                }
+              });
+            } else {
+              return done(null, false, {
+                message: "Incorrect username or password.",
+              });
             }
-
-            return done(null, false, {
-              message: "Incorrect username or password.",
-            });
           });
         }
       })

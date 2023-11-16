@@ -10,8 +10,10 @@ interface IUser {
   lastName: string;
   email: string;
   password: string;
+  isVerified: boolean;
   oldPasswords?: Types.Array<string>;
   accountType?: boolean;
+  hashToken?: string;
 }
 
 interface IUserMethods {
@@ -21,6 +23,9 @@ interface IUserMethods {
   /** Generates a JWT token for the user.
   */
   generateToken(): string;
+  /** Checks to see if user is verified
+  */
+  verified(): Promise<boolean>;
 }
 
 interface UserModel extends Model<IUser, {}, IUserMethods> {
@@ -42,8 +47,10 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  isVerified: { type: Boolean, required: true, default: false},
   oldPasswords: { type: Array },
   accountType: { type: Boolean },
+  hashToken: { type: String, required: false},
 });
 
 UserSchema.pre("save", function (next) {
@@ -94,6 +101,10 @@ UserSchema.methods.generateToken = function () {
   );
   return token;
 };
+
+UserSchema.methods.verified = async function () {
+  return this.isVerified;
+}
 
 // Statics
 
