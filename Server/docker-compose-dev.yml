@@ -12,7 +12,7 @@ services:
     depends_on:
       - mongo
     volumes:
-      - .:/home/backend/app
+      - ./src:/home/backend/app/src
     build:
       context: .
     command:
