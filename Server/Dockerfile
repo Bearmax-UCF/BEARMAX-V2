@@ -13,7 +13,7 @@ WORKDIR /home/backend/app
 
 COPY --chown=backend:backend . .
 
-RUN npm install
+RUN npm ci
 
 EXPOSE 8080/tcp
 
