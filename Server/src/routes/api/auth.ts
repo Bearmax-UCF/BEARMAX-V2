@@ -79,7 +79,7 @@ router.post("/forgotPasswordRequest", async (req, res, next) => {
 		mailgun.send(email, 
 			'Password Reset',
 			 `<h1>Hello!</h1>
-			 <p> Please reset your bearmax account password by clicking the following link: http://localhost:8080/api/auth/resetPassword?token=${unhashToken}&id=${user._id}</p>
+			 <p> Please reset your bearmax account password by clicking the following link: ${constants.server_url}/api/auth/resetPassword?token=${unhashToken}&id=${user._id}</p>
 			 `
 			 )
 		.catch((err) => console.log(err));
