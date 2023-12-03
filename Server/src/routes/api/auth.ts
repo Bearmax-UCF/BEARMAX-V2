@@ -55,7 +55,7 @@ router.post("/register", async (req, res, next) => {
 		mailgun.send(email, 
 			'Password Verification',
 			 `<h1>Hello!</h1>
-			 <p> Please verify your bearmax account by clicking the following link: http://localhost:8080/api/auth/verify?token=${unhashToken}&id=${user._id}</p>
+			 <p> Please verify your bearmax account by clicking the following link: ${constants.server_url}/api/auth/verify?token=${unhashToken}&id=${user._id}</p>
 			 `
 			 )
 		.catch((err) => console.log(err));
@@ -74,7 +74,6 @@ router.post("/forgotPasswordRequest", async (req, res, next) => {
 		if(!user)
 			return res.status(422).send({ message: "User not found." });
 		const unhashToken = crypto.randomBytes(32).toString('hex');
-		
 		await new ResetToken({ userId: user._id, token: unhashToken }).save();
 		mailgun.send(email, 
 			'Password Reset',
