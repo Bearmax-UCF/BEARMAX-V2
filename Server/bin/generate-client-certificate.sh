@@ -1,10 +1,10 @@
 #!/bin/bash
 
-cacrt="./certs/ca-crt.pem"
-cakey="./certs/ca-key.pem"
-clientkey="./certs/client-key.pem"
-clientcsr="./certs/client-csr.pem"
-clientcrt="./certs/client-crt.pem"
+cacrt="../certs/ca-crt.pem"
+cakey="../certs/ca-key.pem"
+clientkey="../certs/client-key.pem"
+clientcsr="../certs/client-csr.pem"
+clientcrt="../certs/client-crt.pem"
 
 openssl genrsa -out "$clientkey" 4096
 
