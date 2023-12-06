@@ -1,45 +1,30 @@
 # BEARMAX-V2
 BEARMAX but version 2
 
-## How to set up backend locally
-- First make sure you have docker installed on your machine. A link to get the installation in the following: https://docs.docker.com/engine/install/.
-- Then cd to the Server folder for backend.
-- create a .env file in the Server folder
-- the following variables should be in the file
+## How to set up server locally
 
-```
-MAILGUN_API_KEY
-MAILGUN_DOMAIN
-MONGO_URI
-SECRET_KEY
-BCRYPT_LOG_ROUNDS
-TOKEN_EXPIRES_IN
-```
+- To set up server locally, make sure you have Docker installed via https://docs.docker.com/engine/install/
+- Once that is installed, make sure it is running
+- Next step is to create a file named docker-compose-dev.yml in the Server folder
 
-- NOTE: before running the docker scripts, make sure to ask the team for the variables
-- Then run the script provided just below in the terminal:
+- Ask your team about the contents needed in docker-compose-dev.yml
+
+- Once contents are in, run the following script below while you are in the Server folder
+- NOTE: before running the script below, make sure your node_modules folders are deleted in both the Server folder and root directory of this project if you ran npm install at any point
+
 ```bash
-docker build -t bearmax-backend .
+docker compose -f docker-compose-dev.yml up
 ```
-NOTE: Do not forget the period in the bash command as it is essential or else you will get a docker buildx build error.
+- To test locally, use http://localhost:8080/api
 
-- Once the script is finished building, run the following script:
-```bash
-docker run --env-file .env -d -p 8080:8080 bearmax-backend
-```
+- To stop the server from running, you can either use CTRL + C in the same terminal you ran the command above, or you can run the following list of commands below (you can also open up the docker desktop application and manually stop them from running in there):
 
-- To stop the backend from running use the bottom script to see what containers are currently running
+- This command will list the currently running containers make sure to copy the container ids
 ```bash
 docker ps
 ```
 
-- Then copy the container id of the container you want to stop and run the following command:
+- Then run on the containers that are running
 ```bash
 docker stop <CONTAINER_ID>
 ```
-NOTE: The container id can either be the long version generated upon running the docker image OR the shortened version provided via 
-```bash
-docker ps
-```
-
-- To test locally, use http://localhost:8080/api
