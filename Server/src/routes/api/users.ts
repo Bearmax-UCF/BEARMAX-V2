@@ -12,7 +12,7 @@ router.get("/me", requireJwtAuth, (req, res) => {
 
 router.delete("/:id", requireJwtAuth, async (req, res, next) => {
 	try {
-		const user = await User.findByIdAndRemove(req.params.id);
+		const user = await User.findByIdAndDelete(req.params.id);
 
 		res.status(200).json({ user });
 	} catch (err) {
