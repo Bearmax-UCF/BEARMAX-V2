@@ -136,7 +136,7 @@ router.get("/verify", async (req, res, next) => {
 				user.hashToken = "";
 				user.isVerified = true;
 				user.save();
-				return res.status(201).send({ message: "User verified!" });
+				return res.status(200).send({ message: "User verified!" });
 			} else {
 				return res.status(422).send({ message: "Invalid token." });
 			}
