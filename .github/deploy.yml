@@ -1,0 +1,26 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy NodeJS app
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          username: ${{ secrets.SSH_USERNAME }}
+
+          script: |
+            docker stop $(docker ps -a -q)
+            cd BEARMAX-V2
+            git pull
+            docker build -t bearmax-backend .
+            docker run --rm --env-file .env -p 8080:8080 bearmax-backend
+
+
+
