@@ -19,6 +19,7 @@ jobs:
             docker stop $(docker ps -a -q)
             cd BEARMAX-V2
             git pull
+            cd Server
             docker build -t bearmax-backend .
             docker run --rm --env-file .env -p 8080:8080 bearmax-backend
 
