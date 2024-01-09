@@ -1,5 +1,5 @@
 # BEARMAX-V2
-BEARMAX but version 2
+To access the API documentation, go here https://github.com/Bearmax-UCF/BEARMAX-V2/tree/main/Server#backend-api-documentation
 
 ## How to set up server locally
 
