@@ -18,6 +18,7 @@ jobs:
           script: |
             whoami
             docker stop $(docker ps -a -q)
+            cd BEARMAX-V2
             git pull
             cd Server
             docker build -t bearmax-backend .
