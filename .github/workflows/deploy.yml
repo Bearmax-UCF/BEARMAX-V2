@@ -16,8 +16,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
 
           script: |
-            whoami
             docker stop $(docker ps -a -q)
+            docker system prune -a
             cd BEARMAX-V2
             git pull
             cd Server
