@@ -22,6 +22,3 @@ jobs:
             cd Server
             docker build -t bearmax-backend .
             docker run --rm --env-file .env -p 8080:8080 bearmax-backend
-
-
-
