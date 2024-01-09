@@ -18,6 +18,7 @@ jobs:
           script: |
             docker stop $(docker ps -a -q)
             docker system prune -a
+            yes
             cd BEARMAX-V2
             git pull
             cd Server
