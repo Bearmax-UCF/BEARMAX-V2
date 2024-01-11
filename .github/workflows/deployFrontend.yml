@@ -1,4 +1,4 @@
-name: Build and Deploy backend and frontend
+name: Build and Deploy frontend
 
 on:
   push:
@@ -16,15 +16,9 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
 
           script: |
-            docker stop $(docker ps -a -q)
-            docker system prune -a
-            yes | head -1
             cd BEARMAX-V2
             git pull
-            cd Server
-            docker build -t bearmax-backend .
-            docker run --env-file .env -d -p 8080:8080 bearmax-backend
-            cd ../Client
+            cd Client
             npm install
             npm run build
             rm -r /var/www/bearmaxcare.com/html/*
