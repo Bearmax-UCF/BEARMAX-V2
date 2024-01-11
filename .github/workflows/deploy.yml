@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build and Deploy backend and frontend
 
 on:
   push:
@@ -24,3 +24,7 @@ jobs:
             cd Server
             docker build -t bearmax-backend .
             docker run --env-file .env -d -p 8080:8080 bearmax-backend
+            cd ../Client
+            npm install
+            npm run build
+            mv dist/* ~/var/www/bearmaxcare.com/html
