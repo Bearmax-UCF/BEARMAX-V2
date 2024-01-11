@@ -27,4 +27,4 @@ jobs:
             cd ../Client
             npm install
             npm run build
-            mv dist/* ~/var/www/bearmaxcare.com/html
+            mv dist/* /var/www/bearmaxcare.com/html
