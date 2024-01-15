@@ -46,3 +46,13 @@ docker ps
 * [No Auth](documentation/noAuth.md)
 
 ## Endpoints that req Authentication
+
+In the header part of the request that require authentication, include the the Authoriation key and then the value "Bearer + key", such an example would be:
+
+```
+Authorization: Bearer eyJhbGciOiJIUzI1QiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTUxNDA3OTljZDZiNmYwMGEzZjZlYjciLCJqdGkiOiI1M2I4YzM1NS1lZjRiLTRlOTAtOGRjYi01NmNjNGU2ODc3YzgiLCJpYXQiOjE2OTk5MDIzOTQsImV4cCI6MTY5OTk0NTU5NH0.L8NvN5APFJxMSEGtuHTcSpEWg9iampJkCStR46fsk4l
+```
+
+NOTE: the above token is invalid do not try using it
+
+ * [Users](documentation/users.md)
