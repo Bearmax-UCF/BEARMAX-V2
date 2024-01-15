@@ -17,6 +17,8 @@ jobs:
 
           script: |
             cd BEARMAX-V2
+            git stash
+            git stash drop
             git pull
             cd Client
             npm install
