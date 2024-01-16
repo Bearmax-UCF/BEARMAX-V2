@@ -25,5 +25,4 @@ jobs:
             npm run build
             rm -r /var/www/bearmaxcare.com/html/*
             mv dist/* /var/www/bearmaxcare.com/html
-            cd
-            rm -r BEARMAX-V2/Client/node_modules
+            rm -r ~/BEARMAX-V2/Client/node_modules
