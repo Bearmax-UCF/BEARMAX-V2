@@ -28,3 +28,5 @@ jobs:
             rm -r ~/BEARMAX-V2/Client/node_modules
             rm -r ~/BEARMAX-V2/Client/dist
             rm -r ~/BEARMAX-V2/node_modules
+            chown www-data:www-data -R /var/www/bearmaxcare.com/html/assets
+            chmod 755 -R /var/www/bearmaxcare.com/html/assets
