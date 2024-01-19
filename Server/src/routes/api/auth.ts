@@ -42,23 +42,7 @@ router.post("/register", async (req, res, next) => {
 				message: "Another User with this email already exists!",
 			});
 		}
-	} catch (err) {
-		return next(err);
-	}
-
-	try {
-		const unhashToken = crypto.randomBytes(32).toString('hex');
-		const hashToken = await bcrypt.hash(unhashToken, constants.bcrypt_log_rounds);
-		const user = await new User({ email, firstName, lastName, password, isVerified, hashToken}).save();
-	
-		// send email to user on registration
-		mailgun.send(email, 
-			'Password Verification',
-			 `<h1>Hello!</h1>
-			 <p> Please verify your bearmax account by clicking the following link: ${constants.server_url}/api/auth/verify?token=${unhashToken}&id=${user._id}</p>
-			 `
-			 )
-		.catch((err) => console.log(err));
+		await new User({ email, firstName, lastName, password}).save();
 		res.status(201).send({ message: "User created successfully!" });
 	} catch (err) {
 		return next(err);
