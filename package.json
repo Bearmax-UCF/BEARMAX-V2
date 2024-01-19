@@ -17,6 +17,7 @@
 		"cross-env": "^7.0.3"
 	},
 	"dependencies": {
+		"@azure/storage-blob": "^12.17.0",
 		"react-switch": "^7.0.0"
 	}
 }
