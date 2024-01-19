@@ -34,11 +34,11 @@ router.patch("/:id", requireJwtAuth, async (req, res, next) => {
 			}
 			const { email, password, firstName, lastName } = req.body;
 			// check if new email is taken already
-			const newUser = await User.findOne({ email: email });
-			if(newUser) {
-				return res.status(400).send({ message: "Email already taken" });
-			}
 			if(email) {
+				const emailTaken = await User.findOne({ email: email });
+				if(emailTaken) {
+					return res.status(400).send({ message: "Email already taken" });
+				}
 				user.email = email;
 			}
 			if(password) {
