@@ -57,3 +57,5 @@ console.log("Socket server initialized");
 server.listen(constants.port, () =>
 	console.log(`server started at port: ${constants.port}`)
 );
+
+export default app;
