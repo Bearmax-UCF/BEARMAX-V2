@@ -38,5 +38,11 @@ docker stop <CONTAINER_ID>
 - then run the following script below
 
 ```bash
-docker-compose run --rm backend test
+docker-compose run -e PORT=0 backend test
+```
+
+- NOTE: If you have a bash (Linux or MacOS) based terminal, you can run the script below in the Server folder for simpler testing
+
+```bash
+./scripts/test.sh
 ```
