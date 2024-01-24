@@ -99,7 +99,7 @@ Provide email and password to log in
 
 ### Error Responses
 
-**Condition** : If username and password combination is wrong
+**Condition** : If username and password combination is wrong or user does not exist in the database
 
 **Code** : `422 Unprocessable Entity`
 
