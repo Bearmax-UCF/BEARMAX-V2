@@ -2,6 +2,7 @@
 import request from "supertest";
 import User from "../src/models/User";
 import app from '../src/index.ts';
+import { createVerifiedUser } from "./testFunctionUtil.ts";
 
 var authToken = '';
 var userId = '';
@@ -49,15 +50,7 @@ describe("Testing login endpoint", () => {
   });
   test("This should be a valid login", async () => {
     // create verified user for simpler testing
-    await new User({
-      email: "random@random.com",
-      firstName: "random",
-      lastName: "random",
-      password: "123456",
-    }).save();
-    const user = await User.findOne({ email: "random@random.com" });
-    user!.isVerified = true;
-    await user!.save();
+    await createVerifiedUser();
     const response = await request(app).post("/api/auth/login").send({
       email: "random@random.com",
       password: "123456"
@@ -72,5 +65,28 @@ describe("Testing login endpoint", () => {
     });
     expect(response.statusCode).toEqual(422);
     expect(response.body.message).toEqual("Incorrect username or password.");
+  });
+});
+
+describe("Testing forgot password request endpoint", () => {
+  test("This should be a valid forgot password request", async () => {
+    const response = await request(app).post("/api/auth/forgotPasswordRequest").send({
+      email: "random@random.com"
+    });
+    expect(response.statusCode).toEqual(201);
+    expect(response.body.message).toEqual("Password Reset Request Sent Successfully!");
+  })
+  test("This should be a invalid forgot password request because account doesn't exist", async () => {
+    const response = await request(app).post("/api/auth/forgotPasswordRequest").send({
+      email: "noemail@noemail.com"
+    });
+    expect(response.statusCode).toEqual(422);
+    expect(response.body.message).toEqual("User not found.");
+  });
+  test("This should be a invalid forgot password request because of missing email field", async () => {
+    const response = await request(app).post("/api/auth/forgotPasswordRequest").send({
+    });
+    expect(response.statusCode).toEqual(400);
+    expect(response.body.message).toEqual("Missing email field.");
   });
 });
