@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Run the test using Docker Compose
 docker-compose run -e PORT=0 backend test
 
