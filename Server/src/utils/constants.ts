@@ -11,4 +11,6 @@ export default {
 	bcrypt_log_rounds: Number(process.env.BCRYPT_LOG_ROUNDS) || 10,
 	token_expires_in: process.env.TOKEN_EXPIRES_IN || "12h",
 	server_url: process.env.NODE_ENV == "prod" ? "https://www.bearmaxcare.com" : "http://localhost:8080",
+	azure_connection_string: process.env.AZURE_STORAGE_CONNECTION_STRING || "not the token",
+	azure_container_name: process.env.AZURE_CONTAINER_NAME || "",
 };
