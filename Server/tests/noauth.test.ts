@@ -138,4 +138,4 @@ describe("Testing verify email endpoint", () => {
     expect(response.statusCode).toEqual(422);
     expect(response.body.message).toEqual("User already verified.");
   });
-})
+});
