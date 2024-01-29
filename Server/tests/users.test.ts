@@ -74,10 +74,10 @@ describe("Testing the PATCH endpoint", () => {
         expect(response.statusCode).toEqual(404);
         expect(response.body.message).toEqual("User not found");
     });
-    test("This should be a valid patch ", async () => {
+    test("This should be an invalid patch ", async () => {
         const response = await request(app).patch("/api/users/" + userId).send({}).set('Authorization', 'Bearer ' + jwtToken);
-        expect(response.statusCode).toEqual(200);
-        console.log(response);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.message).toEqual("No fields provided to update");
     })
     test("This should also be a valid PATCH", async () => {
         const response = await request(app).patch("/api/users/" + userId).send({
