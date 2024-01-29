@@ -30,7 +30,6 @@ router.post("/login", requireLocalAuth, async (req, res) => {
 
 router.post("/register", async (req, res, next) => {
 	const { email, firstName, lastName, password } = req.body;
-	const isVerified = false;
 	if (!email || !firstName || !lastName || !password)
 		return res.status(400).send({ message: "Missing one or more fields." });
 
