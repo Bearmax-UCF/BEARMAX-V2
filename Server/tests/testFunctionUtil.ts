@@ -16,6 +16,24 @@ export async function createVerifiedUser() {
     return user;
 }
 
+export async function createUserWithGivenParameters(
+    email: string, 
+    firstName: string, 
+    lastName: string, 
+    password: string
+) {
+    await new User({
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      password: password,
+    }).save();
+    const user = await User.findOne({ email: email });
+    user!.isVerified = true;
+    await user!.save();
+    return user;
+}
+
 export async function removeAllUsers() : Promise<void>{
     console.log(await User.deleteMany({__v: 0}));
 }
