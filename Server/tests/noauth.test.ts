@@ -1,12 +1,18 @@
 // unit testing for api endpoints
 import request from "supertest";
-import User from "../src/models/User";
 import app from '../src/index.ts';
-import { createVerifiedUser } from "./testFunctionUtil.ts";
+import { createVerifiedUser, removeAllUsers, createRandomObjectId } from "./testFunctionUtil.ts";
 
 var authToken = '';
 var userId = '';
-
+// set up database stuff
+beforeAll(async () => {
+  const user = await createVerifiedUser();
+  userId = user!._id.toString();
+})
+afterAll(async () => {
+  await removeAllUsers();
+})
 describe("Testing registration endpoint", () => {
   test("This should be a valid registration", async () => {
     const response = await request(app).post("/api/auth/register").send({
@@ -49,8 +55,6 @@ describe("Testing login endpoint", () => {
     expect(response.body.message).toEqual("Account not verified.");
   });
   test("This should be a valid login", async () => {
-    // create verified user for simpler testing
-    await createVerifiedUser();
     const response = await request(app).post("/api/auth/login").send({
       email: "random@random.com",
       password: "123456"
@@ -88,5 +92,50 @@ describe("Testing forgot password request endpoint", () => {
     });
     expect(response.statusCode).toEqual(400);
     expect(response.body.message).toEqual("Missing email field.");
+  });
+});
+describe("Testing reset password endpoint", () => {
+  test("This should be an invalid password reset request due to empty fields", async () => {
+    const response = await request(app).post("/api/auth/resetPassword").send({
+
+    });
+    expect(response.statusCode).toEqual(400);
+    expect(response.body.message).toEqual("Missing one or more fields.");
+  });
+  test("This should be an invalid password reset request due to invalid userId", async () => {
+    const response = await request(app).post("/api/auth/resetPassword").send({
+      token: "invalidtoken",
+      id: "invalidid",
+      password: "newpassword"
+    });
+    expect(response.statusCode).toEqual(422);
+    expect(response.body.message).toEqual("Reset token not found.");
+  });
+  test("This should be an invalid password reset due to invalid token", async () => {
+    const response = await request(app).post("/api/auth/resetPassword").send({
+      token: "invalidtoken",
+      id: userId,
+      password: "newpassword"
+    });
+    expect(response.statusCode).toEqual(422);
+    expect(response.body.message).toEqual("Invalid token.");
+  });
+});
+
+describe("Testing verify email endpoint", () => {
+  test("This should be an invalid email verify request due to invalid userId", async () => {
+    const response = await request(app).get("/api/auth/verify").query({
+      id: await createRandomObjectId(),
+    });
+    expect(response.statusCode).toEqual(422);
+    expect(response.body.message).toEqual("User not found.");
+  });
+  test("This should be an invalid email verify request due to the fact that user is already verified", async () => {
+    const response = await request(app).get("/api/auth/verify").query({
+      id: userId,
+      token: "invalidtoken"
+    });
+    expect(response.statusCode).toEqual(422);
+    expect(response.body.message).toEqual("User already verified.");
   });
 });
