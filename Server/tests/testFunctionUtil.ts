@@ -1,5 +1,6 @@
 import User from "../src/models/User";
 import PhysicianNotes from "../src/models/PhysicianNotes";
+import EmotionRecognition from "../src/models/EmotionRecognition";
 import { Types } from "mongoose";
 
 // Use this file to write utility functions for backend unit tests
@@ -51,5 +52,14 @@ export async function createRandomObjectId() : Promise<string>{
     return new Types.ObjectId().toString();
 }
 
-
-
+export async function createEmotionRecognitionGameForVerifiedUser(
+    UserID: string
+) {
+    return await new EmotionRecognition({
+        Correct: 2,
+        Wrong: 2,
+        NumPlays: 3,
+        GameFin: new Date(),
+        UserID,
+    }).save();
+}
