@@ -1,4 +1,5 @@
 import User from "../src/models/User";
+import PhysicianNotes from "../src/models/PhysicianNotes";
 import { Types } from "mongoose";
 
 // Use this file to write utility functions for backend unit tests
@@ -16,7 +17,7 @@ export async function createVerifiedUser() {
     return user;
 }
 
-export async function createUserWithGivenParameters(
+export async function createVerifiedUserWithGivenParameters(
     email: string, 
     firstName: string, 
     lastName: string, 
@@ -34,8 +35,16 @@ export async function createUserWithGivenParameters(
     return user;
 }
 
+export async function createNoteForVerifiedUser(title: string, userID: string, note: string) {
+    return await new PhysicianNotes({title, date: new Date(), note, userID}).save(); 
+}
+
 export async function removeAllUsers() : Promise<void>{
-    console.log(await User.deleteMany({__v: 0}));
+    await User.deleteMany({__v: 0});
+}
+
+export async function removeCertainUser(email :string): Promise<void>{
+    await User.deleteOne({email: email});
 }
 
 export async function createRandomObjectId() : Promise<string>{
