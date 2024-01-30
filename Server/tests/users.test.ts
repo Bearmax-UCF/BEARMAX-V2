@@ -1,23 +1,23 @@
 import request from "supertest";
 import app from '../src/index.ts';
-import { createUserWithGivenParameters, createRandomObjectId } from "./testFunctionUtil.ts";
+import { createVerifiedUserWithGivenParameters, createRandomObjectId, removeCertainUser } from "./testFunctionUtil.ts";
 
 var userId = '';
 var jwtToken = '';
 var userToDelete;
 beforeAll(async () => {
-    const user = await createUserWithGivenParameters(
-        "email@email.com", 
+    const user = await createVerifiedUserWithGivenParameters(
+        "users@user.com", 
         "first", 
         "last",
         "password");
     userId = user!._id.toString();
     const response = await request(app).post("/api/auth/login").send({
-        email: "email@email.com",
+        email: "users@user.com",
         password: "password"
     });
     jwtToken = response.body.token;
-    userToDelete = await createUserWithGivenParameters(
+    userToDelete = await createVerifiedUserWithGivenParameters(
         "delete@delete.com",
         "delete",
         "delete",
@@ -25,6 +25,9 @@ beforeAll(async () => {
     );
 });
 
+afterAll(async () => {
+    removeCertainUser("users@user.com");
+});
 
 describe("Testing delete endpoint", () => {
     test("This should be a an invalid deletion because of no jwt", async () => {
@@ -61,7 +64,7 @@ describe("Testing the get me user endpoint", () => {
     });
 });
 
-describe("Testing the PATCH endpoint", () => {
+describe("Testing the PATCH endpoint", () => {  
     test("This should be a an invalid PATCH because of no jwt", async () => {
         const response = await request(app).patch("/api/users/" + userId).send({
         });
@@ -79,7 +82,14 @@ describe("Testing the PATCH endpoint", () => {
         expect(response.statusCode).toEqual(400);
         expect(response.body.message).toEqual("No fields provided to update");
     })
-    test("This should also be a valid PATCH", async () => {
+    test("This should be an invalid patch because of already taken email", async () => {
+        const response = await request(app).patch("/api/users/" + userId).send({
+            email: "users@user.com"
+        }).set('Authorization', 'Bearer ' + jwtToken);
+        expect(response.statusCode).toEqual(400);
+        expect(response.body.message).toEqual("Email already taken");
+    });
+    test("This should be a valid PATCH", async () => {
         const response = await request(app).patch("/api/users/" + userId).send({
             firstName: "newFirst",
             lastName: "newLast",
@@ -87,5 +97,5 @@ describe("Testing the PATCH endpoint", () => {
         expect(response.statusCode).toEqual(200);
         expect(response.body.user.firstName).toEqual("newFirst");
         expect(response.body.user.lastName).toEqual("newLast");
-    });
+    }); 
 });
