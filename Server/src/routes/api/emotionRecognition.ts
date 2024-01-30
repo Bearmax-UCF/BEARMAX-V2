@@ -4,6 +4,7 @@ import EmotionRecognition from "../../models/EmotionRecognition";
 
 const router = Router();
 
+/*
 router.post("/", requireJwtAuth, async (req, res, next) => {
 	const { Correct, Wrong, NumPlays } = req.body;
 	const GameFin = new Date();
@@ -28,6 +29,7 @@ router.post("/", requireJwtAuth, async (req, res, next) => {
 		next(err);
 	}
 });
+*/
 
 router.get("/", requireJwtAuth, async (req, res, next) => {
 	// Get all emotion games with UserID equal and return them

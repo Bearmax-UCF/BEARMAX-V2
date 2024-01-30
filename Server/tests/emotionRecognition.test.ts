@@ -42,37 +42,6 @@ describe("Testing the get emotionRecognition endpoint", () => {
     });
 });
 
-describe("Testing the POST emotionRecognition endpoint", () => {
-    test("This should be a an invalid POST emotionRecognition because of no jwt", async () => {
-        const response = await request(app).post("/api/emotionRecognition").send({
-            Correct: 2,
-            Wrong: 2,
-            NumPlays: 4,
-            GameFin: new Date(),
-            UserID: userId
-        });
-        expect(response.statusCode).toEqual(401);
-        expect(response.text).toEqual("Unauthorized");
-    });
-    test("This should be a an invalid POST emotionRecognition because of missing fields", async () => {
-        const response = await request(app).post("/api/emotionRecognition").send({
-            NumPlays: 4,
-        }).set('Authorization', 'Bearer ' + jwtToken);
-        expect(response.statusCode).toEqual(400);
-        expect(response.body.message).toEqual("Missing fields");
-    });
-    test("This should be a valid POST emotionRecognition", async () => {
-        const response = await request(app).post("/api/emotionRecognition").send({
-            Correct: 2,
-            Wrong: 2,
-            NumPlays: 4,
-            GameFin: new Date(),
-            UserID: userId
-        }).set('Authorization', 'Bearer ' + jwtToken);
-        expect(response.statusCode).toEqual(200);
-    });
-});
-
 describe("Testing the DELETE emotionRecognition endpoint", () => {
     test("This should be a an invalid DELETE emotionRecognition because of no jwt", async () => {
         const response = await request(app).delete("/api/emotionRecognition/" + emotionRecognitionGameToDelete._id).send({
