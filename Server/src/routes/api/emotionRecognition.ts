@@ -9,6 +9,10 @@ router.post("/", requireJwtAuth, async (req, res, next) => {
 	const GameFin = new Date();
 	const UserID = req.user!._id;
 
+	if (!Correct || !Wrong || !NumPlays) {
+		return res.status(400).send({ message: "Missing fields" });
+	}
+
 	try {
 		const finishedGame = new EmotionRecognition({
 			Correct,
@@ -40,7 +44,7 @@ router.get("/", requireJwtAuth, async (req, res, next) => {
 router.delete("/:id", requireJwtAuth, async (req, res, next) => {
 	// Delete EmotionRecognition doc with matching id
 	try {
-		const deleted = await EmotionRecognition.findByIdAndRemove(
+		const deleted = await EmotionRecognition.findByIdAndDelete(
 			req.params.id
 		);
 		res.status(200).json({ deleted });
