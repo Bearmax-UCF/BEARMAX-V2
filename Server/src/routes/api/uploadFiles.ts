@@ -17,17 +17,16 @@ const cutStringQuote = (rawConnectionString: string) => {
 }
 
 const connectionString = cutStringQuote(constants.azure_connection_string);
-const blobContainerName = constants.azure_container_name;
 
-router.post("/uploadVideo/:id", requireJwtAuth, upload.single('file'), async (req, res, next) => {
+router.post("/uploadAudio/:id", requireJwtAuth, upload.single('file'), async (req, res, next) => {
     // empty file check first
     const file = req.file;
     if (!file) {
         return res.status(400).send({ message: "No file has been provided" });
     }
-    // check if file is video
-    if (file.mimetype !== "video/mp4") {
-        return res.status(400).send({ message: "File type must be a video mp4" });
+    // check if file is audio
+    if (file.mimetype !== "audio/mp3") {
+        return res.status(400).send({ message: "File type must be an audio mp3 file" });
     }
     // check if userid is valid
     const userId = req.params.id;
@@ -40,6 +39,49 @@ router.post("/uploadVideo/:id", requireJwtAuth, upload.single('file'), async (re
     }
     // upload to azure
     const blobName = `${file.originalname}`;
+
+    // create container name based on the user
+    const blobContainerName = userId;
+
+    const blobService = new BlockBlobClient(connectionString, blobContainerName, blobName);
+    const response = blobService.uploadData(file.buffer)
+    .then((result) => {
+        if(result.errorCode) {
+            return res.status(400).send({ message: "Error uploading audio" });
+        } else {
+            return res.status(200).send({ message: "Audio uploaded successfully" });
+        }
+    });
+
+    return response;
+
+});
+
+
+router.post("/uploadVideo/:id", requireJwtAuth, upload.single('file'), async (req, res, next) => {
+    // empty file check first
+    const file = req.file;
+    if (!file) {
+        return res.status(400).send({ message: "No file has been provided" });
+    }
+    // check if file is video
+    if (file.mimetype !== "video/mp4") {
+        return res.status(400).send({ message: "File type must be a video mp4 file" });
+    }
+    // check if userid is valid
+    const userId = req.params.id;
+    if (!userId) {
+        return res.status(400).send({ message: "User id is not present" });
+    }
+    const user = await User.findById(userId);
+    if (!user) {
+        return res.status(400).send({ message: "User not found" });
+    }
+    // upload to azure
+    const blobName = `${file.originalname}`;
+
+    // create container name based on the user
+    const blobContainerName = userId;
 
     const blobService = new BlockBlobClient(connectionString, blobContainerName, blobName);
     const response = blobService.uploadData(file.buffer)
