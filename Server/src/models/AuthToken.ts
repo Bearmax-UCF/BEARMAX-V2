@@ -1,6 +1,8 @@
 import { Model, Schema, Types, HydratedDocument, model } from "mongoose";
+import mongoose from "mongoose";
 import constants from "../utils/constants";
 import jwt from "jsonwebtoken";
+mongoose.set('strictQuery', false);
 
 interface IAuthToken {
   user: Types.ObjectId;

@@ -1,4 +1,5 @@
 import { Model, Schema, Types, HydratedDocument, model } from "mongoose";
+import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import constants from "../utils/constants";
 import jwt from "jsonwebtoken";
@@ -6,6 +7,7 @@ import { v4 as uuid } from "uuid";
 import AuthToken from "./AuthToken";
 import crypto from "crypto";
 import mailgun from '../services/mailgunService';
+mongoose.set('strictQuery', false);
 
 interface IUser {
   firstName: string;

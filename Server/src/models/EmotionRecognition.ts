@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+mongoose.set('strictQuery', false);
 
 /*
 Correct/Wrong Index Correlations:

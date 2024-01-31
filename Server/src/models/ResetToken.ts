@@ -1,6 +1,8 @@
 import { Model, Schema, Types, HydratedDocument, model } from "mongoose";
+import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import constants from "../utils/constants";
+mongoose.set('strictQuery', false);
 
 interface IResetToken {
     userId: string;
