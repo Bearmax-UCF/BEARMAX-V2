@@ -47,14 +47,14 @@ declare global {
 }
 
 const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  isVerified: { type: Boolean, required: true, default: false},
-  oldPasswords: { type: Array },
-  accountType: { type: Boolean },
-  hashToken: { type: String, required: false},
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    isVerified: { type: Boolean, required: true, default: false},
+    oldPasswords: { type: Array },
+    accountType: { type: Boolean },
+    hashToken: { type: String, required: false},
 });
 
 UserSchema.pre("save", async function (next) {
