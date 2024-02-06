@@ -15,7 +15,7 @@ const cutStringQuote = (rawConnectionString: string) => {
 
 const connectionString = cutStringQuote(constants.azure_connection_string);
 
-router.post("/createContainer/:id", requireJwtAuth, async (req, res, next) => {
+router.post("/:id", requireJwtAuth, async (req, res, next) => {
     // check if userid is valid
     const userId = req.params.id;
     if (!userId) {
@@ -42,7 +42,7 @@ router.post("/createContainer/:id", requireJwtAuth, async (req, res, next) => {
 });
 
 
-router.delete("/deleteContainer/:id", requireJwtAuth, async (req, res, next) => {
+router.delete("/:id", requireJwtAuth, async (req, res, next) => {
     // check if userid is valid
     const userId = req.params.id;
     if (!userId) {

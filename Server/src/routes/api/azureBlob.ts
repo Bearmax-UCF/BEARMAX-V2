@@ -44,7 +44,7 @@ router.get("/getBlob/:id", requireJwtAuth, async (req, res, next) => {
 });
 
 
-router.delete("/deleteBlob/:id", requireJwtAuth, async (req, res, next) => {
+router.delete("/:id", requireJwtAuth, async (req, res, next) => {
     // check if userid is valid
     const userId = req.params.id;
     if (!userId) {
