@@ -7,6 +7,8 @@ import { v4 as uuid } from "uuid";
 import AuthToken from "./AuthToken";
 import crypto from "crypto";
 import mailgun from '../services/mailgunService';
+import { accountRegistrationEmailTemplate } from '../utils/email';
+
 mongoose.set('strictQuery', false);
 
 interface IUser {
@@ -71,9 +73,10 @@ UserSchema.pre("save", async function (next) {
     // send email to user on email change or new account
     mailgun.send(this.email, 
       'Email Verification',
-      `<h1>Hello!</h1>
-      <p> Please verify your bearmax email by clicking the following link: ${constants.server_url}/api/auth/verify?token=${token}&id=${this._id}</p>
-      `
+      accountRegistrationEmailTemplate(
+        this.firstName,
+        `${constants.server_url}/api/auth/verify?token=${token}&id=${this._id}`
+      )
     ).catch((err) => {
       return next(err);
     });

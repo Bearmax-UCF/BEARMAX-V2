@@ -9,6 +9,7 @@ import constants from "../../utils/constants";
 import mailgun from '../../services/mailgunService';
 import bcrypt from "bcrypt";
 import crypto from "crypto";
+import { resetPasswordEmailTemplate } from "../../utils/email";
 
 const router = Router();
 
@@ -30,7 +31,6 @@ router.post("/login", requireLocalAuth, async (req, res) => {
 
 router.post("/register", async (req, res, next) => {
 	const { email, firstName, lastName, password } = req.body;
-	const isVerified = false;
 	if (!email || !firstName || !lastName || !password)
 		return res.status(400).send({ message: "Missing one or more fields." });
 
@@ -61,10 +61,7 @@ router.post("/forgotPasswordRequest", async (req, res, next) => {
 		await new ResetToken({ userId: user._id, token: unhashToken }).save();
 		mailgun.send(email, 
 			'Password Reset',
-			 `<h1>Hello!</h1>
-			 <p> Please reset your bearmax account password by clicking the following link: ${constants.server_url}/api/auth/resetPassword?token=${unhashToken}&id=${user._id}</p>
-			 `
-			 )
+			resetPasswordEmailTemplate(`${constants.server_url}/api/auth/resetPassword?token=${unhashToken}&id=${user._id}`))
 		.catch((err) => console.log(err));
 		res.status(201).send({ message: "Password Reset Request Sent Successfully!" });
 	} catch (error) {

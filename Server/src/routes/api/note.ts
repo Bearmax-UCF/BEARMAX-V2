@@ -16,7 +16,10 @@ router.get("/", requireJwtAuth, async (req, res, next) => {
 
 router.post("/", requireJwtAuth, async (req, res, next) => {
 	try {
-		const newNote = new PhysicianNotes(req.body);
+		const { title, date, note, userID } = req.body;
+		if (!title || !date || !note || !userID)
+			return res.status(400).send({ message: "Missing one or more fields." });
+		const newNote = new PhysicianNotes({title, date, note, userID});
 		newNote.save();
 
 		res.status(200).json({ newNote });
@@ -28,7 +31,14 @@ router.post("/", requireJwtAuth, async (req, res, next) => {
 router.patch("/:id", requireJwtAuth, async (req, res, next) => {
 	const id = req.params.id;
 	try {
-		await PhysicianNotes.findByIdAndUpdate(id, req.body);
+		const { title, note} = req.body;
+
+		if (!id) return res.status(400).send({ message: "Missing id." });
+
+		if (!title && !note) 
+			return res.status(400).send({ message: "Missing at least one field" });
+
+		await PhysicianNotes.findByIdAndUpdate(id, { title, note });
 		res.status(200).send();
 	} catch (err) {
 		next(err);
@@ -37,7 +47,10 @@ router.patch("/:id", requireJwtAuth, async (req, res, next) => {
 
 router.delete("/:id", requireJwtAuth, async (req, res, next) => {
 	try {
-		const note = await PhysicianNotes.findByIdAndDelete(req.params.id);
+		const id = req.params.id;
+		if (!id) 
+			return res.status(400).json({ message: "Missing id." });
+		const note = await PhysicianNotes.findByIdAndDelete(id);
 		res.status(200).json(note);
 	} catch (err) {
 		next(err);

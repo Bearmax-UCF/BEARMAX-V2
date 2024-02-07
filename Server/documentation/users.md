@@ -186,3 +186,17 @@ Unauthorized
     "message": "User not found"
 }
 ```
+
+### Or
+
+**Condition** : API is provided with jwt token and valid user id but no fields to update
+
+**Code** : `400 BAD REQUEST`
+
+**Content Example**
+
+```json
+{
+    "message": "No fields provided to update"
+}
+```
