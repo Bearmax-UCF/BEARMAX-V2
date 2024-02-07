@@ -33,6 +33,10 @@ router.patch("/:id", requireJwtAuth, async (req, res, next) => {
 				return res.status(404).send({ message: "User not found" });
 			}
 			const { email, password, firstName, lastName } = req.body;
+			// first check if any of the fields are present
+			if(!email && !password && !firstName && !lastName) {
+				return res.status(400).send({ message: "No fields provided to update" });
+			}
 			// check if new email is taken already
 			if(email) {
 				const emailTaken = await User.findOne({ email: email });
