@@ -1,4 +1,5 @@
 import { Model, Schema, Types, HydratedDocument, model } from "mongoose";
+import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import constants from "../utils/constants";
 import jwt from "jsonwebtoken";
@@ -7,6 +8,8 @@ import AuthToken from "./AuthToken";
 import crypto from "crypto";
 import mailgun from '../services/mailgunService';
 import { accountRegistrationEmailTemplate } from '../utils/email';
+
+mongoose.set('strictQuery', false);
 
 interface IUser {
   firstName: string;
@@ -46,14 +49,14 @@ declare global {
 }
 
 const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  isVerified: { type: Boolean, required: true, default: false},
-  oldPasswords: { type: Array },
-  accountType: { type: Boolean },
-  hashToken: { type: String, required: false},
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    isVerified: { type: Boolean, required: true, default: false},
+    oldPasswords: { type: Array },
+    accountType: { type: Boolean },
+    hashToken: { type: String, required: false},
 });
 
 UserSchema.pre("save", async function (next) {

@@ -18,6 +18,7 @@ export async function createVerifiedUser() {
     return user;
 }
 
+
 export async function createVerifiedUserWithGivenParameters(
     email: string, 
     firstName: string, 
