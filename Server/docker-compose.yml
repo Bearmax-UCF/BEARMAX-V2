@@ -1,0 +1,32 @@
+version: "3"
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    volumes:
+      - bearmax-mongodb-data:/data/db
+  backend:
+    image: bearmax/backend
+    depends_on:
+      - mongo
+    volumes:
+      - ./src:/home/backend/app/src
+    build:
+      context: .
+    command:
+      - "dev"
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: "development"
+      MONGO_URI: "mongodb://mongo:27017/test"
+      MONGO_DB: "test"
+      SECRET_KEY: "vivalapluto"
+      MAILGUN_API_KEY: "46734863d04f48c2897b34575217d27c-1c7e8847-f01164b6"
+      MAILGUN_DOMAIN: "bearmax-service.bearmaxcare.com"
+      
+volumes:
+  bearmax-mongodb-data:

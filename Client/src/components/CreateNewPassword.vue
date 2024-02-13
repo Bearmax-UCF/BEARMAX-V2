@@ -1,15 +1,15 @@
 <template>
     
-    <h1>Input your email</h1>
+    <h1>Enter your new password</h1>
 
     <br>
 
-    <input type="text" class="textField" placeholder="Email" v-model="userData.email"/>
+    <input type="text" class="textField" placeholder="new password" v-model="userData.email"/>
 
     <br><br>
 
-    <button @click="forgotPassFunc" width="180px">
-                Send password reset request
+    <button @click="newPassFunc" width="180px">
+                Set new password
 
     </button>
 

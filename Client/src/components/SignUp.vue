@@ -4,14 +4,24 @@
 
 
 
-    <div :style="{position: 'absolute', top:'100px',}" top="300px">
+    <!-- <div :style="{position: 'absolute', top:'25px',}" top="100px">
         <img src="../assets/bearmaxlogo.png" height=210px width="210px">
-    </div>
+    </div> -->
 
+
+    <br><br><br>
 
 <div>
 
-<input type="text" class="textField" placeholder="Email"/>
+<input type="text" class="textField" placeholder="Email" v-model="userData.email"/>
+
+<br>
+
+<input type="text" class="textField" placeholder="First Name" v-model="userData.firstName"/>
+
+<br>
+
+<input type="text" class="textField" placeholder="Last Name" v-model="userData.lastName"/>
 
 <br>
 
@@ -21,7 +31,7 @@
 <br>
 
 
-<input type="text" class="textField" placeholder="Password"/>
+<input type="text" class="textField" placeholder="Password" v-model="userData.password"/>
 
 <br>
 
@@ -34,15 +44,14 @@
 
 <div>
 
-    <router-link to="/homepage">
-            <button class="button" width="180px">
+    
+            <button @click="register" class="button" width="180px">
                 Sign Up
-
-            
 
             </button>
 
-        </router-link>
+
+        <p v-if="registrationError" style="color: red;">{{ registrationError }}</p>
 
 </div>
 
@@ -50,24 +59,70 @@
         
         <p>
         
-            Already have an account? 
+            Already have an account?
             <router-link to="/login">
                 Sign in here.
             </router-link>
 
         </p>
-    </div>
+</div>
 
-   
+
+<p>{{ userData.email }}</p>
 
 
 </template>
 
 <script>
 
+import { useRouter} from 'vue-router';
+import { ref } from 'vue';
+import { registerUser } from '@/api';
+
 export default {
 
-};
+    
+    setup() {
+
+        const router = useRouter();
+
+        const userData = ref( {
+
+            email: '',
+            firstName: '',
+            lastName: '',
+            password: ''
+        });
+
+
+        const registrationError = ref(null);
+
+        const register = async () => {
+
+        try{
+
+            await registerUser(userData.value);
+
+            console.log('Successfully registered.');
+
+            router.push('./homepage');
+        }
+
+            catch (error) {
+                registrationError.value = error.message || 'An error occured.';
+            }
+        }
+
+        return {
+            userData,
+            register,
+            registrationError
+        };
+
+    },
+    
+};//End of export default
+
 
 
 </script>
@@ -108,8 +163,6 @@ transition: background-color 1s;
     transition: none;
 
 }
-
-
 
     
 </style>
