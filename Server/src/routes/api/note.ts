@@ -5,10 +5,11 @@ const router = Router();
 
 router.get("/", requireJwtAuth, async (req, res, next) => {
 	try {
+		
 		const allNotes = await PhysicianNotes.find({
 			userID: req.user?._id.toString(),
 		});
-		res.status(200).json(allNotes);
+		res.status(200).json({allNotes});
 	} catch (err) {
 		next(err);
 	}
@@ -16,8 +17,9 @@ router.get("/", requireJwtAuth, async (req, res, next) => {
 
 router.post("/", requireJwtAuth, async (req, res, next) => {
 	try {
-		const { title, date, note, userID } = req.body;
-		if (!title || !date || !note || !userID)
+		const { title, date, note } = req.body;
+		const userID = req.user?._id.toString();
+		if (!title || !date || !note)
 			return res.status(400).send({ message: "Missing one or more fields." });
 		const newNote = new PhysicianNotes({title, date, note, userID});
 		newNote.save();

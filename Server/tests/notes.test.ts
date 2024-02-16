@@ -48,14 +48,12 @@ describe("Testing the POST notes endpoint", () => {
             title: "title",
             date: new Date(),
             note: "note",
-            userID: userId
         });
         expect(response.statusCode).toEqual(401);
         expect(response.text).toEqual("Unauthorized");
     });
     test("This should be a an invalid POST notes because of missing fields", async () => {
         const response = await request(app).post("/api/note").send({
-            title: "title",
             date: new Date(),
             note: "note",
         }).set('Authorization', 'Bearer ' + jwtToken);
@@ -67,7 +65,6 @@ describe("Testing the POST notes endpoint", () => {
             title: "title",
             date: new Date(),
             note: "note",
-            userID: userId
         }).set('Authorization', 'Bearer ' + jwtToken);
         expect(response.statusCode).toEqual(200);
         expect(response.body.newNote.title).toEqual("title");
