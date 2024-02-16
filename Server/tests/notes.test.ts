@@ -38,7 +38,7 @@ describe("Testing the get notes endpoint", () => {
         const response = await request(app).get("/api/note").send({
         }).set('Authorization', 'Bearer ' + jwtToken);
         expect(response.statusCode).toEqual(200);
-        expect(response.body.length).toEqual(1);
+        expect(response.body.allNotes.length).toEqual(1);
     });
 });
 
@@ -87,6 +87,15 @@ describe("Testing the PATCH notes endpoint", () => {
         expect(response.statusCode).toEqual(400);
         expect(response.body.message).toEqual("Missing at least one field");
     });
+    test("This should be an invalid PATCH notes because of invalid id", async () => {
+        const response = await request(app).patch("/api/note/" + await createRandomObjectId()).send({
+            title: "title",
+            note: "note",
+        }).set('Authorization', 'Bearer ' + jwtToken);
+        console.log(response)
+        expect(response.statusCode).toEqual(404);
+        expect(response.body.message).toEqual("Note not found");
+    })
     test("This should be a valid PATCH notes", async () => {
         const response = await request(app).patch("/api/note/" + noteToUpdate._id).send({
             note: "new note",

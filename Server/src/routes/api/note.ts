@@ -33,14 +33,22 @@ router.post("/", requireJwtAuth, async (req, res, next) => {
 router.patch("/:id", requireJwtAuth, async (req, res, next) => {
 	const id = req.params.id;
 	try {
-		const { title, note} = req.body;
-
-		if (!id) return res.status(400).send({ message: "Missing id." });
+		const { title, note } = req.body;
 
 		if (!title && !note) 
 			return res.status(400).send({ message: "Missing at least one field" });
+		const physicianNote = await PhysicianNotes.findById(id);
 
-		await PhysicianNotes.findByIdAndUpdate(id, { title, note });
+		if (!physicianNote) 
+			return res.status(404).send({ message: "Note not found" });
+
+		if(note) {
+			physicianNote.note = note;
+		}
+		if(title) {
+			physicianNote.title = title;
+		}
+		await physicianNote.save();
 		res.status(200).send();
 	} catch (err) {
 		next(err);
