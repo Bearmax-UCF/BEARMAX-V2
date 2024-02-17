@@ -65,7 +65,7 @@ Unauthorized
 }
 ```
 
-As you can see the body is empty but you must include a user id in the url such as calling http://bearmaxcare.com:8080/api/users/658de6de66246cdf2100e3d3
+As you can see the body is empty but you must include a user id in the url such as calling https://bearmaxcare.com/api/users/658de6de66246cdf2100e3d3
 
 ### Success Response
 
@@ -122,7 +122,7 @@ updates user information
 }
 ```
 
-In addition to the body, you want to include the url in the body http://bearmaxcare.com:8080/api/users/658de6de66246cdf2100e3d3
+In addition to the body, you want to include the url in the body https://bearmaxcare.com/api/users/658de6de66246cdf2100e3d3
 each field is optional, but you must include at least one in the body. The body is shown above
 
 ### Success Response

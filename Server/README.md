@@ -56,3 +56,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1QiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTUxNDA3O
 NOTE: the above token is invalid do not try using it
 
  * [Users](documentation/users.md)
+ * [Note](documentation/note.md)
