@@ -1,4 +1,5 @@
-const cutStringQuote = (rawConnectionString: string) => {
+const cutStringQuote = (rawConnectionString: string | undefined) => {
+	if (!rawConnectionString) return ("") as string;
     return (rawConnectionString.charAt(0) === '"' && rawConnectionString.charAt(rawConnectionString.length - 1)) ? 
     rawConnectionString.substring(1, rawConnectionString.length - 1) : 
     rawConnectionString;
@@ -18,5 +19,5 @@ export default {
     server_url: process.env.NODE_ENV == "prod" ? "https://www.bearmaxcare.com" : "http://localhost:8080",
     azure_connection_string: cutStringQuote(process.env.AZURE_STORAGE_CONNECTION_STRING) || "not the token",
     azure_storage_account: process.env.AZURE_STORAGE_ACCOUNT || "",
-
+	azure_account_key: process.env.AZURE_ACCOUNT_KEY || ""
 };
