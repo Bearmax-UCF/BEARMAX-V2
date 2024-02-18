@@ -57,3 +57,4 @@ NOTE: the above token is invalid do not try using it
 
  * [Users](documentation/users.md)
  * [Note](documentation/note.md)
+ * [emotionRecognition](documentation/emotionRecognition.md)

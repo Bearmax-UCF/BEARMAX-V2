@@ -37,7 +37,7 @@ router.get("/", requireJwtAuth, async (req, res, next) => {
 		const allGames = await EmotionRecognition.find({
 			UserID: req.user!._id.toString(),
 		});
-		res.status(200).json(allGames);
+		res.status(200).json({allGames});
 	} catch (err) {
 		next(err);
 	}
