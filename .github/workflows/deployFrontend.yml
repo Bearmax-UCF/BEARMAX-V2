@@ -17,9 +17,16 @@ jobs:
 
           script: |
             cd BEARMAX-V2
+            git stash
+            git stash drop
             git pull
             cd Client
             npm install
             npm run build
             rm -r /var/www/bearmaxcare.com/html/*
             mv dist/* /var/www/bearmaxcare.com/html
+            rm -r ~/BEARMAX-V2/Client/node_modules
+            rm -r ~/BEARMAX-V2/Client/dist
+            rm -r ~/BEARMAX-V2/node_modules
+            chown www-data:www-data -R /var/www/bearmaxcare.com/html
+            chmod 755 -R /var/www/bearmaxcare.com/html

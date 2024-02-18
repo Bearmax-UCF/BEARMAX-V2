@@ -1,9 +1,15 @@
 import { Model, Schema, Types, HydratedDocument, model } from "mongoose";
+import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import constants from "../utils/constants";
 import jwt from "jsonwebtoken";
 import { v4 as uuid } from "uuid";
 import AuthToken from "./AuthToken";
+import crypto from "crypto";
+import mailgun from '../services/mailgunService';
+import { accountRegistrationEmailTemplate } from '../utils/email';
+
+mongoose.set('strictQuery', false);
 
 interface IUser {
   firstName: string;
@@ -43,31 +49,58 @@ declare global {
 }
 
 const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  isVerified: { type: Boolean, required: true, default: false},
-  oldPasswords: { type: Array },
-  accountType: { type: Boolean },
-  hashToken: { type: String, required: false},
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    isVerified: { type: Boolean, required: true, default: false},
+    oldPasswords: { type: Array },
+    accountType: { type: Boolean },
+    hashToken: { type: String, required: false},
+});
+
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("email")) {
+    return next();
+  }
+  if(this.isModified("email")) {    
+    // send verification email
+    const token = crypto.randomBytes(32).toString("hex");
+    const hashToken = await bcrypt.hash(token, constants.bcrypt_log_rounds);
+
+    this.hashToken = hashToken;
+    this.isVerified = false;
+    // send email to user on email change or new account
+    mailgun.send(this.email, 
+      'Email Verification',
+      accountRegistrationEmailTemplate(
+        this.firstName,
+        `${constants.server_url}/api/auth/verify?token=${token}&id=${this._id}`
+      )
+    ).catch((err) => {
+      return next(err);
+    });
+    return next();
+  }
+
 });
 
 UserSchema.pre("save", function (next) {
   // If password is not modified, save user as normal
   if (!this.isModified("password")) return next();
-
-  // If password is modified, save its hash
-  bcrypt.genSalt(constants.bcrypt_log_rounds, (err, salt) => {
-    if (err) return next(err);
-    bcrypt.hash(this.password, salt, (err, hash) => {
+  if (this.isModified("password")) {
+    // If password is modified, save its hash
+    bcrypt.genSalt(constants.bcrypt_log_rounds, (err, salt) => {
       if (err) return next(err);
+      bcrypt.hash(this.password, salt, (err, hash) => {
+        if (err) return next(err);
 
-      this.password = hash;
+        this.password = hash;
 
-      return next();
+        return next();
+      });
     });
-  });
+  }
 });
 
 UserSchema.pre("deleteOne", function (next) {

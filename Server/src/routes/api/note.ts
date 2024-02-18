@@ -5,10 +5,11 @@ const router = Router();
 
 router.get("/", requireJwtAuth, async (req, res, next) => {
 	try {
+		
 		const allNotes = await PhysicianNotes.find({
 			userID: req.user?._id.toString(),
 		});
-		res.status(200).json(allNotes);
+		res.status(200).json({allNotes});
 	} catch (err) {
 		next(err);
 	}
@@ -16,7 +17,11 @@ router.get("/", requireJwtAuth, async (req, res, next) => {
 
 router.post("/", requireJwtAuth, async (req, res, next) => {
 	try {
-		const newNote = new PhysicianNotes(req.body);
+		const { title, date, note } = req.body;
+		const userID = req.user?._id.toString();
+		if (!title || !date || !note)
+			return res.status(400).send({ message: "Missing one or more fields." });
+		const newNote = new PhysicianNotes({title, date, note, userID});
 		newNote.save();
 
 		res.status(200).json({ newNote });
@@ -28,7 +33,22 @@ router.post("/", requireJwtAuth, async (req, res, next) => {
 router.patch("/:id", requireJwtAuth, async (req, res, next) => {
 	const id = req.params.id;
 	try {
-		await PhysicianNotes.findByIdAndUpdate(id, req.body);
+		const { title, note } = req.body;
+
+		if (!title && !note) 
+			return res.status(400).send({ message: "Missing at least one field" });
+		const physicianNote = await PhysicianNotes.findById(id);
+
+		if (!physicianNote) 
+			return res.status(404).send({ message: "Note not found" });
+
+		if(note) {
+			physicianNote.note = note;
+		}
+		if(title) {
+			physicianNote.title = title;
+		}
+		await physicianNote.save();
 		res.status(200).send();
 	} catch (err) {
 		next(err);
@@ -37,7 +57,10 @@ router.patch("/:id", requireJwtAuth, async (req, res, next) => {
 
 router.delete("/:id", requireJwtAuth, async (req, res, next) => {
 	try {
-		const note = await PhysicianNotes.findByIdAndDelete(req.params.id);
+		const id = req.params.id;
+		if (!id) 
+			return res.status(400).json({ message: "Missing id." });
+		const note = await PhysicianNotes.findByIdAndDelete(id);
 		res.status(200).json(note);
 	} catch (err) {
 		next(err);

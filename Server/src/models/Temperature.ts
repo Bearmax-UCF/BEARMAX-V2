@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+mongoose.set('strictQuery', false);
 
 const Temperature = new mongoose.Schema(
     {
