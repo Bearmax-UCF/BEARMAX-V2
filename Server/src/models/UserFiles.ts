@@ -3,9 +3,19 @@ mongoose.set('strictQuery', false);
 
 const UserFiles = new mongoose.Schema(
     {
-        UserID: { type: String, required: true },
-        AudioFileLink: { type: String},
-        VideoFileLink: { type: String},
+        userId: { type: String, required: true },
+        audioFileList: { type: Array, 
+            of: {
+                audioName: { type: String },
+                audioLink: { type: String }
+            }
+        },
+        videoFileList: { type: Array, 
+            of: {
+                videoName: { type: String },
+                videoLink: { type: String }
+            } 
+        },
     },
     {
         collection: "UserFiles"

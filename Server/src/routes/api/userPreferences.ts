@@ -1,14 +1,10 @@
 import { Router } from "express";
 import requireJwtAuth from "../../middleware/requireJwtAuth";
 import UserPreferences from "../../models/UserPreferences";
-import User from "../../models/User";
-import crypto from "crypto";
-import bcrypt from "bcrypt";
-import constants from "../../utils/constants";
 const router = Router();
 
 router.post("/:id", requireJwtAuth, async (req, res, next) => {
-	const { userId, boolVideo, boolAudio } = req.body;
+	const { userId, boolVideo, boolAudio, boolTaste, boolSmell, boolTouch } = req.body;
 	const UserID =  req.user!._id;
 	
 	try {
@@ -25,7 +21,10 @@ router.post("/:id", requireJwtAuth, async (req, res, next) => {
 		const newUserPref = new UserPreferences({
 			userId: userId,
 			boolVideo: boolVideo,
-			boolAudio: boolAudio
+			boolAudio: boolAudio,
+			boolTaste: boolTaste,
+			boolSmell: boolSmell,
+			boolTouch: boolTouch
 		});
 
 		await newUserPref.save()
@@ -45,9 +44,9 @@ router.get("/:id", requireJwtAuth, async (req, res, next) => {
 		await UserPreferences.findOne({ userId: req.user!._id })
 			.then((userPreference) => {
 				if (userPreference) {
-					res.status(200).send({ data: userPreference.toObject(), message: "User preferences successfully retrieved." });
+					res.status(200).send({ boolSetup: true, data: userPreference.toObject(), message: "User preferences successfully retrieved." });
 				} else {
-					res.status(400).send({ message: "User preferences not found." });
+					res.status(400).send({ boolSetup: false, message: "User preferences do not exist yet." });
 				}
 			})
 			.catch((err) => console.log(err));
@@ -59,7 +58,7 @@ router.get("/:id", requireJwtAuth, async (req, res, next) => {
 });
 
 router.patch("/:id", requireJwtAuth, async (req, res, next) => {
-	const { userId, boolVideo, boolAudio } = req.body;
+	const { userId, boolVideo, boolAudio, boolTaste, boolSmell, boolTouch } = req.body;
 	const UserID = req.user!._id;
 	
 	try {
@@ -72,10 +71,14 @@ router.patch("/:id", requireJwtAuth, async (req, res, next) => {
 		const newUserPref = new UserPreferences({
 			userId: userId,
 			boolVideo: boolVideo,
-			boolAudio: boolAudio
+			boolAudio: boolAudio,
+			boolTaste: boolTaste,
+			boolSmell: boolSmell,
+			boolTouch: boolTouch
 		});
 
-		await UserPreferences.findOneAndUpdate({ userId: req.user!._id }, {userId: userId, boolVideo: boolVideo, boolAudio: boolAudio})
+		await UserPreferences.findOneAndUpdate({ userId: req.user!._id }, {userId: userId, boolVideo: boolVideo, boolAudio: boolAudio,
+			boolTaste: boolTaste, boolSmell: boolSmell, boolTouch: boolTouch})
 			.then(() => res.status(200).send({ data: newUserPref, message: "User preferences successfully updated." })
 			)
 			.catch((err) => res.status(400).send({ error: err, message: "User preferences not successfully updated." }));
@@ -104,6 +107,7 @@ router.delete("/:id", requireJwtAuth, async (req, res, next) => {
 	}
 });
 
+/*
 // This API was to clear any user preferences of the same userId that were accidentally created during testing
 router.delete("/deleteMany/:id", requireJwtAuth, async (req, res, next) => {
 
@@ -123,6 +127,7 @@ router.delete("/deleteMany/:id", requireJwtAuth, async (req, res, next) => {
 		next(err);
 	}
 });
+*/
 
 export const basePath = "/userPreferences";
 
