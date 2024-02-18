@@ -15,8 +15,6 @@ const cutStringQuote = (rawConnectionString: string) => {
 
 const connectionString = cutStringQuote(constants.azure_connection_string);
 
-// Individual API for creation and deletion of Azure Blob Storage containers
-
 router.post("/:id", requireJwtAuth, async (req, res, next) => {
     
     try {
