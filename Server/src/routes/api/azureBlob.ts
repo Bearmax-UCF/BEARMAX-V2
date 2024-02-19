@@ -3,7 +3,6 @@ import { Router } from "express";
 import User from "../../models/User";
 import constants from "../../utils/constants";
 import requireJwtAuth from "../../middleware/requireJwtAuth";
-import UserFiles from "../../models/UserFiles";
 
 const router = Router();
 

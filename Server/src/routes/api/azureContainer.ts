@@ -19,17 +19,17 @@ router.post("/:id", requireJwtAuth, async (req, res, next) => {
     
     try {
         // check if userid is valid
-        const userId = req.user!._id;
-        if (!userId) {
+        const UserId = req.user!._id;
+        if (!UserId) {
             return res.status(400).send({ message: "User id is not present" });
         }
-        const user = await User.findById(userId);
+        const user = await User.findById(UserId);
         if (!user) {
             return res.status(400).send({ message: "User not found" });
         }
 
         // create container name based on the user
-        const blobContainerName = userId.toString();
+        const blobContainerName = UserId.toString();
         const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
 
         const containerClient = blobServiceClient.getContainerClient(blobContainerName);

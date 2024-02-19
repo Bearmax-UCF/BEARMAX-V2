@@ -1,6 +1,7 @@
 import { Router } from "express";
 import requireJwtAuth from "../../middleware/requireJwtAuth";
 import UserFiles from "../../models/UserFiles";
+import User from "../../models/User";
 const router = Router();
 
 router.post("/:id", requireJwtAuth, async (req, res, next) => {
@@ -11,6 +12,11 @@ router.post("/:id", requireJwtAuth, async (req, res, next) => {
 
 		if(req.body.userId !== UserID.toString()) {
 			return res.status(400).send({ message: "User id doesn't equal the API URL id." });
+		}
+
+		const userFileCheck = await UserFiles.findOne({ userId: UserID.toString() });
+		if(userFileCheck !== null) {
+			return res.status(400).send({ message: "User file already exists." });
 		}
 
 		const newUserFile = new UserFiles({
@@ -83,7 +89,7 @@ router.patch("/:id", requireJwtAuth, async (req, res, next) => {
 						)
 						.catch((err) => res.status(400).send({ error: err, message: "User files not successfully updated." }));
 				} else {
-					res.status(400).send({ boolSetup: false, message: "User files had an issue accessing." });
+					res.status(400).send({ boolSetup: false, message: "User files could not be accessed." });
 				}
 			})
 			.catch((err) => console.log(err));
@@ -97,7 +103,7 @@ router.delete("/deleteUserFile/:id", requireJwtAuth, async (req, res, next) => {
 
 	try {
 
-		const userFileCheck = await UserFiles.findOne({ userId: req.user!._id });
+		const userFileCheck = await UserFiles.findOne({ userId: req.user!._id.toString() });
 		if(userFileCheck === null) {
 			return res.status(400).send({ message: "User files not found." });
 		}
@@ -117,7 +123,7 @@ router.delete("/deleteFileEntry/:id", requireJwtAuth, async (req, res, next) => 
 	try {
 
 		const { blobName } = req.body;
-		const userFile = await UserFiles.findOne({ userId: req.user!._id });
+		const userFile = await UserFiles.findOne({ userId: req.user!._id.toString() });
 
 		if (!userFile) {
 			return res.status(400).send({ message: "User files not found." });
