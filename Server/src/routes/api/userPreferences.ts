@@ -13,7 +13,7 @@ router.post("/:id", requireJwtAuth, async (req, res, next) => {
 			return res.status(400).send({ message: "User id doesn't equal the API URL id." });
 		}
 
-		const userPrefCheck = await UserPreferences.findOne({ userId: req.user!._id });
+		const userPrefCheck = await UserPreferences.findOne({ userId: UserID.toString() });
 		if(userPrefCheck !== null) {
 			return res.status(400).send({ message: "User preferences already exists." });
 		}
@@ -41,7 +41,7 @@ router.post("/:id", requireJwtAuth, async (req, res, next) => {
 router.get("/:id", requireJwtAuth, async (req, res, next) => {
 	try {
 
-		await UserPreferences.findOne({ userId: req.user!._id })
+		await UserPreferences.findOne({ userId: req.user!._id.toString() })
 			.then((userPreference) => {
 				if (userPreference) {
 					res.status(200).send({ boolSetup: true, data: userPreference.toObject(), message: "User preferences successfully retrieved." });
@@ -63,7 +63,7 @@ router.patch("/:id", requireJwtAuth, async (req, res, next) => {
 	
 	try {
 
-		const userPrefCheck = await UserPreferences.findOne({ userId: req.user!._id });
+		const userPrefCheck = await UserPreferences.findOne({ userId: UserID.toString() });
 		if(userPrefCheck === null) {
 			return res.status(400).send({ message: "User preferences not found." });
 		}
@@ -92,7 +92,7 @@ router.delete("/:id", requireJwtAuth, async (req, res, next) => {
 
 	try {
 
-		const userPrefCheck = await UserPreferences.findOne({ userId: req.user!._id });
+		const userPrefCheck = await UserPreferences.findOne({ userId: req.user!._id.toString() });
 		if(userPrefCheck === null) {
 			return res.status(400).send({ message: "User preferences not found." });
 		}
