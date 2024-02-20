@@ -31,6 +31,10 @@ router.get("/getBlob/:id", requireJwtAuth, async (req, res, next) => {
     const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
 
     const containerClient = blobServiceClient.getContainerClient(blobContainerName);
+
+    const boolContainer = await containerClient.exists();
+    if(!boolContainer) return res.status(400).send({ message: "Container does not exists." });
+
     const blobName = req.body.blobName;
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
@@ -73,6 +77,10 @@ router.delete("/:id", requireJwtAuth, async (req, res, next) => {
     const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
 
     const containerClient = blobServiceClient.getContainerClient(blobContainerName);
+
+    const boolContainer = await containerClient.exists();
+    if(!boolContainer) return res.status(400).send({ message: "Container does not exists." });
+
     const blobName = req.body.blobName;
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
