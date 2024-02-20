@@ -58,3 +58,8 @@ NOTE: the above token is invalid do not try using it
  * [Users](documentation/users.md)
  * [Note](documentation/note.md)
  * [emotionRecognition](documentation/emotionRecognition.md)
+ * [User Preferences](documentation/userPreferences.md)
+ * [User Files](documentation/userFiles.md)
+ * [Upload Files](documentation/uploadFiles.md)
+ * [Blobs](documentation/azureBlob.md)
+ * [Containers](documentation/azureContainer.md)
