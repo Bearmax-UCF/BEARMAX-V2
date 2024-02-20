@@ -37,8 +37,9 @@ describe("Testing the get emotionRecognition endpoint", () => {
     test("This should be a valid get emotionRecognition", async () => {
         const response = await request(app).get("/api/emotionRecognition").send({
         }).set('Authorization', 'Bearer ' + jwtToken);
+        console.log(response.body);
         expect(response.statusCode).toEqual(200);
-        expect(response.body.length).toEqual(1);
+        expect(response.body.allGames.length).toEqual(1);
     });
 });
 
