@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import { v4 as uuid } from "uuid";
 import AuthToken from "./AuthToken";
 import crypto from "crypto";
-import mailgun from '../services/mailgunService';
+import { sendEmailVerification } from '../services/mailgunService';
 import { accountRegistrationEmailTemplate } from '../utils/email';
 
 mongoose.set('strictQuery', false);
@@ -71,13 +71,7 @@ UserSchema.pre("save", async function (next) {
     this.hashToken = hashToken;
     this.isVerified = false;
     // send email to user on email change or new account
-    mailgun.send(this.email, 
-      'Email Verification',
-      accountRegistrationEmailTemplate(
-        this.firstName,
-        `${constants.server_url}/api/auth/verify?token=${token}&id=${this._id}`
-      )
-    ).catch((err) => {
+    await sendEmailVerification(this.email, token, this._id.toString(), this.firstName).catch((err) => {
       return next(err);
     });
     return next();

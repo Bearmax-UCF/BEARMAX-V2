@@ -1,11 +1,39 @@
-import { NodeMailgun } from 'ts-mailgun';
+import Mailgun from 'mailgun.js';
+import FormData from 'form-data';
 import constants from '../utils/constants';
+import { accountRegistrationEmailTemplate, resetPasswordEmailTemplate } from '../utils/email';
 
-const mailgun = new NodeMailgun();
-mailgun.apiKey = constants.mailgun_api_key;
-mailgun.domain = constants.mailgun_domain;
-mailgun.fromEmail = 'no-reply@' + constants.mailgun_domain;
-mailgun.fromTitle = 'BearMax Account Services';
-mailgun.init();
+const mg = new Mailgun(FormData);
+const mailgun = mg.client({username: 'api', key: constants.mailgun_api_key})
 
-export default mailgun;
+export async function sendEmailVerification(email: string, token: string, id: string, name: string) {
+    const content = {
+        from: "Bearmax Account Services <no-reply@bearmax-service.bearmaxcare.com>",
+        to: email,
+        subject: 'Email Verification',
+        text: accountRegistrationEmailTemplate(name, `${constants.server_url}/api/auth/verify?token=${token}&id=${id}`),
+        html: accountRegistrationEmailTemplate(name, `${constants.server_url}/api/auth/verify?token=${token}&id=${id}`)
+    }
+    return mailgun.messages.create(
+        constants.mailgun_domain,
+        content
+    ).catch((err) => {
+      return err;
+    });
+}
+
+export async function sendPasswordReset(email: string, token: string, id: string) {
+    const content = {
+        from: "Bearmax Account Services<no-reply@bearmax-service.bearmaxcare.com>",
+        to: email,
+        subject: 'Password Reset',
+        text: resetPasswordEmailTemplate(`${constants.server_url}/api/auth/resetPassword?token=${token}&id=${id}`),
+        html: resetPasswordEmailTemplate(`${constants.server_url}/api/auth/resetPassword?token=${token}&id=${id}`)
+    }
+    return mailgun.messages.create(
+        constants.mailgun_domain,
+        content
+    ).catch((err) => {
+      return err;
+    });
+}
