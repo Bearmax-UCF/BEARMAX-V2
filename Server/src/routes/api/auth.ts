@@ -6,7 +6,7 @@ import ResetToken from "../../models/ResetToken";
 import User from "../../models/User";
 import jwt from "jsonwebtoken";
 import constants from "../../utils/constants";
-import mailgun from '../../services/mailgunService';
+import { sendPasswordReset } from '../../services/mailgunService';
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { resetPasswordEmailTemplate } from "../../utils/email";
@@ -59,10 +59,12 @@ router.post("/forgotPasswordRequest", async (req, res, next) => {
 			return res.status(422).send({ message: "User not found." });
 		const unhashToken = crypto.randomBytes(32).toString('hex');
 		await new ResetToken({ userId: user._id, token: unhashToken }).save();
-		mailgun.send(email, 
-			'Password Reset',
-			resetPasswordEmailTemplate(`${constants.server_url}/api/auth/resetPassword?token=${unhashToken}&id=${user._id}`))
-		.catch((err) => console.log(err));
+		await sendPasswordReset(
+			email,
+			unhashToken,
+			user._id.toString()
+		).catch((err) => console.log(err));
+		
 		res.status(201).send({ message: "Password Reset Request Sent Successfully!" });
 	} catch (error) {
 		return next(error);
