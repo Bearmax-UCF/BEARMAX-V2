@@ -92,7 +92,6 @@ describe("Testing the PATCH notes endpoint", () => {
             title: "title",
             note: "note",
         }).set('Authorization', 'Bearer ' + jwtToken);
-        console.log(response)
         expect(response.statusCode).toEqual(404);
         expect(response.body.message).toEqual("Note not found");
     })

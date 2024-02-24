@@ -57,8 +57,8 @@ export async function createEmotionRecognitionGameForVerifiedUser(
     UserID: string
 ) {
     return await new EmotionRecognition({
-        Correct: 2,
-        Wrong: 2,
+        Correct: [0, 0 ,0, 0],
+        Wrong: [0, 0, 0, 0],
         NumPlays: 3,
         GameFin: new Date(),
         UserID,

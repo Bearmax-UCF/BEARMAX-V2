@@ -38,7 +38,7 @@ describe("Testing the get emotionRecognition endpoint", () => {
         const response = await request(app).get("/api/emotionRecognition").send({
         }).set('Authorization', 'Bearer ' + jwtToken);
         expect(response.statusCode).toEqual(200);
-        expect(response.body.length).toEqual(1);
+        expect(response.body.allGames.length).toEqual(1);
     });
 });
 

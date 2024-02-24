@@ -146,6 +146,18 @@ The body is empty but you must include a user id in the url such as calling http
 Unauthorized
 ```
 
+**Condition** : Container not found or isn't accessible
+
+**Code** : `400 Bad Request`
+
+**Content Example**
+
+```json
+{ 
+    "message": "Container does not exists." 
+}
+```
+
 **Condition** : User id is not present in the API URL
 
 **Code** : `400 Bad Request`
@@ -185,6 +197,8 @@ Unauthorized
 ## Deleting a blob
 
 Deletes a user's media file / blob from Azure.
+When deleting a file or blob from Azure, make sure to also delete it from MongoDB, which that documentation can be found here:
+ * [User Files](documentation/userFiles.md)
 
 **URL** : `/api/azureBlob/:id`
 
@@ -222,6 +236,18 @@ Deletes a user's media file / blob from Azure.
 
 ```
 Unauthorized
+```
+
+**Condition** : Container not found or isn't accessible
+
+**Code** : `400 Bad Request`
+
+**Content Example**
+
+```json
+{ 
+    "message": "Container does not exists." 
+}
 ```
 
 **Condition** : User id is not present in the API URL
