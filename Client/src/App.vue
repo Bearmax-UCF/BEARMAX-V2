@@ -23,11 +23,13 @@
     import SignUp from './components/SignUp.vue';
     import ForgotPassword from './components/ForgotPassword.vue';
     import EmailVerification from './components/EmailVerification.vue';
+    import HowToUse from './components/HowToUse.vue';
 
 
     export default defineComponent({
         
-        components: {Login,Homepage,Settings,AboutUs,ViewPatientNotes,ViewData, SignUp, ForgotPassword, EmailVerification},
+        components: {Login,Homepage,Settings,AboutUs,ViewPatientNotes,ViewData, SignUp, ForgotPassword, 
+                      EmailVerification, HowToUse},
     
     });
 

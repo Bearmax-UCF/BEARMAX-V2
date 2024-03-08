@@ -20,6 +20,7 @@
 	"dependencies": {
 		"@azure/storage-blob": "^12.17.0",
 		"into-stream": "^8.0.1",
+		"mongoose": "^8.2.0",
 		"multer": "^1.4.5-lts.1",
 		"react-switch": "^7.0.0",
 		"typescript": "^5.3.3"

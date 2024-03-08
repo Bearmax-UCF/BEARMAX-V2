@@ -5,25 +5,28 @@
 
     <br><br>
 
-    <!-- <form @submit.prevent="verifyEmail">
+    <!-- <a href="http://localhost:8080/api/auth/verify?token=&id=" target="_blank">Click here to verify email.</a> -->
 
-      <label>Token:</label> -->
 
-      <input type="text" class = "textField" v-model="credentials.token" placeholder="Token">
+
+    <br><br>
+
+
+    
+
+      <!-- <input type="text" class = "textField" v-model="credentials.token" placeholder="Token">
 
       <br><br>
       
-      <!-- <label>User ID:</label> -->
 
       <input type="text" class = "textField" v-model="credentials.userId" placeholder="User ID">
 
-      <br><br>
+      <br><br> -->
       
-      <button @click="verifyEmail"> Verify Email </button>
+      <!-- <button @click="verifyEmail"> Verify Email </button> -->
 
-    <!-- </form> -->
 
-    <p v-if="emailVerificationError" style="color : red">{{ emailVerificationError }}</p>
+    <!-- <p v-if="emailVerificationError" style="color : red">{{ emailVerificationError }}</p> -->
 
 
 </template>
@@ -35,46 +38,46 @@
 
     import { useRouter } from 'vue-router';
     import { ref } from 'vue';
-    import { verifyEmailApi } from '@/api';
+    //import { verifyEmailApi } from '@/api';
 
     export default {
 
-        setup() {
+         setup() {
 
-            const router = useRouter();
+        //     const router = useRouter();
 
-            const credentials = ref( {
+        //     const credentials = ref( {
 
-                token: '',
-                userId: '',
-            });
+        //         token: '',
+        //         userId: '',
+        //     });
 
 
-            const emailVerificationError = ref(null);
+        //     const emailVerificationError = ref(null);
 
-            const verifyEmail = async () => {
+        //     const verifyEmail = async () => {
 
-            try{
+        //     try{
 
-                await verifyEmailApi(credentials.value);
+        //         await verifyEmailApi(credentials.value);
 
-                // console.log('Successfully registered.');
+        //         // console.log('Successfully registered.');
 
-                router.push('./login');
-            }
+        //         router.push('./login');
+        //     }
 
-                catch (error) {
-                    emailVerificationError.value = error.message || 'An error occured.';
-                }
-            }
+        //         catch (error) {
+        //             emailVerificationError.value = error.message || 'An error occured.';
+        //         }
+        //     }
 
-            return {
-                credentials,
-                verifyEmail,
-                emailVerificationError
-            };
+        //     return {
+        //         credentials,
+        //         verifyEmail,
+        //         emailVerificationError
+        //     };
 
-        },
+         },
 
     }
    

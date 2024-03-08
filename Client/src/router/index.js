@@ -8,6 +8,7 @@ import AboutUs from '../components/AboutUs.vue';
 import SignUp from '../components/SignUp.vue';
 import ForgotPassword from '../components/ForgotPassword.vue'
 import EmailVerification from '../components/EmailVerification.vue'
+import HowToUse from '../components/HowToUse.vue'
 
 
 const routes = [
@@ -66,7 +67,11 @@ const routes = [
     name: 'emailverification',
   },
 
-
+  {
+    path: '/howtouse',
+    component: HowToUse,
+    name: 'howtouse',
+  },
 
 ];
 

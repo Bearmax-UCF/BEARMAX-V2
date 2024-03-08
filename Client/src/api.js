@@ -79,25 +79,6 @@ export async function loginApi(loginInfo){
 }//End of loginFuncApi
 
 
-
-export async function verifyEmailApi(credentials) {
-    try {
-
-        const response = await axios.get('api/auth/verify?token=&id=');
-
-        return response.data;
-
-    }
-    
-    catch (error) {
-
-        throw error.response.data;
-
-    }
-    
-}//End of verifyEmailApi function
-
-
 export async function forgotPasswordApi(userData){
 
     console.log("email: ");
@@ -118,6 +99,8 @@ export async function forgotPasswordApi(userData){
 
     catch(error) {
 
+        console.log("forgotPasswordApi: error: ");
+        console.log(error);
         throw error.response.data;
 
     }
@@ -125,21 +108,21 @@ export async function forgotPasswordApi(userData){
 }//End of forgotPasswordApi function
 
 
-export async function resetPasswordApi(data) {
-    try {
+// export async function resetPasswordApi(data) {
+//     try {
 
-      const response = await axios.post('api/auth/resetPassword', data);
-      return response.data;
+//       const response = await axios.post('api/auth/resetPassword', data);
+//       return response.data;
 
-    } 
+//     } 
     
-    catch (error) {
+//     catch (error) {
 
-      throw error.response.data;
+//       throw error.response.data;
 
-    }
+//     }
 
-  }//End of resetPasswordApi function
+//   }//End of resetPasswordApi function
 
 
 

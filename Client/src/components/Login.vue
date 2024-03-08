@@ -165,10 +165,11 @@ transition: background-color 1s;
 
 .textField {
 
+    font-size:15px;
+    height: 50px;
+    width: 200px;
     border-radius:5px;
-    text-align:left;
-
-
+    text-align:right;
 }
 
 

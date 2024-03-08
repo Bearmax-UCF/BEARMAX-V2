@@ -4,62 +4,58 @@
 
 
 
-    <!-- <div :style="{position: 'absolute', top:'25px',}" top="100px">
-        <img src="../assets/bearmaxlogo.png" height=210px width="210px">
-    </div> -->
+    <img src="../assets/bearmaxlogo.png" height=210px width="210px">
 
 
     <br><br><br>
 
-<div>
+    <div>
 
-<input type="text" class="textField" placeholder="Email" v-model="userData.email"/>
+        <input type="text" class="textField" placeholder="Email" v-model="userData.email"/>
 
-<br>
+        <br>
 
-<input type="text" class="textField" placeholder="First Name" v-model="userData.firstName"/>
+        <input type="text" class="textField" placeholder="First Name" v-model="userData.firstName"/>
 
-<br>
+        <br>
 
-<input type="text" class="textField" placeholder="Last Name" v-model="userData.lastName"/>
+        <input type="text" class="textField" placeholder="Last Name" v-model="userData.lastName"/>
 
-<br>
+        <br>
 
-<input type="text" class="textField" placeholder="Password" v-model="userData.password"/>
+        <input type="text" class="textField" placeholder="Password" v-model="userData.password"/>
 
-<br>
+        <br>
 
-<input type="text" class="textField" placeholder="Repeat Password"/>
+        <!-- <input type="text" class="textField" placeholder="Repeat Password"/> -->
 
-<br>
-<br>
+        <br>
+        <br>
 
-</div>
+    </div>
 
-<div>
+    <div>
 
-    
-            <button @click="register" class="button" width="180px">
-                Sign Up
+        <button @click="register" class="button" width="180px">
+            Sign Up
 
-            </button>
-
+        </button>
 
         <p v-if="registrationError" style="color: red;">{{ registrationError }}</p>
 
-</div>
+    </div>
 
-<div>
-        
-        <p>
-        
+    <div>
+            
+         <p>
             Already have an account?
             <router-link to="/login">
                 Sign in here.
             </router-link>
 
         </p>
-</div>
+
+    </div>
 
 
 
@@ -67,56 +63,56 @@
 
 <script>
 
-import { useRouter} from 'vue-router';
-import { ref } from 'vue';
-import { registerUserApi } from '@/api';
+    import { useRouter} from 'vue-router';
+    import { ref } from 'vue';
+    import { registerUserApi } from '@/api';
 
 
-export default {
+    export default {
 
-    
-    setup() {
+        
+        setup() {
 
-        const router = useRouter();
+            const router = useRouter();
 
-        const userData = ref( {
+            const userData = ref( {
 
-            email: '',
-            firstName: '',
-            lastName: '',
-            password: ''
-        });
+                email: '',
+                firstName: '',
+                lastName: '',
+                password: ''
+            });
 
 
-        const registrationError = ref(null);
+            const registrationError = ref(null);
 
-        const register = async () => {
+            const register = async () => {
 
-        try{
+            try{
 
-            console.log('calling registerUserApi function ');
-            console.log('userData: ' + userData.value);
+                console.log('calling registerUserApi function ');
+                console.log('userData: ' + userData);
 
-            await registerUserApi(userData.value);
+                await registerUserApi(userData.value);
 
-            console.log('RegisterUserApi call returned.');
+                console.log('RegisterUserApi call returned.');
 
-            router.push('./emailVerification');
-    
-        }
-
-            catch (error) {
-                registrationError.value = error.message || 'An error occured.';
+                router.push('./login');
+        
             }
-        }
 
-        return {
-            userData,
-            register,
-            registrationError
-        };
+                catch (error) {
+                    registrationError.value = error.message || 'An error occured.';
+                }
+            }//End of registerUserApi function
 
-    },
+            return {
+                userData,
+                register,
+                registrationError
+            };
+
+        },
     
 };//End of export default
 
@@ -126,10 +122,13 @@ export default {
 
 <style>
 
+
+
 .textField {
 
 border-radius:5px;
 text-align:left;
+width:250px;
 
 
 }

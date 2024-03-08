@@ -18,8 +18,6 @@
                 <button class = "button">
                     About Us
 
-                
-
                 </button>
 
             </router-link>
@@ -33,8 +31,6 @@
                 <button class = "button">
                     View Patient Notes
 
-                
-
                 </button>
 
             </router-link>
@@ -47,8 +43,6 @@
             <router-link to="/viewdata">
                 <button class = "button">
                     View Data
-
-                
 
                 </button>
 
@@ -79,15 +73,12 @@
         <p>
         
             New user? 
-            <router-link to="/forgotpassword">
+            <router-link to="/howtouse">
                 Go to "How to Use" page.
             </router-link>
 
         </p>
     </div>
-
-
-
 
 </template>
 
