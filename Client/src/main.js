@@ -8,14 +8,12 @@ import axios from 'axios'
 
 
 
-
 const app = createApp(App);
 
 app.config.globalProperties.$http = axios;
 
 app.use(router);
 app.mount('#app');
-
 
 
 // const app = createApp(App)

@@ -10,11 +10,10 @@ import ForgotPassword from '../components/ForgotPassword.vue'
 import EmailVerification from '../components/EmailVerification.vue'
 import HowToUse from '../components/HowToUse.vue'
 
-
 const routes = [
   
   {
-    path: '/login',
+    path: '/',
     component: Login,
     name: 'login',
   },
@@ -73,6 +72,7 @@ const routes = [
     name: 'howtouse',
   },
 
+  
 ];
 
 const router = createRouter({

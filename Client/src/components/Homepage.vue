@@ -26,6 +26,8 @@
         <br>
         <br>
 
+        <!-- Original view patient notes link (non-generated) -->
+
         <div>
             <router-link to="/viewpatientnotes">
                 <button class = "button">
@@ -82,12 +84,12 @@
 
 </template>
 
+
 <script>
 
-export default {
+    export default {
 
-};
-
+    };
 
 </script>
 

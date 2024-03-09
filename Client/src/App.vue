@@ -5,6 +5,8 @@
       
   
       <router-view></router-view>
+
+
     </div>
 
     <!-- <p>after router-view</p> -->
@@ -24,8 +26,7 @@
     import ForgotPassword from './components/ForgotPassword.vue';
     import EmailVerification from './components/EmailVerification.vue';
     import HowToUse from './components/HowToUse.vue';
-
-
+    
     export default defineComponent({
         
         components: {Login,Homepage,Settings,AboutUs,ViewPatientNotes,ViewData, SignUp, ForgotPassword, 

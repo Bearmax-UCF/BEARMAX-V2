@@ -14,7 +14,7 @@
 
         <br>
         
-        <input type="text" class="textField" placeholder="Password" v-model="userData.password"/>
+        <input type="password" class="textField" placeholder="Password" v-model="userData.password"/>
 
         <br>
 
