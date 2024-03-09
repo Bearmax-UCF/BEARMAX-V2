@@ -49,7 +49,7 @@
             
          <p>
             Already have an account?
-            <router-link to="/login">
+            <router-link to="/">
                 Sign in here.
             </router-link>
 
