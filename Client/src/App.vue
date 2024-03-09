@@ -1,85 +1,43 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <div>
+      <!-- <router-link to="/login">Login</router-link> -->
+      <!-- <p>before router view</p> -->
+      
+  
+      <router-view></router-view>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
     </div>
-  </header>
 
-  <RouterView />
-</template>
+    <!-- <p>after router-view</p> -->
+  </template>
+  
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+  <script>
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+    import {defineComponent} from 'vue';
+    import Login from './components/Login.vue';
+    import Homepage from './components/Homepage.vue';
+    import Settings from './components/Settings.vue';
+    import AboutUs from './components/AboutUs.vue';
+    import ViewPatientNotes from './components/ViewPatientNotes.vue';
+    import ViewData from './components/ViewData.vue';
+    import SignUp from './components/SignUp.vue';
+    import ForgotPassword from './components/ForgotPassword.vue';
+    import EmailVerification from './components/EmailVerification.vue';
+    import HowToUse from './components/HowToUse.vue';
+    
+    export default defineComponent({
+        
+        components: {Login,Homepage,Settings,AboutUs,ViewPatientNotes,ViewData, SignUp, ForgotPassword, 
+                      EmailVerification, HowToUse},
+    
+    });
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
+  </script>
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
+<style>
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
+
+
