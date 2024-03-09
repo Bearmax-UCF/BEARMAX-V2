@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:8080/api';
+// To hold the base URL whether it is in development or production
+const baseURL = process.env.BASE_URL || 'http://localhost:8080/api';
 
 const api = axios.create({
     baseURL,
@@ -8,7 +9,6 @@ const api = axios.create({
 
 
 export async function registerUserApi(userData) {
-
     console.log("email: ");
     console.log(userData.email);
 
