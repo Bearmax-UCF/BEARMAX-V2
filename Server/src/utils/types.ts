@@ -7,7 +7,14 @@ export type EmotionGameStats = {
 
 export type EmotionGameAction = "start" | "stop";
 
+export type SensoryOverloadAidAction = "start" | "stop";
+
 export type GSRStringData = {
 	value: number;
 	ts: Date;
+};
+
+export type BlobStringData = {
+	name: number;
+	mediaURL: Date;
 };
