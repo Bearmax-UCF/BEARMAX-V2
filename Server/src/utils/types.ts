@@ -15,6 +15,5 @@ export type GSRStringData = {
 };
 
 export type BlobStringData = {
-	name: number;
-	mediaURL: Date;
+	mediaURL: string;
 };

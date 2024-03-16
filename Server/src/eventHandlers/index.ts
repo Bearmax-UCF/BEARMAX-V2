@@ -1,7 +1,7 @@
 import type { Server } from "socket.io";
 import { BlockBlobClient, StorageSharedKeyCredential, BlobServiceClient, generateBlobSASQueryParameters, BlobSASPermissions } from "@azure/storage-blob";
 import constants from "../utils/constants";
-import { EmotionGameAction, GSRStringData, SensoryOverloadAidAction } from "../utils/types";
+import { EmotionGameAction, GSRStringData, BlobStringData } from "../utils/types";
 import EmotionRecognition from "../models/EmotionRecognition";
 import User from "../models/User";
 import passport from "passport";
@@ -24,7 +24,7 @@ export default (io: Server) => {
 	//       console.log(`NEW CONNECTION: ${isAuthorized}`);
 
 	// Ensure websocket clients have a valid client certificate
-	if (/*constants.isProduction*/ true) {
+	if (constants.isProduction) {
 		io.engine.on("connection", (rawSocket: any) => {
 			const auth_header: String | undefined =
 				rawSocket.request.headers.authorization;
@@ -66,8 +66,6 @@ export default (io: Server) => {
         - Args: message (string)
     - 'emotionGame': Mobile app sending message to control start/stopping the emotion game
         - Args: action ("start" or "stop")
-	- 'sensoryOverloadAid': Mobile app sending message to control start/stopping the sensory overload aid
-        - Args: action ("start" or "stop")
     - 'recalibrate': Mobile app sending request for camera and sensors to recalibrate
         - Args: none
 	- 'emotionGameStats': ROS is sending back stats about what they got right/wrong in JSON format, save to DB
@@ -80,11 +78,9 @@ export default (io: Server) => {
         - Args: message (string)
     - 'emotionGame': ROS listening for start/stop updates to the emotion game
         - Args: action ("start" or "stop")
-	- 'sensoryOverloadAid': ROS listening for start/stop updates to the sensory overload aid
-        - Args: action ("start" or "stop")
     - 'recalibrate': ROS listening for requests to recalibrate camera and sensors 
         - Args: none
-	- 
+	- 'playMedia': Raspberry Pi listening for media updates for the sensory overload aid
   */
 
 	io.on("connection", (socket) => {
@@ -95,7 +91,10 @@ export default (io: Server) => {
 				socket.handshake.query.userID
 		);
 
-		socket.on("ping", () => io.emit("Pong!"));
+		socket.on("ping", () => {
+			console.log("Received ping event");
+			io.emit("Pong!");
+		});
 
 		// Forward to mobile
 		socket.on("speak", (message: string) => {
@@ -125,25 +124,6 @@ export default (io: Server) => {
 					"'"
 			);
 			io.emit("emotionGame", action, senderID);
-		});
-
-		// Forward to ROS
-		socket.on("sensoryOverloadAid", (action: SensoryOverloadAidAction) => {
-			const senderID = socket.handshake.query.userID;
-			if (!senderID) {
-				console.log(
-					"Error: Aid started by a socket without a userID query parameter."
-				);
-				return;
-			}
-
-			console.log(
-				new Date() +
-					" || Received sensoryOverloadAid event with action '" +
-					action +
-					"'"
-			);
-			io.emit("sensoryOverloadAid", action, senderID);
 		});
 
 		// Forward to ROS
@@ -188,15 +168,20 @@ export default (io: Server) => {
 			});
 		});
 
-		socket.on("playMedia", async (blobName: string) => {
+		// User selected a media to play from Azure database via mobile app, 
+			// so transferring URL of media to Raspberry Pi
+		socket.on("playMedia", async (blobStringData: string) => {
+			const data: BlobStringData = JSON.parse(blobStringData);
+			const blobName = data.mediaURL;
+
 			const userId = socket.handshake.query.userID;
 			if (!userId) {
-				console.log("User id is not present" );
+				console.log("User id is not present");
 				return;
 			}
 			const user = await User.findById(userId);
 			if (!user) {
-				console.log("User not found" );
+				console.log("User not found");
 				return;
 			}
 
@@ -208,7 +193,7 @@ export default (io: Server) => {
 
 			const boolContainer = await containerClient.exists();
 			if(!boolContainer) {
-				console.log("Container does not exists." );
+				console.log("Container does not exists.");
 				return;
 			}
 
@@ -216,7 +201,7 @@ export default (io: Server) => {
 
 			const blobExists = await blockBlobClient.exists();
 			if (!blobExists) {
-				console.log("Blob not found" );
+				console.log("Blob not found");
 				return;
 			}
 
@@ -225,10 +210,10 @@ export default (io: Server) => {
 			const blobSasUrl = await getBlobSasURL(blobContainerName, blobName, blockBlobClient);
 
 			if(response.errorCode) {
-				console.log("Error getting blob" );
+				console.log("Error getting blob");
 				return;
 			} else {
-				console.log("Blob received successfully" );
+				console.log("Blob received successfully");
 				io.emit("playMedia", blobSasUrl);
 			}
 		});
@@ -236,6 +221,7 @@ export default (io: Server) => {
 		socket.on("GSR", (gsrString: string) => {
 			const data: GSRStringData = JSON.parse(gsrString);
 			io.emit("GSR", data.value, data.ts);
+			console.log("GSR data sent to client");
 		});
 
 		socket.on("disconnecting", (reason) => {
