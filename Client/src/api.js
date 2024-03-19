@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
 
 // To hold the base URL whether it is in development or production
 const baseURL = process.env.BASE_URL || 'http://localhost:8080/api';
@@ -64,6 +66,13 @@ export async function loginApi(loginInfo){
         console.log("response: ");
         console.log(response);
 
+        console.log("auth_token from cookie");
+
+        Cookies.set("auth_token", response.data.token, {expires:1 });
+        console.log(Cookies.get("auth_token"));
+
+     
+
         return response.data;
 
     }
@@ -106,6 +115,141 @@ export async function forgotPasswordApi(userData){
     }
 
 }//End of forgotPasswordApi function
+
+export async function getAllNotesApi(){
+
+    try{
+
+        //console.log("before await api.post()");
+        const response = await api.get('/note', {headers: {
+
+            Authorization: 'Bearer ' + Cookies.get("auth_token")
+        }
+
+        });
+        
+
+
+        console.log("response: ");
+        console.log(response);
+
+        return response.data;
+
+    }
+
+    catch(error) {
+
+        console.log("getAllNotesApi: error: ");
+        console.log(error);
+        throw error.response.data;
+
+    }
+
+}//End of getAllNotesApi
+
+
+export async function createNoteApi(userData){
+
+    try{
+
+        //console.log("before await api.post()");
+        const response = await api.post('/note', userData, {headers: {
+
+            Authorization: 'Bearer ' + Cookies.get("auth_token")
+        }
+
+        });
+        
+        console.log("response: ");
+        console.log(response);
+
+        return response.data;
+
+    }
+
+    catch(error) {
+
+        console.log("createNoteApi: error: ");
+        console.log(error);
+        throw error.response.data;
+
+    }
+
+}//End of createNoteApi
+
+
+export async function editNoteApi(userData, noteId){
+
+    try{
+
+        const editUrl = '/note/' + noteId;
+
+        console.log("editNoteApi url is: ");
+        console.log(editUrl);
+
+        console.log("userData is: ");
+        console.log(userData);
+
+        const response = await api.patch(editUrl, userData, {headers: {
+
+            Authorization: 'Bearer ' + Cookies.get("auth_token")
+        }
+
+        });
+        
+        console.log("response: ");
+        console.log(response);
+
+        return response.data;
+
+    }
+
+    catch(error) {
+
+        console.log("editNoteApi: error: ");
+        console.log(error);
+        throw error.response.data;
+
+    }
+
+}//End of editNoteApi
+
+export async function deleteNoteApi(noteId){
+
+    try{
+
+        const deleteUrl = '/note/' + noteId;
+
+        console.log("deleteNoteApi url is: ");
+        console.log(deleteUrl);
+
+        const response = await api.delete(deleteUrl, {headers: {
+
+            Authorization: 'Bearer ' + Cookies.get("auth_token")
+        }
+
+        });
+        
+        console.log("response: ");
+        console.log(response);
+
+        return response.data;
+
+    }
+
+    catch(error) {
+
+        console.log("deleteNoteApi: error: ");
+        console.log(error);
+        throw error.response.data;
+
+    }
+
+}//End of deleteNoteApi
+
+
+
+
 
 
 // export async function resetPasswordApi(data) {

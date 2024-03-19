@@ -97,14 +97,14 @@
 
                 console.log('RegisterUserApi call returned.');
 
-                router.push('./login');
+                router.push('./');
         
             }
 
                 catch (error) {
                     registrationError.value = error.message || 'An error occured.';
                 }
-            }//End of registerUserApi function
+            }//End of register function
 
             return {
                 userData,
@@ -112,7 +112,7 @@
                 registrationError
             };
 
-        },
+        },//End of setup
     
 };//End of export default
 

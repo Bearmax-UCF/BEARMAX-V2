@@ -6,6 +6,12 @@
 
     <h1 :style="{color:'forestgreen', fontWeight:'bold'}">Welcome to Bearmax!</h1>
 
+
+    <div id="app">
+        <AuthCookie />
+    </div>
+
+
     <br><br><br>
 
     <div>
@@ -73,11 +79,13 @@
 import { useRouter} from 'vue-router';
 import { ref } from 'vue';
 import { loginApi } from '@/api';
+// import AuthCookie from './components/AuthCookie.vue';
+import Cookies from 'js-cookie';
 
 
 
 
-export default{
+export default {
 
     setup() {
 
@@ -94,16 +102,16 @@ export default{
 
         const login = async () => {
 
-        try{
+            try{
 
-           await(loginApi(userData.value));
-           router.push('./homepage');
-            
+            await(loginApi(userData.value));
+            router.push('./homepage');
+                
 
-        }
+            }
 
             catch (error) {
-                loginError.value = error.message || 'An error occured.';
+                    loginError.value = error.message || 'An error occured.';
             }
         }
 
