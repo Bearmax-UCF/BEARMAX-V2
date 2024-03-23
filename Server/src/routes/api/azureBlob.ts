@@ -33,7 +33,7 @@ router.get("/getBlob/:id", requireJwtAuth, async (req, res, next) => {
     const containerClient = blobServiceClient.getContainerClient(blobContainerName);
 
     const boolContainer = await containerClient.exists();
-    if(!boolContainer) return res.status(400).send({ message: "Container does not exists." });
+    if(!boolContainer) return res.status(400).send({ message: "Container does not exist." });
 
     const blobName = req.body.blobName;
     const blockBlobClient = containerClient.getBlockBlobClient(blobName);

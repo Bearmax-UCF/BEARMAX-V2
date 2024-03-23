@@ -15,7 +15,7 @@ const EmotionRecognition = new mongoose.Schema(
 		Wrong: Array,
 		GameFin: Date,
 		UserID: String,
-		NumPlays: Number,
+		NumPlays: Number
 	},
 	{
 		collection: "EmotionRecognition",
