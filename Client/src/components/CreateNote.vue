@@ -74,10 +74,6 @@
                     console.log("response is");
                     console.log(response);
 
-                    console.log("response. is")
-                    console.log("");
-
-
                     console.log('CreateNoteApi call returned.');
                     router.push('./viewpatientnotes');
 

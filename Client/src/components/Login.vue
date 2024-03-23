@@ -79,9 +79,6 @@
 import { useRouter} from 'vue-router';
 import { ref } from 'vue';
 import { loginApi } from '@/api';
-// import AuthCookie from './components/AuthCookie.vue';
-import Cookies from 'js-cookie';
-
 
 
 

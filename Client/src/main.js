@@ -15,12 +15,16 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 
 library.add(faCoffee);
 library.add(faPlus);
 library.add(faPencilAlt);
 library.add(faTrashAlt);
-
+library.add(faFloppyDisk);
+library.add(faArrowLeft);
 
 
 // import store from './store'; 

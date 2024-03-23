@@ -12,6 +12,9 @@ import SignUp from '../components/SignUp.vue';
 import ForgotPassword from '../components/ForgotPassword.vue';
 import EmailVerification from '../components/EmailVerification.vue';
 import HowToUse from '../components/HowToUse.vue';
+import EditUserInformation from '../components/EditUserInformation.vue';
+import DeleteUser from '../components/DeleteUser.vue';
+
 
 
 const routes = [
@@ -93,6 +96,19 @@ const routes = [
     component: HowToUse,
     name: 'howtouse',
   },
+
+  {
+    path: '/edituserinformation',
+    component: EditUserInformation,
+    name: 'edituserinformation',
+  },
+
+  {
+    path: '/deleteuser',
+    component: DeleteUser,
+    name: 'deleteuser',
+  },
+
 
   
 ];

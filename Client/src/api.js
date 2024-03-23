@@ -248,7 +248,102 @@ export async function deleteNoteApi(noteId){
 }//End of deleteNoteApi
 
 
+export async function getUserInfoApi(){
 
+    try{
+
+        //console.log("before await api.post()");
+        const response = await api.get('/users/me', {headers: {
+
+            Authorization: 'Bearer ' + Cookies.get("auth_token")
+        }
+
+        });
+        
+        console.log("response: ");
+        console.log(response);
+
+        return response.data;
+
+    }
+
+    catch(error) {
+
+        console.log("getUserInfoApi: error: ");
+        console.log(error);
+        throw error.response.data;
+
+    }
+
+}//End of getUserInfoApi function
+
+
+export async function saveUserChangesApi(userData, userId){
+
+    try{
+
+        const saveChangesUrl = '/users/' + userId;
+
+        console.log("in saveUserChangesApi");
+        console.log("user data: ");
+        console.log(userData);
+        console.log("user id: ");
+        console.log(userId);
+        //console.log("before await api.post()");
+        const response = await api.patch(saveChangesUrl, userData, {headers: {
+
+            Authorization: 'Bearer ' + Cookies.get("auth_token")
+        }
+
+        });
+        
+        console.log("response: ");
+        console.log(response);
+
+        return response.data;
+
+    }//End of try block
+
+    catch(error) {
+
+        console.log("saveUserChangesApi: error: ");
+        console.log(error);
+        throw error.response.data;
+
+    }
+
+}//End of saveUserChangesApi function
+
+
+export async function deleteUserApi(userId){
+
+    try{
+
+        const deleteUserUrl = '/users/' + userId;
+
+        const response = await api.delete(deleteUserUrl, {headers: {
+
+            Authorization: 'Bearer ' + Cookies.get("auth_token")
+        }
+
+        });
+        
+        console.log("response: ");
+        console.log(response);
+
+        return response.data;
+
+    }
+
+    catch(error) {
+
+        console.log("deleteUserApi: error: ");
+        console.log(error);
+        throw error.response.data;
+
+    }
+
+}//End of deleteUserApi function
 
 
 

@@ -1,102 +1,85 @@
 <template>
     
+    <router-link to="/homepage" style="position: absolute; left: 1.5%; top: 2%;">
+        <font-awesome-icon icon="arrow-left" size="2x" style=""/>
+    </router-link>
+    
     <!-- <h1>This is the View Patient Notes page</h1> -->
     <!-- <div id="wrapper"> -->
 
-    <div style="position: absolute; top: 0%; left:40%;">
+    <div style="position: absolute; top: 0%; left:36%;">
 
         <!-- <p style="position: absolute; top: 0%; left: 30%;"> -->
-        <p>
+        <h2>
             Please select a note from the left side bar
-        </p>
+        </h2>
 
     </div>
 
-    <router-link to="/createnote">
-    <font-awesome-icon icon="plus" size="2x" style=""/>
-    </router-link>
+    <div style="position:absolute; right:1.5%; top:2%;">
 
-    <router-link to="/editnote">
-        <font-awesome-icon icon="pencil-alt" size="2x" style=""/>
-    </router-link>
+        <router-link to="/createnote" style="margin-right:6px;">
+            <font-awesome-icon icon="plus" size="2x" style=""/>
+        </router-link>
 
-    <router-link to="/deletenote">
-        <font-awesome-icon icon="trash-alt" size="2x" style=""/>
-    </router-link>
+        <router-link to="/editnote">
+            <font-awesome-icon @click="saveEditedNote" icon="floppy-disk" size="2x" style="margin-right:4px;"/>
+        </router-link>
 
 
+        <font-awesome-icon @click="deleteNote" icon="trash-alt" size="2x" style=""/>
 
-    
+    </div>
 
 
-    <!-- li v-for @click -->
         
-        <div style="position: absolute; left:2.5%; top:15%;">
+    <div style="position: absolute; left:2.5%; top:15%;">
 
 
-            <li v-for="note in userNotes">
+        <li v-for="note in userNotes">
 
-                <button class="button" @click="outputTextArea(note)" style="margin:5px;">
-
-
-                    <!-- button label -->
-                    {{ note.title }}
-
-                </button>
-                
-
-            </li>
-        </div>
+            <button class="button" @click="outputTextArea(note)" style="margin:5px;">
 
 
-        <!-- Text area for title -->
-        <textarea v-model="textAreaTitle" style="width:200px; height:50px; position:absolute; left:40%; 
-            top: 5%; resize:none;">
-              
-        </textarea> 
+                <!-- button label -->
+                {{ note.title }}
+
+            </button>
+            
+
+        </li>
+    </div>
 
 
-        <!-- Text area for notes -->
-        <textarea v-model="textAreaVal" style="width:200px; height:200px; position:absolute; left:60%; 
-            top: 45%; resize:none;">
+    <!-- Text area for title -->
+    <textarea v-model="textAreaTitle" style="width:200px; height:50px; position:absolute; left:28%; 
+        top: 15%; resize:none;">
+            
+    </textarea> 
 
-              
 
-        </textarea> 
+    <!-- Text area for notes -->
+    <textarea v-model="textAreaVal" style="width:700px; height:400px; position:absolute; left:28%; 
+        top: 30%; resize:none;">
 
-        <button @click="getAllNotes">
-        
-            Get All Notes
-        
-        </button>
-        
-        <br>
+            
 
-        <button @click="saveEditedNote">
-        
-            Save
-        
-        </button>
+    </textarea> 
+
+    <!-- <button @click="getAllNotes">
     
-        <button @click="deleteNote">
-        
-            Delete
+        Get All Notes
     
-        </button>
+    </button> -->
+    
+    <br>
 
-    <br><br><br>
+    
 
-    <!-- <input type="text" placeholder=""/> -->
-    
-    
-    
-    
-    
-    
-    
+<br><br><br>
+       
     <img src="../assets/bearmaxlogo.png" height=100px width="100px" style="position:absolute; bottom: 5%; left:45%;">
 
-    <!-- </div> -->
 
 </template>
 
@@ -105,9 +88,7 @@
 
     import { editNoteApi, getAllNotesApi, deleteNoteApi} from '@/api';
     import { ref } from 'vue';
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-    import { useRouter} from 'vue-router';
-
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     
 
     export default {
