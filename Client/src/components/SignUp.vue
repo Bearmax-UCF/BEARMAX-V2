@@ -45,18 +45,26 @@
 
     </div>
 
-    <div>
             
-         <p>
-            Already have an account?
-            <router-link to="/">
-                Sign in here.
-            </router-link>
+    <p> Already have an account?
+        
+        <router-link to="/">
+            Sign in here.
+        </router-link>
 
-        </p>
+    </p>
 
-    </div>
-
+    
+    <p> Want to learn more about Bearmax?
+        
+        <router-link to="/aboutus">
+            
+            About Us
+           
+            
+        </router-link>
+        
+    </p>
 
 
 </template>

@@ -14,10 +14,34 @@
 <script>
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import Cookies from 'js-cookie';
+import { useRouter} from 'vue-router';
 
 export default {
 
-};
+    setup() {
+
+        const router = useRouter();
+
+        if(!Cookies.get("auth_token")) {
+
+            router.push('/');
+
+            return {
+
+            };
+
+        }
+
+        return {
+
+        };
+
+
+
+    }//End of setup
+
+}//End of export default
 
 
 </script>

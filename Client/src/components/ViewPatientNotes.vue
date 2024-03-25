@@ -1,5 +1,5 @@
 <template>
-    
+
     <router-link to="/homepage" style="position: absolute; left: 1.5%; top: 2%;">
         <font-awesome-icon icon="arrow-left" size="2x" style=""/>
     </router-link>
@@ -89,11 +89,25 @@
     import { editNoteApi, getAllNotesApi, deleteNoteApi} from '@/api';
     import { ref } from 'vue';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-    
+    import Cookies from 'js-cookie';
+    import { useRouter} from 'vue-router';
+ 
 
     export default {
         
         setup() {
+
+            const router = useRouter();
+
+            if(!Cookies.get("auth_token")) {
+
+                router.push('/');
+
+                return {
+
+                };
+
+            }
             
             const titleArr = ["Title 1", "Title 2", "Title 3", "Title 4", "Title 5"];
             

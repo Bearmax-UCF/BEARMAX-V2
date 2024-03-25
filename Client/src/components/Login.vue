@@ -57,19 +57,28 @@
 
     <br><br><br> <br><br><br> <br><br>
 
-    <div>
-
-        <p> Don't have an account? 
     
+
+    <p> Don't have an account? 
+
         <router-link to="/signup">
         
             Sign up here.
 
         </router-link>
 
-        </p>
+    </p>
 
-   </div>
+    <p> Want to learn more about Bearmax?
+        <router-link to="/aboutus">
+            
+            About Us
+           
+            
+        </router-link>
+    </p>
+
+   
 
 </template>
 

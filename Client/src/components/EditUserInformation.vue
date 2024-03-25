@@ -55,10 +55,25 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { getUserInfoApi, saveUserChangesApi } from '@/api';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import Cookies from 'js-cookie';
 
 export default {
 
     setup() {
+
+
+        const router = useRouter();
+
+        if(!Cookies.get("auth_token")) {
+
+            router.push('/');
+
+            return {
+
+            };
+
+        }
 
         const userData = ref( {
 

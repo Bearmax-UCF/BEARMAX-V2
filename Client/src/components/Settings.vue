@@ -35,10 +35,36 @@
 <script>
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { useRouter } from 'vue-router';
+import Cookies from 'js-cookie';
+
 
 export default {
 
-};
+
+    setup() {
+
+        const router = useRouter();
+
+        if(!Cookies.get("auth_token")) {
+
+            router.push('/');
+
+            return {
+
+            };
+
+        }//End of if (token is not present, don't let user into this page)
+
+
+        return {
+
+        }
+
+    }//End of setup
+
+
+};//End of export default
 
 
 </script>

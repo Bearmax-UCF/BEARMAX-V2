@@ -8,6 +8,15 @@
     <br>
     <br>
 
+
+    <button class = "button" @click="logout">
+
+            Logout
+
+    </button>
+
+
+
     <div :style="{position: 'absolute', bottom:'350px', right:'350px'}" top="300px" right="150px">
         <img src="../assets/bearmaxlogo.png" height=210px width="210px">
     </div>
@@ -87,9 +96,69 @@
 
 <script>
 
+import { useRouter } from 'vue-router';
+import Cookies from 'js-cookie';
+
     export default {
 
-    };
+        
+        setup() {
+
+            console.log("Beginning of setup");
+
+            const router = useRouter();
+
+
+            if(!Cookies.get("auth_token")) {
+
+                router.push('/');
+
+                return {
+
+                };
+
+            }
+
+
+            const logout = async () => {
+
+                console.log("beginning of logout function");
+                
+                try {
+
+                    Cookies.remove("auth_token");
+                    router.push('/');
+
+                }//End of try
+
+                catch {
+
+                    
+
+                }//End of catch
+
+                console.log("end of logout function");
+
+
+            }//End of log out function
+
+
+            
+            console.log("End of setup, before return");
+
+            return {
+
+                logout,
+
+            };//End of return
+
+
+        }//End of setup
+
+
+
+
+    };//End of export default
 
 </script>
 
