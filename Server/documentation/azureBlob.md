@@ -74,7 +74,7 @@ Unauthorized
 }
 ```
 
-**Condition** : Blob not successfully deleted by MongoDB
+**Condition** : Container to put blob in doesn't exist
 
 **Code** : `400 Bad Request`
 
@@ -82,7 +82,18 @@ Unauthorized
 
 ```json
 { 
-    "message": "Error deleting blob"
+    "message": "Container does not exist."
+}
+```
+**Condition** : Cannot access blob
+
+**Code** : `400 Bad Request`
+
+**Content Example**
+
+```json
+{ 
+    "message": "Error getting blob"
 }
 ```
 

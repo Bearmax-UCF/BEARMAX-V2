@@ -62,3 +62,27 @@ NOTE: the above token is invalid do not try using it
  * [Upload Files](documentation/uploadFiles.md)
  * [Blobs](documentation/azureBlob.md)
  * [Containers](documentation/azureContainer.md)
+
+# Backend server-side socket documentation
+
+URL: localhost:8080
+
+In the params part of the request, include the userID key and then the value of said userID, such an example would be:
+
+```
+userID: 65c109110cbf9a30562f70fc
+```
+
+In the header part of the request, include the Authoriation key and then the value "Bearer + key", such an example would be:
+
+```
+Authorization: Bearer eyJhbGciOiJIUzI1QiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTUxNDA3OTljZDZiNmYwMGEzZjZlYjciLCJqdGkiOiI1M2I4YzM1NS1lZjRiLTRlOTAtOGRjYi01NmNjNGU2ODc3YzgiLCJpYXQiOjE2OTk5MDIzOTQsImV4cCI6MTY5OTk0NTU5NH0.L8NvN5APFJxMSEGtuHTcSpEWg9iampJkCStR46fsk4l
+```
+
+## Websocket events
+
+ * [EmotionGame](documentation/emotionServerSocket.md)
+ * [SensoryOverloadAid](documentation/sensoryAidServerSocket.md)
+ * [GSR](documentation/gsrServerSocket.md)
+
+
