@@ -11,15 +11,18 @@
 
     <div>
 
-        <input type="text" class="textField" placeholder="Email" v-model="userData.email"/>
+        <input type="text" class="textField" placeholder="Email" v-model="userData.email" 
+            style="margin-bottom:10px;"/>
 
         <br>
 
-        <input type="text" class="textField" placeholder="First Name" v-model="userData.firstName"/>
+        <input type="text" class="textField" placeholder="First Name" v-model="userData.firstName" 
+            style="margin-bottom:10px;"/>
 
         <br>
 
-        <input type="text" class="textField" placeholder="Last Name" v-model="userData.lastName"/>
+        <input type="text" class="textField" placeholder="Last Name" v-model="userData.lastName" 
+            style="margin-bottom:10px;"/>
 
         <br>
 
@@ -36,7 +39,7 @@
 
     <div>
 
-        <button @click="register" class="button" width="180px">
+        <button @click="register" class="button" style= "position: absolute; left:31.25%; width:180px;">
             Sign Up
 
         </button>
@@ -44,6 +47,8 @@
         <p v-if="registrationError" style="color: red;">{{ registrationError }}</p>
 
     </div>
+
+    <br><br>
 
             
     <p> Already have an account?

@@ -1,43 +1,63 @@
 <template>
     
-    <h1>This is the Edit User Information page</h1>
+    <h1 style="position:absolute; left:38%;">Edit User Information</h1>
 
     <router-link to="/settings" style="position: absolute; left: 1.5%; top: 2%;">
         <font-awesome-icon icon="arrow-left" size="2x" style=""/>
     </router-link>
     
-    <br><br>
-    
-    <p>Email is:{{ currentUser.email }}</p>
-    
-    <input type="text" class="textField" placeholder="Email" v-model="userData.email"/>
-    
-    <br><br>
-    
-    <p>First name is:{{ currentUser.firstName }}</p>
-    
-    <input type="text" class="textField" placeholder="First Name" v-model="userData.firstName"/>
+    <br><br><br><br>
+
+    <div style="position: relative; left: 35%;">
+
+        <p>Email is:{{ currentUser.email }}</p>
+        
+        <input type="text" class="textField" placeholder="Email" v-model="userData.email"/>
+
+    </div>
     
     <br><br>
     
-    <p>Last name is:{{ currentUser.lastName }}</p>
-    
-    <input type="text" class="textField" placeholder="Last Name" v-model="userData.lastName"/>
-    
+    <div style="position: relative; left: 35%;">
+
+        <p>First name is:{{ currentUser.firstName }}</p>
+        
+        <input type="text" class="textField" placeholder="First Name" v-model="userData.firstName"/>
+
+    </div>
+
     <br><br>
     
-    <input type="password" class="textField" placeholder="Password" v-model="userData.password"/>
+    <div style="position: relative; left: 35%;">
+
+        <p>Last name is:{{ currentUser.lastName }}</p>
     
+        <input type="text" class="textField" placeholder="Last Name" v-model="userData.lastName"/>
+    
+    </div>
+
     <br><br>
     
-    <p>New email is: {{ userData.email }}</p>
-    <p>New first name is: {{ userData.firstName }}</p>
-    <p>New last name is: {{ userData.lastName }}</p>
-    <p>New password is: {{ userData.password }}</p>
+    <div style="position: relative; left: 35%;">
+
+        <input type="password" class="textField" placeholder="Password" v-model="userData.password"/>
+
+    </div>
+
+    <br><br>
+
+    <div style="position: relative; left: 35%;">
+
+        <p>New email is: {{ userData.email }}</p>
+        <p>New first name is: {{ userData.firstName }}</p>
+        <p>New last name is: {{ userData.lastName }}</p>
+        <p>New password is: {{ userData.password }}</p>
+
+    </div>
     
     
-    
-    <button @click = "saveChanges">
+    <button @click = "saveChanges" class="button" style="position: absolute; left: 43%; bottom:5%; 
+        width: 150px;">
         
         Save
         

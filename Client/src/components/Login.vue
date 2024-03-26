@@ -16,7 +16,8 @@
 
     <div>
 
-        <input type="text" class="textField" placeholder="Email" v-model="userData.email"/>
+        <input type="text" class="textField" placeholder="Email" v-model="userData.email" 
+            style="margin-bottom:10px;"/>
 
         <br>
         

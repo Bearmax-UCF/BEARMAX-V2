@@ -9,13 +9,9 @@
     <br>
 
 
-    <button class = "button" @click="logout">
-
-            Logout
-
+    <button @click="logout" style="position: absolute; top: 2.5%; right:2.5%">
+        <font-awesome-icon icon="right-from-bracket" size="2x" style=""/>
     </button>
-
-
 
     <div :style="{position: 'absolute', bottom:'350px', right:'350px'}" top="300px" right="150px">
         <img src="../assets/bearmaxlogo.png" height=210px width="210px">
@@ -81,15 +77,15 @@
         
         <div>
         
-        <p>
-        
-            New user? 
-            <router-link to="/howtouse">
-                Go to "How to Use" page.
-            </router-link>
+            <p>
+            
+                New user? 
+                <router-link to="/howtouse">
+                    Go to "How to Use" page.
+                </router-link>
 
-        </p>
-    </div>
+            </p>
+        </div>
 
 </template>
 
@@ -98,6 +94,7 @@
 
 import { useRouter } from 'vue-router';
 import Cookies from 'js-cookie';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
     export default {
 

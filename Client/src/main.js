@@ -17,6 +17,7 @@ import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 
 library.add(faCoffee);
@@ -25,7 +26,7 @@ library.add(faPencilAlt);
 library.add(faTrashAlt);
 library.add(faFloppyDisk);
 library.add(faArrowLeft);
-
+library.add(faRightFromBracket);
 
 // import store from './store'; 
 

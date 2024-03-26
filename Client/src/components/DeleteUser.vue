@@ -1,18 +1,25 @@
 <template>
     
-    <h1>This is the Delete User page</h1>
+    <h1 style="position: absolute; left: 31%; top: 25%;">
+            
+        Are you sure you want to delete your account?
+        
+    </h1>
 
     <router-link to="/settings" style="position: absolute; left: 1.5%; top: 2%;">
         <font-awesome-icon icon="arrow-left" size="2x" style=""/>
     </router-link>
 
-    <button @click = "deleteUser"> 
+    <button @click = "deleteUser" class="button" style="position: absolute; left:42%; top: 45%;"> 
 
         Delete User
 
     </button>
    
     <br><br>
+
+    <img src="../assets/bearmaxlogo.png" height=110px width="110px" style="position: absolute; left: 45%; 
+        bottom: 5%;">
 
 
 </template>

@@ -22,12 +22,14 @@
             <font-awesome-icon icon="plus" size="2x" style=""/>
         </router-link>
 
-        <router-link to="/editnote">
-            <font-awesome-icon @click="saveEditedNote" icon="floppy-disk" size="2x" style="margin-right:4px;"/>
-        </router-link>
+        <button @click="saveEditedNote">
+            <font-awesome-icon icon="floppy-disk" size="2x" style="margin-right:4px;"/>
+        </button>
 
 
-        <font-awesome-icon @click="deleteNote" icon="trash-alt" size="2x" style=""/>
+        <button @click="deleteNote">
+            <font-awesome-icon icon="trash-alt" size="2x" style=""/>
+        </button>
 
     </div>
 

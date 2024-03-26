@@ -7,28 +7,31 @@
     </router-link>
     
     
-    <router-link to="/edituserinformation">
-        
-        <button>
+    <div style="position: absolute; left: 2.5%; top: 12.5%;">
+
+        <router-link to="/edituserinformation">
             
-            Edit Information
+            <button class="button" style="width:200px; margin-bottom: 10px;">
+                
+                Edit Information
+                
+            </button>
             
-        </button>
+        </router-link>
         
-    </router-link>
-    
-    
-    <router-link to="/deleteuser">
+        <br>
         
-        <button>
+        <router-link to="/deleteuser">
             
-            Delete User
+            <button class="button" style="width:200px;">
+                
+                Delete User
+                
+            </button>
             
-        </button>
-        
-    </router-link>
+        </router-link>
     
-    
+    </div>
     
 </template>
 
