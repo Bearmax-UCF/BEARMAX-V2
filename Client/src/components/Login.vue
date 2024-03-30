@@ -112,8 +112,8 @@ export default {
 
             try{
 
-            await(loginApi(userData.value));
-            router.push('./homepage');
+                await(loginApi(userData.value));
+                router.push('./homepage');
                 
 
             }
