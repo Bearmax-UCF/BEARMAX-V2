@@ -4,8 +4,8 @@ import EmotionRecognition from "../../models/EmotionRecognition";
 
 const router = Router();
 
-
-/*router.post("/", requireJwtAuth, async (req, res, next) => {
+// temporary API just used for testing to see emotion game stats on frontend
+router.post("/", requireJwtAuth, async (req, res, next) => {
 	const { Correct, Wrong, NumPlays } = req.body;
 	const GameFin = new Date();
 	const UserID = req.user!._id;
@@ -39,8 +39,7 @@ const router = Router();
 		console.log("error is: " + err);
 		next(err);
 	}
-});*/
-
+});
 
 router.get("/", requireJwtAuth, async (req, res, next) => {
 	// Get all emotion games with UserID equal and return them

@@ -68,6 +68,18 @@ Unauthorized
 }
 ```
 
+**Condition** : File is larger than 1 GB
+
+**Code** : `400 Bad Request`
+
+**Content Example**
+
+```json
+{
+    "message": "File size must be 1 GB or less"
+}
+```
+
 **Condition** : User id is not present in the API URL
 
 **Code** : `400 Bad Request`
@@ -193,6 +205,18 @@ Unauthorized
 ```json
 {
     "message": "File type must be an video mp4 file"
+}
+```
+
+**Condition** : File is larger than 1 GB
+
+**Code** : `400 Bad Request`
+
+**Content Example**
+
+```json
+{
+    "message": "File size must be 1 GB or less"
 }
 ```
 
