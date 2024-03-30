@@ -27,8 +27,8 @@ export async function sendPasswordReset(email: string, token: string, id: string
         from: "Bearmax Account Services<no-reply@bearmax-service.bearmaxcare.com>",
         to: email,
         subject: 'Password Reset',
-        text: resetPasswordEmailTemplate(`${constants.server_url}/api/auth/resetPassword?token=${token}&id=${id}`),
-        html: resetPasswordEmailTemplate(`${constants.server_url}/api/auth/resetPassword?token=${token}&id=${id}`)
+        text: resetPasswordEmailTemplate(`${constants.server_url}/resetPassword?token=${token}&id=${id}`),
+        html: resetPasswordEmailTemplate(`${constants.server_url}/resetPassword?token=${token}&id=${id}`)
     }
     return mailgun.messages.create(
         constants.mailgun_domain,
