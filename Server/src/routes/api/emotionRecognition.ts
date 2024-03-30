@@ -5,7 +5,7 @@ import EmotionRecognition from "../../models/EmotionRecognition";
 const router = Router();
 
 
-router.post("/", requireJwtAuth, async (req, res, next) => {
+/*router.post("/", requireJwtAuth, async (req, res, next) => {
 	const { Correct, Wrong, NumPlays } = req.body;
 	const GameFin = new Date();
 	const UserID = req.user!._id;
@@ -39,7 +39,7 @@ router.post("/", requireJwtAuth, async (req, res, next) => {
 		console.log("error is: " + err);
 		next(err);
 	}
-});
+});*/
 
 
 router.get("/", requireJwtAuth, async (req, res, next) => {
