@@ -48,6 +48,7 @@
 
             </button>
 
+            <!-- How to print error messages -->
             <p v-if="loginError" style="color: red;">{{ loginError }}</p>
 
 

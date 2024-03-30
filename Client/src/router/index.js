@@ -10,6 +10,7 @@ import ViewData from '../components/ViewData.vue';
 import AboutUs from '../components/AboutUs.vue';
 import SignUp from '../components/SignUp.vue';
 import ForgotPassword from '../components/ForgotPassword.vue';
+import resetPassword from '../components/resetPassword.vue';
 import EmailVerification from '../components/EmailVerification.vue';
 import HowToUse from '../components/HowToUse.vue';
 import EditUserInformation from '../components/EditUserInformation.vue';
@@ -109,6 +110,11 @@ const routes = [
     name: 'deleteuser',
   },
 
+  {
+    path: '/resetpassword',
+    component: resetPassword,
+    name: 'resetpassword',
+  },
 
   
 ];

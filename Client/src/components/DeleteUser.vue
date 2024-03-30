@@ -21,7 +21,6 @@
     <img src="../assets/bearmaxlogo.png" height=110px width="110px" style="position: absolute; left: 45%; 
         bottom: 5%;">
 
-
 </template>
 
 <script>

@@ -61,12 +61,6 @@ import { forgotPasswordApi } from '@/api';
             };
 
         }
-
-
-
-
-
-
         
     }//End of export default
 

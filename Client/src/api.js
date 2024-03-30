@@ -345,6 +345,85 @@ export async function deleteUserApi(userId){
 
 }//End of deleteUserApi function
 
+export async function getEmotionRecognitionDataApi(){
+
+    try{
+
+        console.log("inside getEmotionRecognitionDataApi function");
+
+        console.log("baseURL is: " + baseURL);
+
+        //console.log("before await api.post()");
+        const response = await api.get('/emotionRecognition', {headers: {
+
+            Authorization: 'Bearer ' + Cookies.get("auth_token")
+        }
+
+        });
+
+        console.log("after getEmotionRecognitionDataApi call");
+
+
+        console.log("response: ");
+        console.log(response);
+
+        console.log("end of getEmotionRecognitionDataApi try block (right before return response.data)");
+
+
+        return response.data;
+
+    }
+
+    catch(error) {
+
+        console.log("getEmotionRecognitionDataApi: error: ");
+        console.log(error);
+        throw error.response.data;
+
+    }
+
+}//End of getEmotionRecognitionDataApi
+
+
+export async function saveEmotionRecognitionDataApi(){
+
+    const gameData = {
+
+        Correct: [1,2], 
+        Wrong: [1,1],
+        NumPlays: 2,
+        
+    }
+
+        try {
+            //console.log("before await api.post()");
+            const response = await api.post('/emotionRecognition', gameData, {headers: {
+
+                Authorization: 'Bearer ' + Cookies.get("auth_token")
+            }
+
+            });
+            
+            console.log("response: ");
+            console.log(response);
+
+            return response.data;
+        }
+
+        catch(error) {
+
+            console.log("saveEmotionRecognitionDataApi: error: ");
+            console.log(error);
+            throw error.response.data;
+
+        }
+
+
+}//End of export saveEmotionRecognitionDataApi function
+
+
+
+
 
 
 // export async function resetPasswordApi(data) {

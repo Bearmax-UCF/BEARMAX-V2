@@ -4,13 +4,19 @@ import EmotionRecognition from "../../models/EmotionRecognition";
 
 const router = Router();
 
-/*
+
 router.post("/", requireJwtAuth, async (req, res, next) => {
 	const { Correct, Wrong, NumPlays } = req.body;
 	const GameFin = new Date();
 	const UserID = req.user!._id;
 
+	console.log("correct is: " + Correct);
+	console.log("wrong is: " + Wrong);
+	console.log("NumPlays is: " + NumPlays);
+
+
 	if (!Correct || !Wrong || !NumPlays) {
+		console.log("error: Missing fields");
 		return res.status(400).send({ message: "Missing fields" });
 	}
 
@@ -23,13 +29,18 @@ router.post("/", requireJwtAuth, async (req, res, next) => {
 			UserID,
 		});
 
+		console.log("before finishedGame.save()");
 		finishedGame.save();
+		console.log("after finishedGame.save()");
+
 		res.status(200).send();
 	} catch (err) {
+
+		console.log("error is: " + err);
 		next(err);
 	}
 });
-*/
+
 
 router.get("/", requireJwtAuth, async (req, res, next) => {
 	// Get all emotion games with UserID equal and return them

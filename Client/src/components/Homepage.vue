@@ -9,7 +9,7 @@
     <br>
 
 
-    <button @click="logout" style="position: absolute; top: 2.5%; right:2.5%">
+    <button @click="logout" style="position: absolute; top: 2.5%; right:2.5%;">
         <font-awesome-icon icon="right-from-bracket" size="2x" style=""/>
     </button>
 
@@ -207,6 +207,7 @@ transition: background-color 1s;
 
 
 }
+
 
     
 </style>

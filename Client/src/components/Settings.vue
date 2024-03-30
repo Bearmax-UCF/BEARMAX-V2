@@ -30,6 +30,18 @@
             </button>
             
         </router-link>
+
+        <br>
+
+        <router-link to="/passwordreset">
+            
+            <button class="button" style="width:200px;">
+                
+                Password Reset
+                
+            </button>
+            
+        </router-link>
     
     </div>
     

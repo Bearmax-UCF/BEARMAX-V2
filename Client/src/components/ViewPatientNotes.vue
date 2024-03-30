@@ -256,9 +256,6 @@
             const getAllNotesError = ref(null);
             const userNotes = ref(Array());
            
-
-            
-
             const getAllNotes = async () => {
 
                 try{

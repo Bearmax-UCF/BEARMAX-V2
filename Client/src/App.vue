@@ -27,6 +27,7 @@
     import Homepage from './components/Homepage.vue';
     import HowToUse from './components/HowToUse.vue';
     import Login from './components/Login.vue';
+    import resetPassword from './components/resetPassword.vue';
     import Settings from './components/Settings.vue';
     import SignUp from './components/SignUp.vue';
     import ViewData from './components/ViewData.vue';
@@ -36,7 +37,7 @@
     export default defineComponent({
         
         components: {AboutUs, CreateNote, DeleteNote, DeleteUser, EditNote, EditUserInformation, EmailVerification, 
-          ForgotPassword, Homepage, HowToUse, Login, Settings, SignUp, ViewData, ViewPatientNotes}
+          ForgotPassword, Homepage, HowToUse, Login, resetPassword, Settings, SignUp, ViewData, ViewPatientNotes}
     
     });
 
