@@ -12,7 +12,7 @@ export default {
         process.env.MONGO_URI ||
         "",
     mongo_db: process.env.MONGO_DB || "test",
-    isProduction: process.env.NODE_ENV === "test",
+    isProduction: process.env.NODE_ENV === "prod",
     secret_key: process.env.SECRET_KEY || "dontkeepme",
     bcrypt_log_rounds: Number(process.env.BCRYPT_LOG_ROUNDS) || 10,
     token_expires_in: process.env.TOKEN_EXPIRES_IN || "12h",
