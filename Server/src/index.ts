@@ -41,7 +41,7 @@ app.use("/", routes);
 // Serve the frontend app
 if (constants.isProduction) {
 	app.get("*", function (_, res) {
-		res.sendFile(path.join(__dirname, "../../Client/build/index.html"));
+		//res.sendFile(path.join(__dirname, "../../Client/build/index.html"));
 	});
 } else {
 	app.use(
