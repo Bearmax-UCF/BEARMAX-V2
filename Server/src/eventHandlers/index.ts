@@ -24,6 +24,7 @@ export default (io: Server) => {
 	//       console.log(`NEW CONNECTION: ${isAuthorized}`);
 
 	// Ensure websocket clients have a valid client certificate
+	/*
 	if (constants.isProduction) {
 		io.engine.on("connection", (rawSocket: any) => {
 			const auth_header: String | undefined =
@@ -57,7 +58,8 @@ export default (io: Server) => {
 			}
 		});
 	}
-
+	*/
+	
 	/*
   Events:
 

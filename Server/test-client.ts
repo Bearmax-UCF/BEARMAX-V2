@@ -27,6 +27,7 @@ const socket = io(URL, {
 	extraHeaders: {
 		Authorization: "Bearer " + TOKEN,
 	},
+	transports: ["polling", "websocket"],
 });
 
 const getNextVal = (lastVal: number) => {
@@ -37,6 +38,7 @@ const getNextVal = (lastVal: number) => {
 socket.on("connect", () => {
 	console.log("Client connected!");
 	
+	/*
 	let last = 450;
 	setInterval(() => {
 		// console.log("Sending!");
@@ -44,7 +46,19 @@ socket.on("connect", () => {
 		socket.emit("GSR", JSON.stringify({ value: last, ts: new Date() }));
 		console.log(socket);
 	}, 71);
+	*/
+	socket.emit("ping");
+	socket.emit("speak", JSON.stringify({ message: "test.mp4" }));
 });
+
+socket.on("Pong!", () => {
+	console.log("Pong received!");
+})
+
+socket.on("speak", (message: string) => {
+	console.log("Received speak event with message '" + message + "'");
+	socket.disconnect();
+})
 
 socket.on("disconnect", () => {
 	console.log("disconnected!");
