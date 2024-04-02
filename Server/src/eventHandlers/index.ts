@@ -24,6 +24,7 @@ export default (io: Server) => {
 	//       console.log(`NEW CONNECTION: ${isAuthorized}`);
 
 	// Ensure websocket clients have a valid client certificate
+	/*
 	if (constants.isProduction) {
 		io.engine.on("connection", (rawSocket: any) => {
 			const auth_header: String | undefined =
@@ -57,7 +58,8 @@ export default (io: Server) => {
 			}
 		});
 	}
-
+	*/
+	
 	/*
   Events:
 
@@ -82,7 +84,12 @@ export default (io: Server) => {
         - Args: none
 	- 'playMedia': Raspberry Pi listening for media updates for the sensory overload aid
   */
-
+	io.on("connection_error", (err) => {
+		console.log(err.req);      // the request object
+  		console.log(err.code);     // the error code, for example 1
+  		console.log(err.message);  // the error message, for example "Session ID unknown"
+  		console.log(err.context);  // some additional error context
+	});
 	io.on("connection", (socket) => {
 		console.log(
 			"New connection " +
