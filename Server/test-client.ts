@@ -1,23 +1,25 @@
+import { Json } from "mailgun.js";
 import { io } from "socket.io-client";
 
 console.log("Attempting to connect");
 
 /*
-carewithbearmax.com
+bearmaxcare.com
 
 const TOKEN =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDM3MDc1ZmY2MjQ4MjgzMDJlZTMwNjciLCJqdGkiOiI0YWY0ZDk0ZS01YWVkLTRkMzItYTQyNy1jYTU1ZjIwZTNmOTkiLCJpYXQiOjE2ODE5MjY2OTksImV4cCI6MTY4MTk2OTg5OX0.bjL-tptKMTK8i8ag7nxVz2NWpgDf3knQOuYqbK21Jc8";
-const USERID = "6437075ff624828302ee3067";
-const URL = "https://carewithbearmax.com";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjA5OWI0OTZmZWEzMDRhNGNlMWFmOGEiLCJqdGkiOiI4MmNmZjUzNC0wM2FlLTQ2NjYtOThhYi04MjVkYzg0Y2EwMjkiLCJpYXQiOjE3MTE5MDU2NDEsImV4cCI6MTcxMTk0ODg0MX0.ca7svHbBnquHX2hRsYpD_lrd3enCHuDH-7E3cpML8Q8"
+const USERID = "66099b496fea304a4ce1af8a";
+const URL = "https://bearmaxcare.com";
 */
 
 /*
 dev
 */
 const TOKEN =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjA2ZWE4NTlhNWY1YjU5ODU2ZmUzNDgiLCJqdGkiOiJmZmM1MmY4Ni0yNjQyLTQ2MTMtYmJiOS0wMTQzZDhiZmVkM2QiLCJpYXQiOjE3MTE5MDM3NDIsImV4cCI6MTcxMTk0Njk0Mn0.HikEJJXiQZtaosp5Yi3Y1xkOkiElPXo7Z2KMWJNWVGY";
-const USERID = "6606ea859a5f5b59856fe348";
-const URL = "https://bearmaxcare.com/";
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBkYTI3YTY2YTUxZTQ1YzIwMTA1NGIiLCJqdGkiOiJmZGFmYjZmNS05M2Y4LTQ2NDAtODBjZS0xNjkwOGYzZGJhNmEiLCJpYXQiOjE3MTIxNjk2NDMsImV4cCI6MTcxMjIxMjg0M30.ioGCYqJ0wVnQgVlN86_KqRyrfY7pZjdDIQlhQpwgkIc";
+const USERID = "660da27a66a51e45c201054b";
+const URL = "http://localhost:8080";
+
 
 // @ts-ignore
 const socket = io(URL, {
@@ -47,18 +49,41 @@ socket.on("connect", () => {
 		console.log(socket);
 	}, 71);
 	*/
+
 	socket.emit("ping");
-	socket.emit("speak", JSON.stringify({ message: "test.mp4" }));
+	socket.emit("speak", "Hello from the client!");
+	socket.emit("emotionGame", "start", { userID: USERID });
+	socket.emit("emotionGame", "stop", { userID: USERID });
+	socket.emit("emotionGameStats", JSON.stringify({ Correct: [0, 0, 0, 0], Wrong: [0, 0, 0, 0], GameFin: new Date(), UserID: USERID, NumPlays: 1 }));
+	socket.emit("recalibrate");
+	socket.emit("GSR", JSON.stringify({ value: 450, ts: new Date() }));
+	socket.emit("playMedia", JSON.stringify({ mediaURL: "Metal_pipe_falling_sound_effectloud.mp4" }), { userID: USERID });
 });
+
 
 socket.on("Pong!", () => {
 	console.log("Pong received!");
 })
 
-socket.on("speak", (message: string) => {
-	console.log("Received speak event with message '" + message + "'");
-	socket.disconnect();
-})
+socket.on("speak", (msg: string) => {
+	console.log('Message: ' + msg);
+});
+
+socket.on("emotionGame", (action: string, senderID: string) => {
+	console.log("Received emotionGame event with action '" + action + "' from senderID: " + senderID);
+});
+
+socket.on("recalibrate", () => {
+	console.log("Received recalibrate event");
+});
+
+socket.on("GSR", (dataValue:string, dataTS:string) => {
+	console.log("Received GSR event with data: " + dataValue + " at " + dataTS);
+});
+
+socket.on("playMedia", (blobSasUrl: string) => {
+	console.log("Received playMedia event with data: " + JSON.stringify(blobSasUrl));
+});
 
 socket.on("disconnect", () => {
 	console.log("disconnected!");
