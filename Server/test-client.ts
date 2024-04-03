@@ -47,8 +47,11 @@ socket.on("connect", () => {
 		console.log(socket);
 	}, 71);
 	*/
+	socket.emit("GSR", JSON.stringify({ value: 450, ts: new Date() }));
 	socket.emit("ping");
+	
 	socket.emit("speak", JSON.stringify({ message: "test.mp4" }));
+	//socket.emit("emotionGame", JSON.stringify({ action: "start" }));
 });
 
 socket.on("Pong!", () => {
@@ -63,3 +66,11 @@ socket.on("speak", (message: string) => {
 socket.on("disconnect", () => {
 	console.log("disconnected!");
 });
+
+socket.on("GSR", (data: string, date: string) => {
+	console.log("Received GSR data: " + data + date);
+});
+
+socket.on("connect_error", () => {
+	console.log("Connection error!");
+})
