@@ -33,7 +33,7 @@ const dbClient = mongoose.connect(constants.mongo_uri).then((m) => {
 // @ts-ignore
 setupAuthSvc(app, dbClient);
 
-app.use(express.static(path.join(__dirname, "../../Client/dist")));
+app.use(express.static(path.join(__dirname, "../../Client/build")));
 
 // Setup Routes
 app.use("/", routes);
@@ -41,7 +41,7 @@ app.use("/", routes);
 // Serve the frontend app
 if (constants.isProduction) {
 	app.get("*", function (_, res) {
-		//res.sendFile(path.join(__dirname, "../../Client/dist/index.html"));
+		//res.sendFile(path.join(__dirname, "../../Client/build/index.html"));
 	});
 } else {
 	app.use(
