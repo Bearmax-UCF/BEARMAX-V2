@@ -1,11 +1,19 @@
 <template>
 
-<!-- <button @click="passwordReset">
+    <button @click="passwordReset">
 
-    Reset Password
+        Reset Password
 
-</button> -->
+    </button>
 
+    <br><br>
+
+    <input type="password" class="textField" placeholder="New Password" v-model="newPassword"/>
+
+    <br><br>
+
+
+    <p>New password is: {{ newPassword }}</p>
 
 </template>
 
@@ -13,39 +21,48 @@
 
 <script>
 
-    // export default() {
+    import { ref } from 'vue';
 
-    //     setup() {
 
-    //         const passwordResetError = ref(null);
+    export default {
 
-    //         const passwordReset = async() => {
+        setup() {
 
-    //             try {
+            const newPassword = ref();
+
+            const passwordResetError = ref(null);
+
+            const passwordReset = async() => {
+
+                try {
 
                     
 
-    //             }
+                }
+
+                catch(error) {
+
+                    console.log(error.message);
+                }
 
 
 
-
-
-    //         }//End of passwordReset function
+            }//End of passwordReset function
 
 
 
-    //         return {
+            return {
 
-    //             passwordReset,
-    //             passwordResetError,
+                passwordReset,
+                passwordResetError,
+                newPassword,
 
-    //         }
+            }
 
 
-    //     }//End of setup
+        }//End of setup
 
-    // }
+    }//End export default
 
 </script>
 

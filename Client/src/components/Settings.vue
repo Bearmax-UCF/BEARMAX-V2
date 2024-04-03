@@ -1,6 +1,6 @@
 <template>
     
-    <h1>This is the Settings page</h1>
+    <h2 style="position:absolute; top:2%; left:33%;">Please choose an option from the left-hand side.</h2>
 
     <router-link to="/homepage" style="position: absolute; left: 1.5%; top: 2%;">
         <font-awesome-icon icon="arrow-left" size="2x" style=""/>
@@ -23,7 +23,7 @@
         
         <router-link to="/deleteuser">
             
-            <button class="button" style="width:200px;">
+            <button class="button" style="width:200px; margin-bottom: 10px;">
                 
                 Delete User
                 
@@ -33,7 +33,7 @@
 
         <br>
 
-        <router-link to="/passwordreset">
+        <router-link to="/forgotpassword">
             
             <button class="button" style="width:200px;">
                 

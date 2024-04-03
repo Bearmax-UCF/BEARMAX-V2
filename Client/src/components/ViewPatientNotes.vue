@@ -113,6 +113,22 @@
             
             const titleArr = ["Title 1", "Title 2", "Title 3", "Title 4", "Title 5"];
             
+            const newNote = ref ({
+
+                title: '',
+                date: '',
+                note: ''
+            });
+
+            const selectedNote = ref( {
+
+                note_id: '',
+                title: '',
+                note: '',
+            });
+
+            const userNotes = ref(Array());
+
             const textAreaTitle = ref();
             const textAreaVal = ref();
             
@@ -149,7 +165,7 @@
                 } 
 
                 catch(error) {
-                    console.log(error.message);
+                    console.log("outputTextArea function error message is " + error.message);
                 } 
 
             }//End of outputTextArea function
@@ -201,60 +217,43 @@
             }//End of const saveEditedNote function
 
 
-        const deleteNoteError = ref(null);
+            const deleteNoteError = ref(null);
 
-        const deleteNote = async () => {
+            const deleteNote = async () => {
 
-            try{
-                
-                console.log('calling deleteNoteApi function ');
+                try{
+                    
+                    console.log('calling deleteNoteApi function ');
 
-                console.log("selectedNote.note_id is " + selectedNote.note_id);
+                    console.log("selectedNote.note_id is " + selectedNote.note_id);
 
-                
-                const response = await deleteNoteApi(selectedNote.note_id);
-                
-                console.log("response is");
-                console.log(response);
-                
-                console.log('DeleteNoteApi call returned.');
+                    
+                    const response = await deleteNoteApi(selectedNote.note_id);
+                    
+                    console.log("response is");
+                    console.log(response);
+                    
+                    console.log('DeleteNoteApi call returned.');
 
-                textAreaTitle.value = "";
-                textAreaVal.value = "";
-                selectedNote.note_id = "";
-                selectedNote.title = "";
-                selectedNote.note = "";
+                    textAreaTitle.value = "";
+                    textAreaVal.value = "";
+                    selectedNote.note_id = "";
+                    selectedNote.title = "";
+                    selectedNote.note = "";
 
-                getAllNotes();
+                    getAllNotes();
 
-            }
+                }
 
-            catch (error) {
-                console.log("failed");
-                deleteNoteError.value = error.message || 'An error occured.';
-            }
+                catch (error) {
+                    console.log("failed");
+                    deleteNoteError.value = error.message || 'An error occured.';
+                }
 
-        }//End of deleteNote function
+            }//End of deleteNote function
 
-
-
-            const newNote = ref ({
-
-                title: '',
-                date: '',
-                note: ''
-            });
-
-            const selectedNote = ref( {
-
-                note_id: '',
-                title: '',
-                note: '',
-            });
-
-            
+        
             const getAllNotesError = ref(null);
-            const userNotes = ref(Array());
            
             const getAllNotes = async () => {
 
@@ -283,7 +282,7 @@
                     console.log('GetAllNotesApi call returned.');
 
         
-            }
+                }
 
                 catch (error) {
                     console.log("failed");

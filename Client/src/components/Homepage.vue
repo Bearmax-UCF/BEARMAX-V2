@@ -75,7 +75,9 @@
         <br>
         <br>
         
-        <div>
+        <!-- Link to How to Use page (page to be implemented, if desired) -->
+
+        <!-- <div>
         
             <p>
             
@@ -85,7 +87,7 @@
                 </router-link>
 
             </p>
-        </div>
+        </div> -->
 
 </template>
 

@@ -32,7 +32,7 @@ import { forgotPasswordApi } from '@/api';
 
             const userData = ref( {
 
-                email: ''
+                email: '',
                 
             });
 

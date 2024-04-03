@@ -387,22 +387,44 @@ export async function getEmotionRecognitionDataApi(){
 
 export async function saveEmotionRecognitionDataApi(){
 
-    const gameData = {
+    //make loop to go through different data
 
-        Correct: [1,2], 
-        Wrong: [1,1],
-        NumPlays: 2,
+    const gameData = [
+
+        {
+            Correct: [3],
+            Wrong: [2],
+            NumPlays: 1
+        },
+
+        {
+            Correct: [2,4],
+            Wrong: [3,0],
+            NumPlays: 2    
+        }
         
-    }
+    ];
 
         try {
-            //console.log("before await api.post()");
-            const response = await api.post('/emotionRecognition', gameData, {headers: {
 
-                Authorization: 'Bearer ' + Cookies.get("auth_token")
-            }
+            var response = {};
+
+            // items.forEach((item, index) => {
+            //     console.log(`Item ${index}: ${item}`);
+            //   });
+
+
+            gameData.forEach((element) => {
+
+                //console.log("before await api.post()");
+                 response = api.post('/emotionRecognition', element, {headers: {
+
+                    Authorization: 'Bearer ' + Cookies.get("auth_token")
+                }//End of header
 
             });
+            }
+        );
             
             console.log("response: ");
             console.log(response);
