@@ -88,3 +88,11 @@ socket.on("playMedia", (blobSasUrl: string) => {
 socket.on("disconnect", () => {
 	console.log("disconnected!");
 });
+
+socket.on("GSR", (data: string, date: string) => {
+	console.log("Received GSR data: " + data + date);
+});
+
+socket.on("connect_error", () => {
+	console.log("Connection error!");
+})
