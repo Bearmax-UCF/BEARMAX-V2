@@ -30,7 +30,8 @@ router.post("/uploadAudio/:id", requireJwtAuth, upload.single('file'), async (re
     }
     // check file size
     const fileSizeInMB = (file.size / (1024 * 1024));
-    // if (fileSizeInMB > 1000) { // wanted a max of 1 GB, but Cloudflare free tier only allows 100 MB
+    // Wanted a max of 1 GB, but Cloudflare free tier only allows 100 MB
+    // if (fileSizeInMB > 1000) {
     if (fileSizeInMB > 100) {
         // return res.status(400).send({ message: "File size must be 1 GB or less" });
         return res.status(400).send({ message: "File size must be 100 MB or less" });

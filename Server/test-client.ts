@@ -39,16 +39,6 @@ const getNextVal = (lastVal: number) => {
 
 socket.on("connect", () => {
 	console.log("Client connected!");
-	
-	/*
-	let last = 450;
-	setInterval(() => {
-		// console.log("Sending!");
-		last = getNextVal(last);
-		socket.emit("GSR", JSON.stringify({ value: last, ts: new Date() }));
-		console.log(socket);
-	}, 71);
-	*/
 
 	socket.emit("ping");
 	socket.emit("speak", "Hello from the client!");
