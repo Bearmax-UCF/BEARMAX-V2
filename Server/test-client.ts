@@ -7,8 +7,8 @@ console.log("Attempting to connect");
 bearmaxcare.com
 
 const TOKEN =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjA5OWI0OTZmZWEzMDRhNGNlMWFmOGEiLCJqdGkiOiI4MmNmZjUzNC0wM2FlLTQ2NjYtOThhYi04MjVkYzg0Y2EwMjkiLCJpYXQiOjE3MTE5MDU2NDEsImV4cCI6MTcxMTk0ODg0MX0.ca7svHbBnquHX2hRsYpD_lrd3enCHuDH-7E3cpML8Q8"
-const USERID = "66099b496fea304a4ce1af8a";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBkYWQ2MmNhYjNiMTEyMTY4NjkyMTMiLCJqdGkiOiJiYjU1NmUyZS1lMjZiLTQ5MzEtOTA4Yi1jODUyZDM5MGU3YmMiLCJpYXQiOjE3MTIzNTEwOTUsImV4cCI6MTcxMjM5NDI5NX0.3zDFT0cXrTzBGH8RiVRjpJ8lMkJnMllw6Pl1xvRXHko"
+const USERID = "660dad62cab3b11216869213";
 const URL = "https://bearmaxcare.com";
 */
 
@@ -16,7 +16,7 @@ const URL = "https://bearmaxcare.com";
 dev
 */
 const TOKEN =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBkYTI3YTY2YTUxZTQ1YzIwMTA1NGIiLCJqdGkiOiJmZGFmYjZmNS05M2Y4LTQ2NDAtODBjZS0xNjkwOGYzZGJhNmEiLCJpYXQiOjE3MTIxNjk2NDMsImV4cCI6MTcxMjIxMjg0M30.ioGCYqJ0wVnQgVlN86_KqRyrfY7pZjdDIQlhQpwgkIc";
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBkYTI3YTY2YTUxZTQ1YzIwMTA1NGIiLCJqdGkiOiI0ZGUzOTk5Ny1lOTdiLTQ5MDgtYTBjOC0xOTZjNGVhMTI4NzUiLCJpYXQiOjE3MTI1MzAzNzksImV4cCI6MTcxMjU3MzU3OX0.H1s1s-zswxR9l3vZ2BPBTopV6T92zQsaic0aVNxjprw";
 const USERID = "660da27a66a51e45c201054b";
 const URL = "http://localhost:8080";
 
@@ -56,7 +56,9 @@ socket.on("connect", () => {
 	socket.emit("emotionGame", "stop", { userID: USERID });
 	socket.emit("recalibrate");
 	socket.emit("GSR", JSON.stringify({ value: 450, ts: new Date() }));
-	socket.emit("playMedia", JSON.stringify({ mediaURL: "Metal_pipe_falling_sound_effectloud.mp4" }), { userID: USERID });
+	//socket.emit("playMedia", JSON.stringify({ mediaURL: "Metal_pipe_falling_sound_effectloud.mp4" }), true, false, { userID: USERID });
+	socket.emit("playMedia", JSON.stringify({ mediaURL: "Metal_pipe_falling_sound_effectloud.mp4" }), true, true, { userID: USERID });
+	//socket.emit("playMedia", JSON.stringify({ mediaURL: "Metal_pipe_falling_sound_effect_but_its_more_violent.mp3" }), false, true, { userID: USERID });
 });
 
 
