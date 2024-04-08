@@ -54,7 +54,6 @@ socket.on("connect", () => {
 	socket.emit("speak", "Hello from the client!");
 	socket.emit("emotionGame", "start", { userID: USERID });
 	socket.emit("emotionGame", "stop", { userID: USERID });
-	socket.emit("emotionGameStats", JSON.stringify({ Correct: [0, 0, 0, 0], Wrong: [0, 0, 0, 0], GameFin: new Date(), UserID: USERID, NumPlays: 1 }));
 	socket.emit("recalibrate");
 	socket.emit("GSR", JSON.stringify({ value: 450, ts: new Date() }));
 	socket.emit("playMedia", JSON.stringify({ mediaURL: "Metal_pipe_falling_sound_effectloud.mp4" }), { userID: USERID });
