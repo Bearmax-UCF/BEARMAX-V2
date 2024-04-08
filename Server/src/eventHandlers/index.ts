@@ -177,7 +177,7 @@ export default (io: Server) => {
 
 		// User selected a media to play from Azure database via mobile app, 
 			// so transferring URL of media to Raspberry Pi
-		socket.on("playMedia", async (blobStringData: string, videoBool: boolean, audioBool: boolean) => {
+		socket.on("playMedia", async (blobStringData: string) => {
 			const data: BlobStringData = JSON.parse(blobStringData);
 			const blobName = data.mediaURL;
 
@@ -221,7 +221,7 @@ export default (io: Server) => {
 				return;
 			} else {
 				console.log("Blob received successfully");
-				io.emit("playMedia", blobSasUrl, videoBool, audioBool);
+				io.emit("playMedia", blobSasUrl);
 			}
 		});
 
