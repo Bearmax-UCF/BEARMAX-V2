@@ -175,8 +175,12 @@ export default (io: Server) => {
 			});
 		});
 
+<<<<<<< HEAD
 		// User selected a media to play from Azure database via mobile app, 
 			// so transferring URL of media to Raspberry Pi
+=======
+		// User selected a media to play from Azure database via mobile app, so transferring URL of media to Raspberry Pi
+>>>>>>> parent of 71b65dd (trying to get pull request to work)
 		socket.on("playMedia", async (blobStringData: string) => {
 			const data: BlobStringData = JSON.parse(blobStringData);
 			const blobName = data.mediaURL;

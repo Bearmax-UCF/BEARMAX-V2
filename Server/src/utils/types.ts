@@ -15,5 +15,12 @@ export type GSRStringData = {
 };
 
 export type BlobStringData = {
+<<<<<<< HEAD
 	mediaURL: string;
 };
+=======
+	mediaName: string;
+	videoBool: boolean;
+	audioBool: boolean;
+};
+>>>>>>> parent of 71b65dd (trying to get pull request to work)
