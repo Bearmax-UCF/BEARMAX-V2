@@ -179,7 +179,6 @@ export default (io: Server) => {
 		socket.on("playMedia", async (blobStringData: string) => {
 			const data: BlobStringData = JSON.parse(blobStringData);
 			const blobName = data.mediaName;
-			console.log("Blob name: " + blobName);
 			const videoBool = data.videoBool;
 			const audioBool = data.audioBool;
 
