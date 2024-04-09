@@ -179,7 +179,9 @@ export default (io: Server) => {
 			// so transferring URL of media to Raspberry Pi
 		socket.on("playMedia", async (blobStringData: string) => {
 			const data: BlobStringData = JSON.parse(blobStringData);
-			const blobName = data.mediaURL;
+			const blobName = data.mediaName;
+			const videoBool = data.videoBool;
+			const audioBool = data.audioBool;
 
 			const userId = socket.handshake.query.userID;
 			if (!userId) {
@@ -221,7 +223,7 @@ export default (io: Server) => {
 				return;
 			} else {
 				console.log("Blob received successfully");
-				io.emit("playMedia", blobSasUrl);
+				io.emit("playMedia", blobSasUrl, videoBool, audioBool);
 			}
 		});
 
