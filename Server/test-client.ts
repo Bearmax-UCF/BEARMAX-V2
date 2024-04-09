@@ -16,8 +16,8 @@ const URL = "https://bearmaxcare.com";
 dev
 */
 const TOKEN =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjBkYTI3YTY2YTUxZTQ1YzIwMTA1NGIiLCJqdGkiOiJmZGFmYjZmNS05M2Y4LTQ2NDAtODBjZS0xNjkwOGYzZGJhNmEiLCJpYXQiOjE3MTIxNjk2NDMsImV4cCI6MTcxMjIxMjg0M30.ioGCYqJ0wVnQgVlN86_KqRyrfY7pZjdDIQlhQpwgkIc";
-const USERID = "660da27a66a51e45c201054b";
+	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjE1NzM3OWFjODA3YjIyYzAzN2ZkNzEiLCJqdGkiOiIyYjlkZjIxMi0wZGFhLTQ1ZTktYWQ4Ni0zNzBiM2I5MDA5ZDUiLCJpYXQiOjE3MTI2ODE4ODUsImV4cCI6MTcxMjcyNTA4NX0.8zBJ-gcLk-jNRVHfzmKfT08A-H3tKPro9cnJocizIKI";
+const USERID = "66157379ac807b22c037fd71";
 const URL = "http://localhost:8080";
 
 
@@ -56,9 +56,9 @@ socket.on("connect", () => {
 	socket.emit("emotionGame", "stop", { userID: USERID });
 	socket.emit("recalibrate");
 	socket.emit("GSR", JSON.stringify({ value: 450, ts: new Date() }));
-	//socket.emit("playMedia", JSON.stringify({ mediaName: "Metal_pipe_falling_sound_effectloud.mp4", videoBool: true, audioBool: false }), { userID: USERID });
+	socket.emit("playMedia", JSON.stringify({ mediaName: "Metal_pipe_falling_sound_effectloud.mp4", videoBool: true, audioBool: false }), { userID: USERID });
 	//socket.emit("playMedia", JSON.stringify({ mediaName: "Metal_pipe_falling_sound_effectloud.mp4", videoBool: true, audioBool: true }), { userID: USERID });
-	socket.emit("playMedia", JSON.stringify({ mediaName: "Metal_pipe_falling_sound_effect_but_its_more_violent.mp3", videoBool: false, audioBool: true }), { userID: USERID });
+	//socket.emit("playMedia", JSON.stringify({ mediaName: "Metal_pipe_falling_sound_effect_but_its_more_violent.mp3", videoBool: false, audioBool: true }), { userID: USERID });
 });
 
 
@@ -82,8 +82,8 @@ socket.on("GSR", (dataValue:string, dataTS:string) => {
 	console.log("Received GSR event with data: " + dataValue + " at " + dataTS);
 });
 
-socket.on("playMedia", (blobSasUrl: string) => {
-	console.log("Received playMedia event with data: " + JSON.stringify(blobSasUrl));
+socket.on("playMedia", (blobSasUrl: string, videoBool: boolean, audioBool: boolean) => {
+	console.log("Received playMedia event with data: " + blobSasUrl + ", videoBool: " + videoBool + ", and audioBool: " + audioBool);
 });
 
 socket.on("disconnect", () => {
