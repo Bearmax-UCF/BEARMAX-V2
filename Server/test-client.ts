@@ -56,7 +56,9 @@ socket.on("connect", () => {
 	socket.emit("emotionGame", "stop", { userID: USERID });
 	socket.emit("recalibrate");
 	socket.emit("GSR", JSON.stringify({ value: 450, ts: new Date() }));
-	socket.emit("playMedia", JSON.stringify({ mediaURL: "Metal_pipe_falling_sound_effectloud.mp4" }), { userID: USERID });
+	//socket.emit("playMedia", JSON.stringify({ mediaName: "Metal_pipe_falling_sound_effectloud.mp4", videoBool: true, audioBool: false }), { userID: USERID });
+	//socket.emit("playMedia", JSON.stringify({ mediaName: "Metal_pipe_falling_sound_effectloud.mp4", videoBool: true, audioBool: true }), { userID: USERID });
+	socket.emit("playMedia", JSON.stringify({ mediaName: "Metal_pipe_falling_sound_effect_but_its_more_violent.mp3", videoBool: false, audioBool: true }), { userID: USERID });
 });
 
 
