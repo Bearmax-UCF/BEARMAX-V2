@@ -4,7 +4,8 @@
 
 
 
-    <img src="../assets/bearmaxlogo.png" height=210px width="210px">
+    <img src="../assets/newbearmaxlogo.png" style= "position: absolute; top: 25%; right: 10%;" height=310px 
+        width="310px">
 
     <router-link to="/" style="position: absolute; left: 1.5%; top: 2%;">
         <font-awesome-icon icon="arrow-left" size="2x" style=""/>

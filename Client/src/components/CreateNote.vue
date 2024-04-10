@@ -44,6 +44,8 @@
 
     <p v-if="createNoteError" style="color: red;">{{ createNoteError }}</p>
 
+    <img src="../assets/newbearmaxlogo.png" style= "position: absolute; top: 35%; right: 1%;" height=270px width="270px">
+
 
 </template>
 
