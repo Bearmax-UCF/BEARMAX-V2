@@ -35,7 +35,7 @@
     
     <!-- example d3 graph -->
 
-    <div style="position: absolute; left: 20%; top: 15%;">
+    <div style="position: absolute; left: 20%; top: 15%; background-color: white;">
 
       <svg ref="svg">
         <g class="plot-area-happy"></g>
@@ -43,7 +43,7 @@
 
     </div>
 
-    <div style="position: absolute; right: 20%; top: 15%;">
+    <div style="position: absolute; right: 20%; top: 15%; background-color: white;">
 
       <svg ref="svg2">
         <g class="plot-area-sad"></g>
@@ -51,7 +51,7 @@
 
     </div>
 
-  <div style="position: absolute; left: 20%; bottom: 15%;">
+  <div style="position: absolute; left: 20%; bottom: 35%; background-color: white;">
 
   <svg ref="svg3">
     <g class="plot-area-angry"></g>
@@ -59,7 +59,7 @@
 
   </div>
 
-  <div style="position: absolute; right: 20%; bottom: 15%;">
+  <div style="position: absolute; right: 20%; bottom: 35%; background-color: white;">
 
   <svg ref="svg4">
     <g class="plot-area-neutral"></g>
@@ -67,6 +67,7 @@
 
   </div>
 
+  <img src="../assets/newbearmaxlogo.png" style= "position: absolute; bottom: -5%; right: 41%;" height=260px width="260px">
 
 
 
