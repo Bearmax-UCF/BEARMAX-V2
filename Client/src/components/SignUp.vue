@@ -48,9 +48,12 @@
 
         </button>
 
-        <p v-if="registrationError" style="color: red;">{{ registrationError }}</p>
-
+        
     </div>
+
+    <br><br>
+
+    <p v-if="registrationError" style="color: red;">{{ registrationError }}</p>
 
     <br><br>
 

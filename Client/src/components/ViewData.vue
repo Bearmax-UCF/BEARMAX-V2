@@ -35,23 +35,37 @@
     
     <!-- example d3 graph -->
 
-    <div style="position: absolute; left: 30%; top: 35%;">
+    <div style="position: absolute; left: 20%; top: 15%;">
 
       <svg ref="svg">
-        <g class="plot-area"></g>
+        <g class="plot-area-happy"></g>
       </svg>
 
     </div>
 
-    <div style="position: absolute; left: 80%; top: 35%;">
+    <div style="position: absolute; right: 20%; top: 15%;">
 
-      <svg ref="svg2" style="position: absolute; left: 80%;">
-        <g class="plot-area"></g>
+      <svg ref="svg2">
+        <g class="plot-area-sad"></g>
       </svg>
 
     </div>
 
+  <div style="position: absolute; left: 20%; bottom: 15%;">
 
+  <svg ref="svg3">
+    <g class="plot-area-angry"></g>
+  </svg>
+
+  </div>
+
+  <div style="position: absolute; right: 20%; bottom: 15%;">
+
+  <svg ref="svg4">
+    <g class="plot-area-neutral"></g>
+  </svg>
+
+  </div>
 
 
 
@@ -363,7 +377,7 @@ catch(error) {
         
         console.log(Array.from(allDates.value));
         
-        svg.value = d3.select('.plot-area')
+        svg.value = d3.select('.plot-area-happy')
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -375,7 +389,7 @@ catch(error) {
         .range([0, width]);
 
       const yScale = d3.scaleLinear()
-        .domain([0, d3.max(happyGraphData.value.concat(sadGraphData.value), d => d.y)])
+        .domain([0, d3.max(happyGraphData.value, d => d.y)])
         .range([height, 0]);
 
       const happyLine = d3.line()
@@ -389,21 +403,7 @@ catch(error) {
         .attr("stroke-width", 2)
         .attr("d", happyLine);
 
-
-
-// const sadLine = d3.line()
-//     .x(d => xScale(d.x))
-//     .y(d => yScale(d.y));
-
-// svg.value.append("path")
-//     .datum(sadGraphData.value)
-//     .attr("fill", "none")
-//     .attr("stroke", "red")
-//     .attr("stroke-width", 2)
-//     .attr("d", sadLine);
-
-
-        //x-axis label
+        //x-axis label for happy graph
       svg.value.append("text")
 			   .attr("text-anchor", "middle")
          //.attr("transform", `translate(${-height + margin.top + 20})`)
@@ -418,7 +418,7 @@ catch(error) {
         .attr("transform", `rotate(-90) translate(${-height / 2},${-margin.left / 4})`)
         .text("Percent Correct");
 
-        
+    //graph title
     svg.value.append("text")
     .attr("x", (width / 2) - 60)
     .attr("y", (margin.top / 2) - 10) 
@@ -426,66 +426,177 @@ catch(error) {
     .attr("font-size", "16px") 
     .text("Identification Accuracy: Happy");
 
-
-
       //end of happy graph code
 
 
       //beginning of sad graph code
 
-    //   svg2.value = d3.select('.plot-area')
-    //     .attr("width", width + margin.left + margin.right)
-    //     .attr("height", height + margin.top + margin.bottom)
-    //     .append("g")
-    //     .attr("transform", `translate(${margin.left},${margin.top})`);
+      svg2.value = d3.select('.plot-area-sad')
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    //   const xScale2 = d3.scaleTime()
-    //     .nice()
-    //     .domain(d3.extent(allDates.value))
-    //     .range([0, width]);
+      const xScale2 = d3.scaleTime()
+        .nice()
+        .domain(d3.extent(allDates.value))
+        .range([0, width]);
 
-    //   const yScale2 = d3.scaleLinear()
-    //     .domain([0, d3.max(sadGraphData.value, d => d.y)])
-    //     .range([height, 0]);
+      const yScale2 = d3.scaleLinear()
+        .domain([0, d3.max(sadGraphData.value, d => d.y)])
+        .range([height, 0]);
 
-    //   const sadLine = d3.line()
-    //     .x(d => xScale2(d.x))
-    //     .y(d => yScale2(d.y));
+      const sadLine = d3.line()
+        .x(d => xScale2(d.x))
+        .y(d => yScale2(d.y));
 
-    //   svg2.value.append("path")
-    //     .datum(sadGraphData.value)
-    //     .attr("fill", "none")
-    //     .attr("stroke", "steelblue")
-    //     .attr("stroke-width", 2)
-    //     .attr("d", sadLine);
+      svg2.value.append("path")
+        .datum(sadGraphData.value)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 2)
+        .attr("d", sadLine);
 
 
-    //     //x-axis label
-    //   svg2.value.append("text")
-		// 	   .attr("text-anchor", "middle")
-    //      //.attr("transform", `translate(${-height + margin.top + 20})`)
-    //     .attr("transform", `translate(${width/4 +40}, ${height / 2 + 25} )`)
-
-		// 	   .text("Game Date");
-    
+        //x-axis label for happy graph
+      svg2.value.append("text")
+			   .attr("text-anchor", "middle")
+         //.attr("transform", `translate(${-height + margin.top + 20})`)
+        .attr("transform", `translate(${width/4 +40}, ${height / 2 + 25} )`)
+			  .text("Game Date");
          
-    //   //y-axis label
-    //   svg2.value.append("text")
-    //     .attr("text-anchor", "start")
-    //     .attr("transform", `rotate(-90) translate(${-height / 2},${-margin.left / 4})`)
-    //     .text("Percent Correct");
+      //y-axis label
+      svg2.value.append("text")
+        .attr("text-anchor", "start")
+        .attr("transform", `rotate(-90) translate(${-height / 2},${-margin.left / 4})`)
+        .text("Percent Correct");
 
         
-    // svg2.value.append("text")
-    // .attr("x", (width / 2) - 60)
-    // .attr("y", (margin.top / 2) - 10) 
-    // .attr("text-anchor", "middle") 
-    // .attr("font-size", "16px") 
-    // .text("Identification Accuracy: Sad");
+    svg2.value.append("text")
+    .attr("x", (width / 2) - 60)
+    .attr("y", (margin.top / 2) - 10) 
+    .attr("text-anchor", "middle") 
+    .attr("font-size", "16px") 
+    .text("Identification Accuracy: Sad");
 
 
 
 //end of sad graph code
+
+
+
+//beginning of angry graph code
+
+svg3.value = d3.select('.plot-area-angry')
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      const xScale3 = d3.scaleTime()
+        .nice()
+        .domain(d3.extent(allDates.value))
+        .range([0, width]);
+
+      const yScale3 = d3.scaleLinear()
+        .domain([0, d3.max(angryGraphData.value, d => d.y)])
+        .range([height, 0]);
+
+      const angryLine = d3.line()
+        .x(d => xScale3(d.x))
+        .y(d => yScale3(d.y));
+
+      svg3.value.append("path")
+        .datum(angryGraphData.value)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 2)
+        .attr("d", angryLine);
+
+
+        //x-axis label
+      svg3.value.append("text")
+			   .attr("text-anchor", "middle")
+         //.attr("transform", `translate(${-height + margin.top + 20})`)
+        .attr("transform", `translate(${width/4 +40}, ${height / 2 + 25} )`)
+
+			   .text("Game Date");
+    
+         
+      //y-axis label
+      svg3.value.append("text")
+        .attr("text-anchor", "start")
+        .attr("transform", `rotate(-90) translate(${-height / 2},${-margin.left / 4})`)
+        .text("Percent Correct");
+
+        
+    svg3.value.append("text")
+    .attr("x", (width / 2) - 60)
+    .attr("y", (margin.top / 2) - 10) 
+    .attr("text-anchor", "middle") 
+    .attr("font-size", "16px") 
+    .text("Identification Accuracy: Angry");
+
+
+//end of angry graph code
+
+
+
+//beginning of neutral graph code
+
+svg4.value = d3.select('.plot-area-neutral')
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+
+      const xScale4 = d3.scaleTime()
+        .nice()
+        .domain(d3.extent(allDates.value))
+        .range([0, width]);
+
+      const yScale4 = d3.scaleLinear()
+        .domain([0, d3.max(neutralGraphData.value, d => d.y)])
+        .range([height, 0]);
+
+      const neutralLine = d3.line()
+        .x(d => xScale4(d.x))
+        .y(d => yScale4(d.y));
+
+      svg4.value.append("path")
+        .datum(neutralGraphData.value)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 2)
+        .attr("d", neutralLine);
+
+
+         //x-axis label for happy graph
+      svg4.value.append("text")
+			   .attr("text-anchor", "middle")
+         //.attr("transform", `translate(${-height + margin.top + 20})`)
+        .attr("transform", `translate(${width/4 +40}, ${height / 2 + 30} )`)
+			   .text("Game Date");
+    
+         
+      //y-axis label
+      svg4.value.append("text")
+        .attr("text-anchor", "start")
+        .attr("transform", `rotate(-90) translate(${-height / 2},${-margin.left / 4})`)
+        .text("Percent Correct");
+
+        
+    svg4.value.append("text")
+    .attr("x", (width / 2) - 60)
+    .attr("y", (margin.top / 2) - 10) 
+    .attr("text-anchor", "middle") 
+    .attr("font-size", "16px") 
+    .text("Identification Accuracy: Neutral");
+
+
+
+
+//end of neutral graph code
 
 
 
@@ -583,17 +694,12 @@ catch(error) {
             userId,
             emotionId,
             deleteEmotionRecognitionData,
-            deleteEmotionRecognitionDataError,
-            
+            deleteEmotionRecognitionDataError,  
             svg,
             svg2,
+            svg3,
+            svg4,
             drawGraph,
-
-            //createGraphV2,
-            
-            
-
-            //userEmotionRecognitionData,
 
         };
 

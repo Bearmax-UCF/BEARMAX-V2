@@ -1,6 +1,6 @@
 <template>
 
-    <h1>This is the Create Note page</h1>
+    <!-- <h1>This is the Create Note page</h1> -->
 
     <router-link to="/viewpatientnotes" style="position: absolute; left: 1.5%; top: 2%;">
         <font-awesome-icon icon="arrow-left" size="2x" style=""/>
@@ -20,11 +20,11 @@
 
     <input type="text" class="textField" placeholder="title" v-model="newNote.title"/>
 
-    <br>
+    <br><br>
 
     <input type="text" class="textField" placeholder="Date" v-model="newNote.date"/>
 
-    <br>
+    <br><br>
 
     <!-- <input type="text" class="textField" placeholder="Note" v-model="newNote.note" 
     style="width:600px; height:300px; align-items:flex-start; display:flex;" /> -->
@@ -34,12 +34,15 @@
 
     </textarea>
 
-    <br>
+    <br><br>
 
-    <button style= "position:relative;" @click="createNote"> Create Note </button> 
+    <button class = "button" style= "position:relative;" @click="createNote"> Create Note </button> 
 
     <!-- End of create note test -->
 
+    <br><br>
+
+    <p v-if="createNoteError" style="color: red;">{{ createNoteError }}</p>
 
 
 </template>

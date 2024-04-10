@@ -4,18 +4,25 @@
         <font-awesome-icon icon="arrow-left" size="2x" style=""/>
     </router-link>
 
-    <button @click="passwordReset">
 
-        Reset Password
 
-    </button>
 
-    <br><br>
 
     <input type="password" class="textField" placeholder="New Password" v-model="newPassword"/>
 
     <br><br>
 
+    <button class = "button2" @click="passwordReset">
+
+        Reset Password
+
+    </button>
+
+
+
+    <br><br>
+
+    <p v-if="passwordResetError" style="color: red;">{{ passwordResetError }}</p>
 
     <!-- <p>New password is: {{ newPassword }}</p> -->
 
@@ -28,13 +35,16 @@
     import { ref } from 'vue';
     import { resetPasswordApi } from '@/api';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+    import { useRouter } from 'vue-router';
 
- 
 
 
     export default {
 
         setup() {
+
+            const router = useRouter();
+
 
             const newPassword = ref();
 
@@ -76,6 +86,7 @@
 
                 catch(error) {
 
+                    passwordResetError.value = error.message || 'An error occured.';
                     console.log(error.message);
                 }
 
@@ -104,3 +115,35 @@
 
 </script>
 
+<style>
+
+.button2{
+
+color:white;
+width:250px;
+height:30px;
+background-color: darkgreen;
+font-size:22px;
+font-family:Arial, Helvetica, sans-serif;
+text-align: center;
+border-radius: 10px;
+
+transition: background-color 1s;
+
+}
+
+.button2:hover {
+
+    background-color:goldenrod;
+}
+
+.button2:focus, .button:active{
+
+    background-color: black;
+    transition: none;
+
+}
+
+
+
+</style>

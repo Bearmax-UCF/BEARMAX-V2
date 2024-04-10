@@ -14,7 +14,7 @@
     <br><br>
 
 
-    <button @click="forgotPassFunc" width="180px">
+    <button class = "button3" @click="forgotPassFunc">
                 Send password reset request
 
     </button>
@@ -76,5 +76,37 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 </script>
 
 <style>
+
+.button3{
+
+color:white;
+width:350px;
+height:30px;
+background-color: darkgreen;
+font-size:22px;
+font-family:Arial, Helvetica, sans-serif;
+text-align: center;
+border-radius: 10px;
+
+transition: background-color 1s;
+
+}
+
+.button3:hover {
+
+    background-color:goldenrod;
+}
+
+.button3:focus, .button:active{
+
+    background-color: black;
+    transition: none;
+
+}
+
+
+
+
+
     
 </style>
