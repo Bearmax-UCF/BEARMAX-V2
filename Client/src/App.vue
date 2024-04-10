@@ -16,28 +16,31 @@
   <script>
 
     import {defineComponent} from 'vue';
-    import Login from './components/Login.vue';
-    import Homepage from './components/Homepage.vue';
-    import Settings from './components/Settings.vue';
     import AboutUs from './components/AboutUs.vue';
-    import ViewPatientNotes from './components/ViewPatientNotes.vue';
-    import ViewData from './components/ViewData.vue';
-    import SignUp from './components/SignUp.vue';
-    import ForgotPassword from './components/ForgotPassword.vue';
+    import CreateNote from './components/CreateNote.vue';
+    import DeleteNote from './components/DeleteNote.vue';
+    import DeleteUser from './components/DeleteUser.vue';
+    import EditNote from './components/EditNote.vue';
+    import EditUserInformation from './components/EditUserInformation.vue';
     import EmailVerification from './components/EmailVerification.vue';
+    import ForgotPassword from './components/ForgotPassword.vue';
+    import Homepage from './components/Homepage.vue';
     import HowToUse from './components/HowToUse.vue';
+    import Login from './components/Login.vue';
+    import resetPassword from './components/resetPassword.vue';
+    import Settings from './components/Settings.vue';
+    import SignUp from './components/SignUp.vue';
+    import ViewData from './components/ViewData.vue';
+    import ViewPatientNotes from './components/ViewPatientNotes.vue';
+
     
     export default defineComponent({
         
-        components: {Login,Homepage,Settings,AboutUs,ViewPatientNotes,ViewData, SignUp, ForgotPassword, 
-                      EmailVerification, HowToUse},
+        components: {AboutUs, CreateNote, DeleteNote, DeleteUser, EditNote, EditUserInformation, EmailVerification, 
+          ForgotPassword, Homepage, HowToUse, Login, resetPassword, Settings, SignUp, ViewData, ViewPatientNotes}
     
     });
 
   </script>
-
-<style>
-
-</style>
 
 

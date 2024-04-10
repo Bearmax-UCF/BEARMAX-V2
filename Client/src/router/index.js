@@ -2,13 +2,21 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../components/Login.vue';
 import Homepage from '../components/Homepage.vue';
 import Settings from '../components/Settings.vue';
-import ViewPatientNotes from '../components/ViewPatientNotes.vue'
+import ViewPatientNotes from '../components/ViewPatientNotes.vue';
+import CreateNote from '../components/CreateNote.vue';
+import EditNote from '../components/EditNote.vue';
+import DeleteNote from '../components/DeleteNote.vue';
 import ViewData from '../components/ViewData.vue';
 import AboutUs from '../components/AboutUs.vue';
 import SignUp from '../components/SignUp.vue';
-import ForgotPassword from '../components/ForgotPassword.vue'
-import EmailVerification from '../components/EmailVerification.vue'
-import HowToUse from '../components/HowToUse.vue'
+import ForgotPassword from '../components/ForgotPassword.vue';
+import resetPassword from '../components/resetPassword.vue';
+import EmailVerification from '../components/EmailVerification.vue';
+import HowToUse from '../components/HowToUse.vue';
+import EditUserInformation from '../components/EditUserInformation.vue';
+import DeleteUser from '../components/DeleteUser.vue';
+
+
 
 const routes = [
   
@@ -43,6 +51,24 @@ const routes = [
   },
 
   {
+    path: '/createnote',
+    component: CreateNote,
+    name: 'createnote',
+  },
+
+  {
+    path: '/editnote',
+    component: EditNote,
+    name: 'editnote',
+  },
+
+  {
+    path: '/deletenote',
+    component: DeleteNote,
+    name: 'deletenote',
+  },
+
+  {
     path: '/viewdata',
     component: ViewData,
     name: 'viewdata',
@@ -70,6 +96,24 @@ const routes = [
     path: '/howtouse',
     component: HowToUse,
     name: 'howtouse',
+  },
+
+  {
+    path: '/edituserinformation',
+    component: EditUserInformation,
+    name: 'edituserinformation',
+  },
+
+  {
+    path: '/deleteuser',
+    component: DeleteUser,
+    name: 'deleteuser',
+  },
+
+  {
+    path: '/resetPassword',
+    component: resetPassword,
+    name: 'resetpassword',
   },
 
   

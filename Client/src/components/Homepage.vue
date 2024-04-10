@@ -8,12 +8,17 @@
     <br>
     <br>
 
-    <div :style="{position: 'absolute', bottom:'350px', right:'350px'}" top="300px" right="150px">
-        <img src="../assets/bearmaxlogo.png" height=210px width="210px">
-    </div>
+
+    <button @click="logout" style="position: absolute; top: 2.5%; right:2.5%;">
+        <font-awesome-icon icon="right-from-bracket" size="2x" style=""/>
+    </button>
+
+    
+    <img src="../assets/newbearmaxlogo.png" style= "position: absolute; bottom:35%; right:10%;" height=300px width="300px">
+    
 
 
-        <div>
+        <!-- <div>
             <router-link to="/aboutus">
                 <button class = "button">
                     About Us
@@ -21,10 +26,10 @@
                 </button>
 
             </router-link>
-        </div>
+        </div> -->
 
-        <br>
-        <br>
+        <!-- <br>
+        <br> -->
 
         <!-- Original view patient notes link (non-generated) -->
 
@@ -70,26 +75,89 @@
         <br>
         <br>
         
-        <div>
-        
-        <p>
-        
-            New user? 
-            <router-link to="/howtouse">
-                Go to "How to Use" page.
-            </router-link>
+        <!-- Link to How to Use page (page to be implemented, if desired) -->
 
-        </p>
-    </div>
+        <!-- <div>
+        
+            <p>
+            
+                New user? 
+                <router-link to="/howtouse">
+                    Go to "How to Use" page.
+                </router-link>
+
+            </p>
+        </div> -->
 
 </template>
 
 
 <script>
 
+import { useRouter } from 'vue-router';
+import Cookies from 'js-cookie';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
     export default {
 
-    };
+        
+        setup() {
+
+            console.log("Beginning of setup");
+
+            const router = useRouter();
+
+
+            if(!Cookies.get("auth_token")) {
+
+                router.push('/');
+
+                return {
+
+                };
+
+            }
+
+
+            const logout = async () => {
+
+                console.log("beginning of logout function");
+                
+                try {
+
+                    Cookies.remove("auth_token");
+                    router.push('/');
+
+                }//End of try
+
+                catch {
+
+                    
+
+                }//End of catch
+
+                console.log("end of logout function");
+
+
+            }//End of log out function
+
+
+            
+            console.log("End of setup, before return");
+
+            return {
+
+                logout,
+
+            };//End of return
+
+
+        }//End of setup
+
+
+
+
+    };//End of export default
 
 </script>
 
@@ -141,6 +209,7 @@ transition: background-color 1s;
 
 
 }
+
 
     
 </style>

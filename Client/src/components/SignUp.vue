@@ -6,20 +6,27 @@
 
     <img src="../assets/bearmaxlogo.png" height=210px width="210px">
 
+    <router-link to="/" style="position: absolute; left: 1.5%; top: 2%;">
+        <font-awesome-icon icon="arrow-left" size="2x" style=""/>
+    </router-link>
+
 
     <br><br><br>
 
     <div>
 
-        <input type="text" class="textField" placeholder="Email" v-model="userData.email"/>
+        <input type="text" class="textField" placeholder="Email" v-model="userData.email" 
+            style="margin-bottom:10px;"/>
 
         <br>
 
-        <input type="text" class="textField" placeholder="First Name" v-model="userData.firstName"/>
+        <input type="text" class="textField" placeholder="First Name" v-model="userData.firstName" 
+            style="margin-bottom:10px;"/>
 
         <br>
 
-        <input type="text" class="textField" placeholder="Last Name" v-model="userData.lastName"/>
+        <input type="text" class="textField" placeholder="Last Name" v-model="userData.lastName" 
+            style="margin-bottom:10px;"/>
 
         <br>
 
@@ -36,27 +43,40 @@
 
     <div>
 
-        <button @click="register" class="button" width="180px">
+        <button @click="register" class="button" style= "position: absolute; left:31.25%; width:180px;">
             Sign Up
 
         </button>
 
-        <p v-if="registrationError" style="color: red;">{{ registrationError }}</p>
-
+        
     </div>
 
-    <div>
+    <br><br>
+
+    <p v-if="registrationError" style="color: red;">{{ registrationError }}</p>
+
+    <br><br>
+
             
-         <p>
-            Already have an account?
-            <router-link to="/">
-                Sign in here.
-            </router-link>
+    <p> Already have an account?
+        
+        <router-link to="/">
+            Sign in here.
+        </router-link>
 
-        </p>
+    </p>
 
-    </div>
-
+    
+    <!-- <p> Want to learn more about Bearmax?
+        
+        <router-link to="/aboutus">
+            
+            About Us
+           
+            
+        </router-link>
+        
+    </p> -->
 
 
 </template>
@@ -66,6 +86,8 @@
     import { useRouter} from 'vue-router';
     import { ref } from 'vue';
     import { registerUserApi } from '@/api';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 
 
     export default {
@@ -97,14 +119,14 @@
 
                 console.log('RegisterUserApi call returned.');
 
-                router.push('./login');
+                router.push('./');
         
             }
 
                 catch (error) {
                     registrationError.value = error.message || 'An error occured.';
                 }
-            }//End of registerUserApi function
+            }//End of register function
 
             return {
                 userData,
@@ -112,7 +134,7 @@
                 registrationError
             };
 
-        },
+        },//End of setup
     
 };//End of export default
 

@@ -1,16 +1,23 @@
 <template>
 
-    <img src="../assets/bearmaxlogo.png" height=210px width="210px">
+    <img src="../assets/newbearmaxlogo.png" style= "position: absolute; top: 35%; right: 10%;" height=310px width="310px">
 
     <br><br><br>
 
     <h1 :style="{color:'forestgreen', fontWeight:'bold'}">Welcome to Bearmax!</h1>
 
+
+    <div id="app">
+        <AuthCookie />
+    </div>
+
+
     <br><br><br>
 
     <div>
 
-        <input type="text" class="textField" placeholder="Email" v-model="userData.email"/>
+        <input type="text" class="textField" placeholder="Email" v-model="userData.email" 
+            style="margin-bottom:10px;"/>
 
         <br>
         
@@ -41,6 +48,7 @@
 
             </button>
 
+            <!-- How to print error messages -->
             <p v-if="loginError" style="color: red;">{{ loginError }}</p>
 
 
@@ -51,19 +59,28 @@
 
     <br><br><br> <br><br><br> <br><br>
 
-    <div>
-
-        <p> Don't have an account? 
     
+
+    <p> Don't have an account? 
+
         <router-link to="/signup">
         
             Sign up here.
 
         </router-link>
 
-        </p>
+    </p>
+<!-- 
+    <p> Want to learn more about Bearmax?
+        <router-link to="/aboutus">
+            
+            About Us
+           
+            
+        </router-link>
+    </p> -->
 
-   </div>
+   
 
 </template>
 
@@ -76,8 +93,7 @@ import { loginApi } from '@/api';
 
 
 
-
-export default{
+export default {
 
     setup() {
 
@@ -94,16 +110,16 @@ export default{
 
         const login = async () => {
 
-        try{
+            try{
 
-           await(loginApi(userData.value));
-           router.push('./homepage');
-            
+                await(loginApi(userData.value));
+                router.push('./homepage');
+                
 
-        }
+            }
 
             catch (error) {
-                loginError.value = error.message || 'An error occured.';
+                    loginError.value = error.message || 'An error occured.';
             }
         }
 
