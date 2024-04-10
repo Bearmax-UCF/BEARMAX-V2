@@ -15,5 +15,7 @@ export type GSRStringData = {
 };
 
 export type BlobStringData = {
-	mediaURL: string;
+	mediaName: string;
+	videoBool: boolean;
+	audioBool: boolean;
 };
