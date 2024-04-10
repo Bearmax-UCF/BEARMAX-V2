@@ -1,5 +1,9 @@
 <template>
 
+    <router-link to="/forgotpassword" style="position: absolute; left: 1.5%; top: 2%;">
+        <font-awesome-icon icon="arrow-left" size="2x" style=""/>
+    </router-link>
+
     <button @click="passwordReset">
 
         Reset Password
@@ -13,7 +17,7 @@
     <br><br>
 
 
-    <p>New password is: {{ newPassword }}</p>
+    <!-- <p>New password is: {{ newPassword }}</p> -->
 
 </template>
 
@@ -23,6 +27,8 @@
 
     import { ref } from 'vue';
     import { resetPasswordApi } from '@/api';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
  
 
 
@@ -62,6 +68,8 @@
 
                     const response = await resetPasswordApi({token:token, id:id, password:newPassword.value});
                     console.log("response is " + response);
+
+                    router.push('/homepage');
 
                     
                 }

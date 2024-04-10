@@ -167,6 +167,8 @@ export default {
 
                 console.log('SaveUserChangesApi call returned.');
 
+                router.push('/settings');
+
                 }
 
                 catch (error) {
