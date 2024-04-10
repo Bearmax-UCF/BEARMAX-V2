@@ -2,6 +2,10 @@
 
     <h1>This is the Create Note page</h1>
 
+    <router-link to="/viewpatientnotes" style="position: absolute; left: 1.5%; top: 2%;">
+        <font-awesome-icon icon="arrow-left" size="2x" style=""/>
+    </router-link>
+
     <!-- <p>Head back to View Patient Notes page</p>
 
     <router-link to="/viewpatientnotes">

@@ -1,6 +1,6 @@
 <template>
 
-    <img src="../assets/bearmaxlogo.png" height=210px width="210px">
+    <img src="../assets/newbearmaxlogo.png" style= "position: absolute; top: 35%; right: 10%;" height=310px width="310px">
 
     <br><br><br>
 
@@ -70,7 +70,7 @@
         </router-link>
 
     </p>
-
+<!-- 
     <p> Want to learn more about Bearmax?
         <router-link to="/aboutus">
             
@@ -78,7 +78,7 @@
            
             
         </router-link>
-    </p>
+    </p> -->
 
    
 

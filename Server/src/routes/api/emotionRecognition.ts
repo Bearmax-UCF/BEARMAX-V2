@@ -6,16 +6,18 @@ const router = Router();
 
 // temporary API just used for testing to see emotion game stats on frontend
 router.post("/", requireJwtAuth, async (req, res, next) => {
-	const { Correct, Wrong, NumPlays } = req.body;
-	const GameFin = new Date();
+	const { Correct, Wrong, NumPlays, GameFin } = req.body;
+	//const GameFin = new Date();
 	const UserID = req.user!._id;
 
 	console.log("correct is: " + Correct);
 	console.log("wrong is: " + Wrong);
 	console.log("NumPlays is: " + NumPlays);
+	console.log("GameFin is: " + GameFin);
 
 
-	if (!Correct || !Wrong || !NumPlays) {
+
+	if (!Correct || !Wrong || !NumPlays || !GameFin) {
 		console.log("error: Missing fields");
 		return res.status(400).send({ message: "Missing fields" });
 	}

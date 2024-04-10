@@ -6,6 +6,10 @@
 
     <img src="../assets/bearmaxlogo.png" height=210px width="210px">
 
+    <router-link to="/" style="position: absolute; left: 1.5%; top: 2%;">
+        <font-awesome-icon icon="arrow-left" size="2x" style=""/>
+    </router-link>
+
 
     <br><br><br>
 
@@ -60,7 +64,7 @@
     </p>
 
     
-    <p> Want to learn more about Bearmax?
+    <!-- <p> Want to learn more about Bearmax?
         
         <router-link to="/aboutus">
             
@@ -69,7 +73,7 @@
             
         </router-link>
         
-    </p>
+    </p> -->
 
 
 </template>
@@ -79,6 +83,8 @@
     import { useRouter} from 'vue-router';
     import { ref } from 'vue';
     import { registerUserApi } from '@/api';
+    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 
 
     export default {

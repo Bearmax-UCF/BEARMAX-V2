@@ -1,5 +1,10 @@
 <template>
     
+    <router-link to="/settings" style="position: absolute; left: 1.5%; top: 2%;">
+        <font-awesome-icon icon="arrow-left" size="2x" style=""/>
+    </router-link>
+
+
     <h1>Input your email</h1>
 
     <br>
@@ -18,12 +23,16 @@
     <p v-if="passwordRequestError" style="color: red;">{{ passwordRequestError }}</p>
 
 
+    <img src="../assets/newbearmaxlogo.png" height=200px width="200px" style="position:absolute; bottom: -5%; left:45%;">
+
 </template>
 
 <script>
 
 import { ref } from 'vue';
 import { forgotPasswordApi } from '@/api';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 
 
     export default {

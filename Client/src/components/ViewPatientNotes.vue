@@ -80,7 +80,7 @@
 
 <br><br><br>
        
-    <img src="../assets/bearmaxlogo.png" height=100px width="100px" style="position:absolute; bottom: 5%; left:45%;">
+    <img src="../assets/newbearmaxlogo.png" height=200px width="200px" style="position:absolute; bottom: -5%; left:45%;">
 
 
 </template>

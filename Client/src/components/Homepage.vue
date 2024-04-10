@@ -13,12 +13,12 @@
         <font-awesome-icon icon="right-from-bracket" size="2x" style=""/>
     </button>
 
-    <div :style="{position: 'absolute', bottom:'350px', right:'350px'}" top="300px" right="150px">
-        <img src="../assets/bearmaxlogo.png" height=210px width="210px">
-    </div>
+    
+    <img src="../assets/newbearmaxlogo.png" style= "position: absolute; bottom:35%; right:10%;" height=300px width="300px">
+    
 
 
-        <div>
+        <!-- <div>
             <router-link to="/aboutus">
                 <button class = "button">
                     About Us
@@ -26,10 +26,10 @@
                 </button>
 
             </router-link>
-        </div>
+        </div> -->
 
-        <br>
-        <br>
+        <!-- <br>
+        <br> -->
 
         <!-- Original view patient notes link (non-generated) -->
 

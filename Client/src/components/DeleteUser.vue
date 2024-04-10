@@ -18,8 +18,8 @@
    
     <br><br>
 
-    <img src="../assets/bearmaxlogo.png" height=110px width="110px" style="position: absolute; left: 45%; 
-        bottom: 5%;">
+    <img src="../assets/newbearmaxlogo.png" height=200px width="200px" style="position: absolute; left: 45%; 
+        bottom: -5%;">
 
 </template>
 

@@ -44,6 +44,8 @@
         </router-link>
     
     </div>
+
+    <img src="../assets/newbearmaxlogo.png" height=200px width="200px" style="position:absolute; bottom: -5%; left:45%;">
     
 </template>
 

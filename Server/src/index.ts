@@ -33,7 +33,7 @@ const dbClient = mongoose.connect(constants.mongo_uri).then((m) => {
 // @ts-ignore
 setupAuthSvc(app, dbClient);
 
-app.use(express.static(path.join(__dirname, "../../Client/dist")));
+app.use(express.static(path.join(__dirname, "../../Client/build")));
 
 // Setup Routes
 app.use("/", routes);

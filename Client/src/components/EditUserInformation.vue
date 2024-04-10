@@ -46,14 +46,14 @@
 
     <br><br>
 
-    <div style="position: relative; left: 35%;">
+    <!-- <div style="position: relative; left: 35%;">
 
         <p>New email is: {{ userData.email }}</p>
         <p>New first name is: {{ userData.firstName }}</p>
         <p>New last name is: {{ userData.lastName }}</p>
         <p>New password is: {{ userData.password }}</p>
 
-    </div>
+    </div> -->
     
     
     <button @click = "saveChanges" class="button" style="position: absolute; left: 43%; bottom:5%; 
@@ -64,6 +64,8 @@
     </button>
     
     <br><br>
+
+    <img src="../assets/newbearmaxlogo.png" height=300px width="300px" style="position:absolute; bottom: 30%; left:75%;">
     
     
 </template>

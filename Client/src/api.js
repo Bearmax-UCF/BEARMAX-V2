@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import * as d3 from 'd3';
+ 
 
 
 // To hold the base URL whether it is in development or production
@@ -152,6 +154,7 @@ export async function createNoteApi(userData){
 
     try{
 
+        console.log("inside createNoteApi, baseURL is " + baseURL);
         //console.log("before await api.post()");
         const response = await api.post('/note', userData, {headers: {
 
@@ -385,6 +388,8 @@ export async function getEmotionRecognitionDataApi(){
 }//End of getEmotionRecognitionDataApi
 
 
+
+
 export async function saveEmotionRecognitionDataApi(){
 
     //make loop to go through different data
@@ -392,15 +397,24 @@ export async function saveEmotionRecognitionDataApi(){
     const gameData = [
 
         {
-            Correct: [3],
-            Wrong: [2],
-            NumPlays: 1
+            Correct: [3, 2, 4, 4],
+            Wrong: [2, 3, 1, 1],
+            NumPlays: 1,
+            GameFin: new Date("2024-03-15T02:00Z"),
         },
 
         {
-            Correct: [2,4],
-            Wrong: [3,0],
-            NumPlays: 2    
+            Correct: [2, 1, 4, 1],
+            Wrong: [3, 4, 1, 4],
+            NumPlays: 1,
+            GameFin: new Date("2024-03-18T02:00Z"),    
+        },
+
+        {
+            Correct: [1, 1, 3, 3],
+            Wrong: [4, 4, 2, 2],
+            NumPlays: 1,
+            GameFin: new Date("2024-03-21T02:00Z"),    
         }
         
     ];
@@ -444,25 +458,78 @@ export async function saveEmotionRecognitionDataApi(){
 }//End of export saveEmotionRecognitionDataApi function
 
 
+export async function deleteEmotionRecognitionDataApi(emotionId){
+
+    try{
+
+        console.log("inside deleteEmotionRecognitionDataApi function");
+
+        console.log("baseURL is: " + baseURL);
+
+        const deleteEmotionDataUrl = '/emotionRecognition/' + emotionId;
+
+
+        const response = await api.delete(deleteEmotionDataUrl, {headers: {
+
+            Authorization: 'Bearer ' + Cookies.get("auth_token")
+        }
+
+        });
+
+
+        console.log("response: ");
+        console.log(response);
+
+        console.log("end of deleteEmotionRecognitionDataApi try block (right before return response.data)");
+
+
+        return response.data;
+
+    }
+
+    catch(error) {
+
+        console.log("deleteEmotionRecognitionDataApi: error: ");
+        console.log(error);
+        throw error.response.data;
+
+    }
+
+}//End of deleteEmotionRecognitionDataApi
 
 
 
+export async function resetPasswordApi(userData) {
+   
+    try {
 
-// export async function resetPasswordApi(data) {
-//     try {
+        console.log("insideResetPasswordApi, token is: " + userData.token);
+        console.log("insideResetPasswordApi, id is: " + userData.id);
+        console.log("insideResetPasswordApi, password is: " + userData.password);
 
-//       const response = await axios.post('api/auth/resetPassword', data);
-//       return response.data;
+        console.log("inside ResetPasswordApi, baseURL is " + baseURL);
 
-//     } 
+
+
+      const response = await api.post('/auth/resetPassword', userData);
+      console.log("inside resetPasswordApi, after API call");
     
-//     catch (error) {
 
-//       throw error.response.data;
+      console.log("response: ");
+      console.log(response);
+      
+      return response.data;
 
-//     }
+    } 
+    
+    catch (error) {
 
-//   }//End of resetPasswordApi function
+        console.log("resetPasswordApi: error: " + error.message);
+        throw error.response.data;
+
+    }
+
+  }//End of resetPasswordApi function
 
 
 
