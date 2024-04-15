@@ -399,21 +399,21 @@ export async function saveEmotionRecognitionDataApi(){
         {
             Correct: [3, 2, 4, 4],
             Wrong: [2, 3, 1, 1],
-            NumPlays: 1,
+            NumPlays: 20,
             GameFin: new Date("2024-03-15T02:00Z"),
         },
 
         {
             Correct: [2, 1, 4, 1],
             Wrong: [3, 4, 1, 4],
-            NumPlays: 1,
+            NumPlays: 20,
             GameFin: new Date("2024-03-18T02:00Z"),    
         },
 
         {
             Correct: [1, 1, 3, 3],
             Wrong: [4, 4, 2, 2],
-            NumPlays: 1,
+            NumPlays: 20,
             GameFin: new Date("2024-03-21T02:00Z"),    
         }
         
