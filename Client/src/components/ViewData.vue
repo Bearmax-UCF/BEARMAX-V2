@@ -1,23 +1,29 @@
 <template>
     
-    <!-- <h1>This is the View Data page</h1> -->
+  <!-- <h1>This is the View Data page</h1> -->
+
+   
+
 
     <router-link to="/homepage" style="position: absolute; left: 1.5%; top: 2%;">
         <font-awesome-icon icon="arrow-left" size="2x" style=""/>
     </router-link>
 
+    <!-- Buttons to test api functions -->
     <div style="position: absolute; top: 2%; left: 30%;">
 
-    <!-- <button style="margin-right:10px;" @click="getEmotionRecognitionData">Get Emotion Recognition Data</button>
-
-    <button style="margin-right:10px;" @click="saveEmotionRecognitionData">Save Emotion Recognition Data</button> -->
-
-    <!-- <button @click="deleteEmotionRecognitionData">Delete Emotion Recognition Data</button> -->
-
+      <button style="margin-right:10px;" @click="getEmotionRecognitionData">Get Emotion Recognition Data</button>
+      
+      <button style="margin-right:10px;" @click="saveEmotionRecognitionData">Save Emotion Recognition Data</button>
+      
+      <button @click="deleteEmotionRecognitionData">Delete Emotion Recognition Data</button>
+      
     </div>
 
     
-
+  
+    
+    <!-- Beginning of example graph -->
 
     <!-- <div style="position: absolute; left:2.5%; top:15%;">
 
@@ -33,17 +39,31 @@
 
     </div> -->
     
-    <!-- example d3 graph -->
+    <!-- end of example d3 graph -->
 
-    <div style="position: absolute; left: 20%; top: 15%; background-color: white;">
 
-      <svg ref="svg">
+
+    <div :style="{ position: 'absolute', left: '20%', top: '15%', width: `${widthRef}px`,height: `${heightRef}px`, 
+    backgroundColor: 'white' }">
+
+      <svg ref="svg" style="background-color: white;">
         <g class="plot-area-happy"></g>
       </svg>
 
     </div>
 
-    <div style="position: absolute; right: 20%; top: 15%; background-color: white;">
+
+    <!-- Text area for notes -->
+    <textarea v-model="rawDataTable" style="width:700px; height:400px; position:relative; left:28%; 
+        top: 80%; resize:none;">
+
+            
+
+    </textarea> 
+
+    <img src="../assets/newbearmaxlogo.png" style= "position: relative; top: 90%; left: 45%;" height=260px width="260px">
+
+    <!-- <div style="position: absolute; right: 20%; top: 15%; background-color: white;">
 
       <svg ref="svg2">
         <g class="plot-area-sad"></g>
@@ -65,9 +85,8 @@
     <g class="plot-area-neutral"></g>
   </svg>
 
-  </div>
+  </div> -->
 
-  <img src="../assets/newbearmaxlogo.png" style= "position: absolute; bottom: -5%; right: 41%;" height=260px width="260px">
 
 
 
@@ -210,6 +229,7 @@ export default {
 
 
         const allGames = ref(Array());
+        const rawData = ref(null);
         const selectedSessionCorrectArr = ref(Array());
         const selectedSessionWrongArr = ref(Array());
         const selectedSessionNumPlays = ref();
@@ -218,56 +238,65 @@ export default {
 
 const getEmotionRecognitionData = async() => {
 
-try {
+  try {
 
-    const response = await getEmotionRecognitionDataApi();
-    console.log("finished waiting emotion game api");
-    allGames.value = response.allGames;
+      const response = await getEmotionRecognitionDataApi();
+      console.log("finished waiting emotion game api");
+      allGames.value = response.allGames;
 
-    console.log("response.allGames is: ");
-    console.log(response.allGames);
+      console.log("response.allGames is: ");
+      console.log(response.allGames);
 
-    console.log("allGames.value is: ");
-    console.log(allGames.value);
+      console.log("allGames.value is: ");
+      console.log(allGames.value);
 
-    userId.value = response.allGames[0].userId;
-    console.log("response.allGames[0].UserID is: " + response.allGames[0].UserID);
+      printGameData();
 
-    emotionId.value = response.allGames[0]._id;
-    console.log("emotionId.allGames._id is: " + response.allGames[0]._id);
+      // userId.value = response.allGames[0].userID;
+      // console.log("response.allGames[0].UserID is: " + response.allGames[0].UserID);
+
+      // emotionId.value = response.allGames[0]._id;
+      // console.log("emotionId.allGames._id is: " + response.allGames[0]._id);
 
 
-}
+  }
 
-catch(error) {
-    console.log("In getEmotionRecognitionData, an error occured");
-    getEmotionRecognitionDataError.value = error.message || 'An error occured.';
-    console.log(getEmotionRecognitionDataError);
-}
+  catch(error) {
+      console.log("In getEmotionRecognitionData, an error occured");
+      getEmotionRecognitionDataError.value = error.message || 'An error occured.';
+      console.log(getEmotionRecognitionDataError);
+  }
 
 
 }//End of getEmotionRecognitionData function
 
 
-        console.log("calling getEmotionRecognitionData")
 
 
 
-      
-        const svg = ref(null);
-        const svg2 = ref(null);
-        const svg3 = ref(null);
-        const svg4 = ref(null);
+const svg = ref(null);
+const svg2 = ref(null);
+const svg3 = ref(null);
+const svg4 = ref(null);
+const widthRef = ref();
+const heightRef = ref();
 
-        const drawGraph = async() => {
+
+const drawGraph = async() => {
+
+          console.log("calling getEmotionRecognitionData");
 
           await getEmotionRecognitionData();
 
         //beginning of graph code
 
         const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-        const width = 400;
-        const height = 200;
+
+        const width = 800;
+        widthRef.value = width;
+
+        const height = 400;
+        heightRef.value = height;
 
 
         const happyGraphData = ref(Array());
@@ -342,31 +371,51 @@ catch(error) {
 
         //sample data
 
-        happyGraphData.value.push({x:(new Date("2024-03-15T02:00Z")), y:75});
-        happyGraphData.value.push({x:(new Date("2024-03-16T02:00Z")), y:35});
-        happyGraphData.value.push({x:(new Date("2024-03-17T02:00Z")), y:50});
-        happyGraphData.value.push({x:(new Date("2024-03-18T02:00Z")), y:10});
+        // happyGraphData.value.push({x:(new Date("2024-03-15T02:00Z")), y:75});
+        // happyGraphData.value.push({x:(new Date("2024-03-16T02:00Z")), y:35});
+        // happyGraphData.value.push({x:(new Date("2024-03-17T02:00Z")), y:50});
+        // happyGraphData.value.push({x:(new Date("2024-03-18T02:00Z")), y:10});
 
 
-        allDates.value.push(new Date("2024-03-15T02:00Z"));
-        allDates.value.push(new Date("2024-03-16T02:00Z"));
-        allDates.value.push(new Date("2024-03-17T02:00Z"));
-        allDates.value.push(new Date("2024-03-18T02:00Z"));
+        // allDates.value.push(new Date("2024-03-15T02:00Z"));
+        // allDates.value.push(new Date("2024-03-16T02:00Z"));
+        // allDates.value.push(new Date("2024-03-17T02:00Z"));
+        // allDates.value.push(new Date("2024-03-18T02:00Z"));
 
-        sadGraphData.value.push({x:(new Date("2024-03-15T02:00Z")), y:15});
-        sadGraphData.value.push({x:(new Date("2024-03-16T02:00Z")), y:25});
-        sadGraphData.value.push({x:(new Date("2024-03-17T02:00Z")), y:50});
-        sadGraphData.value.push({x:(new Date("2024-03-18T02:00Z")), y:30});
+        // sadGraphData.value.push({x:(new Date("2024-03-15T02:00Z")), y:15});
+        // sadGraphData.value.push({x:(new Date("2024-03-16T02:00Z")), y:25});
+        // sadGraphData.value.push({x:(new Date("2024-03-17T02:00Z")), y:50});
+        // sadGraphData.value.push({x:(new Date("2024-03-18T02:00Z")), y:30});
 
-        angryGraphData.value.push({x:(new Date("2024-03-15T02:00Z")), y:5});
-        angryGraphData.value.push({x:(new Date("2024-03-16T02:00Z")), y:85});
-        angryGraphData.value.push({x:(new Date("2024-03-17T02:00Z")), y:10});
-        angryGraphData.value.push({x:(new Date("2024-03-18T02:00Z")), y:20});
+        // angryGraphData.value.push({x:(new Date("2024-03-15T02:00Z")), y:5});
+        // angryGraphData.value.push({x:(new Date("2024-03-16T02:00Z")), y:85});
+        // angryGraphData.value.push({x:(new Date("2024-03-17T02:00Z")), y:10});
+        // angryGraphData.value.push({x:(new Date("2024-03-18T02:00Z")), y:20});
 
-        neutralGraphData.value.push({x:(new Date("2024-03-15T02:00Z")), y:75});
-        neutralGraphData.value.push({x:(new Date("2024-03-16T02:00Z")), y:35});
-        neutralGraphData.value.push({x:(new Date("2024-03-17T02:00Z")), y:15});
-        neutralGraphData.value.push({x:(new Date("2024-03-18T02:00Z")), y:10});
+        // neutralGraphData.value.push({x:(new Date("2024-03-15T02:00Z")), y:75});
+        // neutralGraphData.value.push({x:(new Date("2024-03-16T02:00Z")), y:35});
+        // neutralGraphData.value.push({x:(new Date("2024-03-17T02:00Z")), y:15});
+        // neutralGraphData.value.push({x:(new Date("2024-03-18T02:00Z")), y:10});
+
+        
+        //real data
+
+        console.log("allGames.value.size is " + allGames.value.length);
+        for(var i = 0; i < allGames.value.length; i++) {
+
+          var game = allGames.value[i];
+          //console.log("for loop game");
+          //console.log(game);
+
+
+          allDates.value.push(new Date(game.GameFin));
+
+          happyGraphData.value.push({x:(new Date(game.GameFin)), y: Math.round((game.Correct[0] / (game.Correct[0] + game.Wrong[0])) * 100)});
+
+
+
+        }
+
 
 
         console.log("happy graph data is ");
@@ -375,8 +424,6 @@ catch(error) {
         console.log("allDates.value is");
         console.log(allDates.value);
 
-        
-        console.log(Array.from(allDates.value));
         
         svg.value = d3.select('.plot-area-happy')
         .attr("width", width + margin.left + margin.right)
@@ -389,8 +436,10 @@ catch(error) {
         .domain(d3.extent(allDates.value))
         .range([0, width]);
 
+
       const yScale = d3.scaleLinear()
-        .domain([0, d3.max(happyGraphData.value, d => d.y)])
+        //.domain([0, d3.max(happyGraphData.value, d => d.y)])
+        .domain([0, 100])
         .range([height, 0]);
 
       const happyLine = d3.line()
@@ -411,6 +460,19 @@ catch(error) {
         .attr("transform", `translate(${width/4 +40}, ${height / 2 + 25} )`)
 
 			   .text("Game Date");
+
+
+      //ticks for x-axis
+
+      const formatTime = d3.timeFormat("%b %d");
+
+      svg.value.append("g")
+      .attr("class", "x-axis")
+      .attr("transform", `translate(140, ${height-1})`)
+      .call(d3.axisBottom(xScale)
+          .tickFormat(formatTime) // Use the defined format function
+      );
+
     
          
       //y-axis label
@@ -605,7 +667,7 @@ svg4.value = d3.select('.plot-area-neutral')
 
 
 
-        }//End of drawGraph function
+      }//End of drawGraph function
 
         drawGraph();
 
@@ -653,6 +715,108 @@ svg4.value = d3.select('.plot-area-neutral')
 
 
 
+        const rawDataTable = ref();
+
+        rawDataTable.value = "";
+
+
+
+        //Start of printGameData function
+        const printGameData = () => {
+          
+          console.log("at the start of printGameData function");
+          
+          console.log("inside printGameData function, allGames.value is ");
+          console.log(allGames.value);
+          
+          rawDataTable.value += "Raw Data: \n";
+
+          
+          
+          for(var i = 0; i < allGames.value.length; i++) {
+            
+
+            console.log("inside for loop of printGameData, trying to add to rawDataTable");
+            var game = allGames.value[i];
+
+            var formattedDate = new Date(game.GameFin).toLocaleString();
+
+            
+            rawDataTable.value += "Game " + (i+1) + "\n";
+            rawDataTable.value += "   Date: " + formattedDate + "\n";
+            rawDataTable.value += "   Number of faces shown: " + game.NumPlays + "\n";
+
+            var correctTotal = 0;
+            var wrongTotal = 0;
+
+            rawDataTable.value += "             Happy     Sad   Angry Neutral    All\n";
+
+            rawDataTable.value += "   Correct "; 
+            for(var j = 0; j < game.Correct.length; j++) {
+
+              rawDataTable.value += (game.Correct[j] + " ").padStart(8,' ');
+              correctTotal += game.Correct[j];
+
+            }//End of for(game.correct.length)
+
+            rawDataTable.value += (correctTotal + " ").padStart(7, ' ');
+
+            rawDataTable.value += "\n";
+
+            rawDataTable.value += "   Wrong   "; 
+            for(var k = 0; k < game.Wrong.length; k++) {
+
+              rawDataTable.value += (game.Wrong[k] + " ").padStart(8,' ');
+              wrongTotal += game.Wrong[k];
+
+            }//End of for(game.wrong.length)
+
+            rawDataTable.value += (wrongTotal + " ").padStart(7, ' ');
+
+
+            rawDataTable.value += "\n";
+
+            var accuracyPercentage = -1;
+            var overallAccuracy = -1;
+
+            rawDataTable.value += "   Ratio   "; 
+            for(var r = 0; r < (game.Correct.length); r++) {
+
+              accuracyPercentage = (Math.round((game.Correct[r] / (game.Correct[r] + game.Wrong[r])) * 100));
+
+              rawDataTable.value += (accuracyPercentage + "" + "%").padStart(8,' ');
+
+            }//End of for(ratio)
+
+            console.log("outside loop, correct total is " + correctTotal);
+            console.log("outside loop, wrong total is " + wrongTotal);
+            accuracyPercentage = Math.round((correctTotal / (correctTotal + wrongTotal)) * 100); 
+            rawDataTable.value += (accuracyPercentage + "" + "%").padStart(7, ' ');
+
+
+
+            rawDataTable.value += "\n";
+
+
+            
+            
+          }//End of for loop
+          
+          rawDataTable.value += "addition from after the for loop";
+          
+          console.log("at the end of printGameData function");
+          
+          
+        }//End of printGameData function
+        
+        
+       
+        
+        //printGameData(allGames.value);
+
+
+
+
         const outputGameData = async(game, index) => {
 
           try {
@@ -678,7 +842,7 @@ svg4.value = d3.select('.plot-area-neutral')
             console.log("outputGameData error is " + error.message);
           }
 
-        }
+        }//End of outputGameData function
 
 
         return {
@@ -701,6 +865,11 @@ svg4.value = d3.select('.plot-area-neutral')
             svg3,
             svg4,
             drawGraph,
+            widthRef,
+            heightRef,
+            rawData,
+            rawDataTable,
+            printGameData,
 
         };
 
