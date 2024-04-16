@@ -5,7 +5,7 @@ export type EmotionGameStats = {
 	UserID: string;
 };
 
-export type EmotionGameAction = "start" | "stop";
+export type EmotionGameAction = "start" | "stop" | "happy";
 
 export type SensoryOverloadAidAction = "start" | "stop";
 
