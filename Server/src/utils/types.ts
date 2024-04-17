@@ -5,7 +5,7 @@ export type EmotionGameStats = {
 	UserID: string;
 };
 
-export type EmotionGameAction = "start" | "stop";
+export type EmotionGameAction = "start" | "stop" | "happy | sad | angry | confused | shocked | worried | scared | annoyed ";
 
 export type SensoryOverloadAidAction = "start" | "stop";
 
