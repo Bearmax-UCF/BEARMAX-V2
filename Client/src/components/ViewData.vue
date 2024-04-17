@@ -10,13 +10,13 @@
     </router-link>
 
     <!-- Buttons to test api functions -->
-    <div style="position: absolute; top: 2%; left: 30%;">
+    <div style="position: absolute; top: 65%; left: 30%;">
 
-      <button style="margin-right:10px;" @click="getEmotionRecognitionData">Get Emotion Recognition Data</button>
+      <!-- <button class = "button" style="margin-right:10px;" @click="getEmotionRecognitionData">View Raw Data</button> -->
       
-      <button style="margin-right:10px;" @click="saveEmotionRecognitionData">Save Emotion Recognition Data</button>
+      <!-- <button style="margin-right:10px;" @click="saveEmotionRecognitionData">Save Emotion Recognition Data</button> -->
       
-      <button @click="deleteEmotionRecognitionData">Delete Emotion Recognition Data</button>
+      <!-- <button @click="deleteEmotionRecognitionData">Delete Emotion Recognition Data</button> -->
       
     </div>
 
@@ -43,19 +43,18 @@
 
 
 
-    <div :style="{ position: 'absolute', left: '20%', top: '15%', width: `${widthRef}px`,height: `${heightRef}px`, 
-    backgroundColor: 'white' }">
+    <div :style="{ position: 'absolute', left: '20%', top: '15%', backgroundColor: 'white' }">
 
-      <svg ref="svg" style="background-color: white;">
+      <svg ref="svg" :style="{backgroundColor: white, width: `${widthRef}px`,height: `${heightRef}px`}">
         <g class="plot-area-happy"></g>
       </svg>
 
     </div>
 
 
-    <!-- Text area for notes -->
+    <!-- Text area for raw data -->
     <textarea v-model="rawDataTable" style="width:700px; height:400px; position:relative; left:28%; 
-        top: 80%; resize:none;">
+        top: 70%; resize:none;">
 
             
 
@@ -236,16 +235,142 @@ export default {
         const userId = ref();
         const emotionId = ref();
 
+        const rawDataTable = ref();
+
+        rawDataTable.value = "";
+        
+
+        const gameData = [
+
+        {
+            Correct: [3, 2, 4, 4],
+            Wrong: [2, 3, 1, 1],
+            NumPlays: 20,
+            GameFin: new Date("2024-03-15T02:00Z"),
+        },
+
+        {
+            Correct: [2, 1, 4, 1],
+            Wrong: [3, 4, 1, 4],
+            NumPlays: 20,
+            GameFin: new Date("2024-03-18T02:00Z"),    
+        },
+
+        {
+            Correct: [1, 1, 3, 3],
+            Wrong: [4, 4, 2, 2],
+            NumPlays: 20,
+            GameFin: new Date("2024-03-21T02:00Z"),    
+        }
+        
+    ];
+
+
+
+//Start of printGameData function
+const printGameData = () => {
+          
+          console.log("at the start of printGameData function");
+          
+          console.log("inside printGameData function, allGames.value is ");
+          console.log(allGames.value);
+          
+          rawDataTable.value += "Raw Data: \n\n";
+
+          
+          
+          for(var i = 0; i < allGames.value.length; i++) {
+            
+
+            console.log("inside for loop of printGameData, trying to add to rawDataTable");
+            var game = allGames.value[i];
+
+            var formattedDate = new Date(game.GameFin).toLocaleString();
+
+            
+            rawDataTable.value += "Game " + (i+1) + "\n";
+            rawDataTable.value += "   Date: " + formattedDate + "\n";
+            rawDataTable.value += "   Number of faces shown: " + game.NumPlays + "\n";
+
+            var correctTotal = 0;
+            var wrongTotal = 0;
+
+            rawDataTable.value += "             Happy     Sad   Angry Neutral    All\n";
+
+            rawDataTable.value += "   Correct "; 
+            for(var j = 0; j < game.Correct.length; j++) {
+
+              rawDataTable.value += (game.Correct[j] + " ").padStart(8,' ');
+              correctTotal += game.Correct[j];
+
+            }//End of for(game.correct.length)
+
+            rawDataTable.value += (correctTotal + " ").padStart(7, ' ');
+
+            rawDataTable.value += "\n";
+
+            rawDataTable.value += "   Wrong   "; 
+            for(var k = 0; k < game.Wrong.length; k++) {
+
+              rawDataTable.value += (game.Wrong[k] + " ").padStart(8,' ');
+              wrongTotal += game.Wrong[k];
+
+            }//End of for(game.wrong.length)
+
+            rawDataTable.value += (wrongTotal + " ").padStart(7, ' ');
+
+
+            rawDataTable.value += "\n";
+
+            var accuracyPercentage = -1;
+            var overallAccuracy = -1;
+
+            rawDataTable.value += "   Ratio   "; 
+            for(var r = 0; r < (game.Correct.length); r++) {
+
+              accuracyPercentage = (Math.round((game.Correct[r] / (game.Correct[r] + game.Wrong[r])) * 100));
+
+              rawDataTable.value += (accuracyPercentage + "" + "%").padStart(8,' ');
+
+            }//End of for(ratio)
+
+            console.log("outside loop, correct total is " + correctTotal);
+            console.log("outside loop, wrong total is " + wrongTotal);
+            accuracyPercentage = Math.round((correctTotal / (correctTotal + wrongTotal)) * 100); 
+            rawDataTable.value += (accuracyPercentage + "" + "%").padStart(7, ' ');
+
+
+
+            rawDataTable.value += "\n\n";
+
+
+            
+            
+          }//End of for loop
+          
+          //rawDataTable.value += "addition from after the for loop";
+          
+          console.log("at the end of printGameData function");
+          
+          
+        }//End of printGameData function
+        
+
 const getEmotionRecognitionData = async() => {
 
   try {
 
-      const response = await getEmotionRecognitionDataApi();
-      console.log("finished waiting emotion game api");
-      allGames.value = response.allGames;
+      //using api call
 
-      console.log("response.allGames is: ");
-      console.log(response.allGames);
+      // const response = await getEmotionRecognitionDataApi();
+      // console.log("finished waiting emotion game api");
+      // allGames.value = response.allGames;
+
+      // console.log("response.allGames is: ");
+      // console.log(response.allGames);
+
+
+      allGames.value = gameData;
 
       console.log("allGames.value is: ");
       console.log(allGames.value);
@@ -282,6 +407,8 @@ const widthRef = ref();
 const heightRef = ref();
 
 
+
+
 const drawGraph = async() => {
 
           console.log("calling getEmotionRecognitionData");
@@ -290,12 +417,12 @@ const drawGraph = async() => {
 
         //beginning of graph code
 
-        const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+        const margin = { top: 20, right: 30, bottom: 20, left: 30 };
 
-        const width = 800;
+        const width = 800 -  margin.right - margin.left;
         widthRef.value = width;
 
-        const height = 400;
+        const height = 400 - margin.top - margin.bottom;
         heightRef.value = height;
 
 
@@ -305,6 +432,10 @@ const drawGraph = async() => {
         const neutralGraphData = ref(Array());
 
         const allDates = ref(Array());
+
+
+
+
         
         console.log("inside setup funciton, graph code section, allGames.value is ");
         console.log(allGames.value);
@@ -401,6 +532,8 @@ const drawGraph = async() => {
         //real data
 
         console.log("allGames.value.size is " + allGames.value.length);
+
+
         for(var i = 0; i < allGames.value.length; i++) {
 
           var game = allGames.value[i];
@@ -411,6 +544,9 @@ const drawGraph = async() => {
           allDates.value.push(new Date(game.GameFin));
 
           happyGraphData.value.push({x:(new Date(game.GameFin)), y: Math.round((game.Correct[0] / (game.Correct[0] + game.Wrong[0])) * 100)});
+          sadGraphData.value.push({x:(new Date(game.GameFin)), y: Math.round((game.Correct[1] / (game.Correct[1] + game.Wrong[1])) * 100)});
+          angryGraphData.value.push({x:(new Date(game.GameFin)), y: Math.round((game.Correct[2] / (game.Correct[2] + game.Wrong[2])) * 100)});
+          neutralGraphData.value.push({x:(new Date(game.GameFin)), y: Math.round((game.Correct[3] / (game.Correct[3] + game.Wrong[3])) * 100)});
 
 
 
@@ -424,6 +560,7 @@ const drawGraph = async() => {
         console.log("allDates.value is");
         console.log(allDates.value);
 
+        console.log(d3.extent(allDates.value));
         
         svg.value = d3.select('.plot-area-happy')
         .attr("width", width + margin.left + margin.right)
@@ -434,62 +571,162 @@ const drawGraph = async() => {
       const xScale = d3.scaleTime()
         
         .domain(d3.extent(allDates.value))
-        .range([0, width]);
+        .range([0, width-margin.left]);
 
 
       const yScale = d3.scaleLinear()
         //.domain([0, d3.max(happyGraphData.value, d => d.y)])
         .domain([0, 100])
-        .range([height, 0]);
+        .range([height-(margin.top/2), 0+(margin.top/2)]);
 
+
+      //happy line  
       const happyLine = d3.line()
         .x(d => xScale(d.x))
         .y(d => yScale(d.y));
 
       svg.value.append("path")
         .datum(happyGraphData.value)
+        .attr("transform", `translate(${margin.left}, ${-margin.bottom*0.77}) scale(0.9)`)
         .attr("fill", "none")
         .attr("stroke", "steelblue")
         .attr("stroke-width", 2)
         .attr("d", happyLine);
 
+        //sad line
+        const sadLine2 = d3.line()
+        .x(d => xScale(d.x))
+        .y(d => yScale(d.y));
+
+      svg.value.append("path")
+        .datum(sadGraphData.value)
+        .attr("transform", `translate(${margin.left}, ${-margin.bottom*0.77}) scale(0.9)`)
+        .attr("fill", "none")
+        .attr("stroke", "red")
+        .attr("stroke-width", 2)
+        .attr("d", sadLine2);
+
+        //angry line
+
+        const angryLine2 = d3.line()
+        .x(d => xScale(d.x))
+        .y(d => yScale(d.y));
+
+      svg.value.append("path")
+        .datum(angryGraphData.value)
+        .attr("transform", `translate(${margin.left}, ${-margin.bottom*0.77}) scale(0.9)`)
+        .attr("fill", "none")
+        .attr("stroke", "green")
+        .attr("stroke-width", 2)
+        .attr("d", angryLine2);
+
+        //neutral line
+
+        const neutralLine2 = d3.line()
+        .x(d => xScale(d.x))
+        .y(d => yScale(d.y));
+
+      svg.value.append("path")
+        .datum(neutralGraphData.value)
+        .attr("transform", `translate(${margin.left}, ${-margin.bottom*0.77}) scale(0.9)`)
+        .attr("fill", "none")
+        .attr("stroke", "orange")
+        .attr("stroke-width", 2)
+        .attr("d", neutralLine2);
+
         //x-axis label for happy graph
       svg.value.append("text")
 			   .attr("text-anchor", "middle")
          //.attr("transform", `translate(${-height + margin.top + 20})`)
-        .attr("transform", `translate(${width/4 +40}, ${height / 2 + 25} )`)
+        .attr("transform", `translate(${width/2 - 30}, ${height-margin.bottom} ) `)
 
 			   .text("Game Date");
 
-
-      //ticks for x-axis
-
+         
+         
+         //y-axis label for happy graph
+         svg.value.append("text")
+         .attr("text-anchor", "start")
+         .attr("transform", `translate(${-margin.left+15},${height / 2}) rotate(-90)`)
+         .text("Percent Correct");
+         
+         
+         //ticks for x-axis
       const formatTime = d3.timeFormat("%b %d");
 
-      svg.value.append("g")
-      .attr("class", "x-axis")
-      .attr("transform", `translate(140, ${height-1})`)
-      .call(d3.axisBottom(xScale)
-          .tickFormat(formatTime) // Use the defined format function
-      );
+      // svg.value.append("g")
+      // .attr("class", "x-axis")
+      // .attr("transform", `translate(${margin.left}, ${height - 60})`)
+      // .call(d3.axisBottom(xScale)
+      //     .tickFormat(formatTime) // Use the defined format function
+      // );
 
+      svg.value.append("g")
+       .attr("transform", `translate(${margin.left}, ${height-(margin.bottom*3)}) scale(0.9)`)
+       .call(d3.axisBottom(xScale).tickFormat(formatTime));
+
+
+       //ticks for y-axis
+
+        //const formatTime = d3.timeFormat("%b %d");
+
+        // svg.value.append("g")
+        //   .attr("class", "y-axis")
+        //   .attr("transform", `rotate(-90) translate(${-height / 2},${-margin.left / 4})`)
+        //   .call(d3.axisBottom(yScale)
+        //     .tickFormat() // Use the defined format function
+        //   );
     
-         
-      //y-axis label
-      svg.value.append("text")
-        .attr("text-anchor", "start")
-        .attr("transform", `rotate(-90) translate(${-height / 2},${-margin.left / 4})`)
-        .text("Percent Correct");
+        svg.value.append("g")
+        .attr("transform", `translate(${margin.left}, ${-margin.bottom*0.77}) scale(0.9)`)
+        .call(d3.axisLeft(yScale).tickFormat(d => `${d}%`));
+        
+      
+
+        //graph legend
+
+
+        const legendData = [
+          { label: "Happy", color: "steelblue" },
+          { label: "Sad", color: "red" },
+          {label: "Angry", color: "green"},
+           {label: "Neutral", color: "orange"}];
+
+
+        const legend = svg.value.append("g")
+          .attr("class", "legend")
+          .attr("transform", `translate(${width - (margin.right*4)}, ${-margin.bottom*0.07})`);
+
+    // Add legend items
+    legend.selectAll("rect")
+      .data(legendData)
+      .enter().append("rect")
+      .attr("x", 0)
+      .attr("y", (d, i) => i * 20)
+      .attr("width", 10)
+      .attr("height", 10)
+      .style("fill", d => d.color);
+
+    legend.selectAll("text")
+      .data(legendData)
+      .enter().append("text")
+      .attr("x", 20)
+      .attr("y", (d, i) => i * 20 + 9)
+      .text(d => d.label)
+      .attr("class", "legend-text")
+      .style("font-size", "12px")
+      .style("font-family", "sans-serif");
 
     //graph title
     svg.value.append("text")
-    .attr("x", (width / 2) - 60)
-    .attr("y", (margin.top / 2) - 10) 
+    .attr("x", (width / 2) - margin.left)
+    .attr("y", (0)) 
     .attr("text-anchor", "middle") 
     .attr("font-size", "16px") 
-    .text("Identification Accuracy: Happy");
+    .text("Emotion Identification Accuracy");
 
       //end of happy graph code
+
 
 
       //beginning of sad graph code
@@ -590,7 +827,7 @@ svg3.value = d3.select('.plot-area-angry')
       svg3.value.append("text")
         .attr("text-anchor", "start")
         .attr("transform", `rotate(-90) translate(${-height / 2},${-margin.left / 4})`)
-        .text("Percent Correct");
+        .text("Percent Correct"); 
 
         
     svg3.value.append("text")
@@ -699,7 +936,7 @@ svg4.value = d3.select('.plot-area-neutral')
           try {
 
               //const response = await deleteEmotionRecognitionDataApi(userId);
-              const response = await deleteEmotionRecognitionDataApi(emotionId.value);
+              //const response = await deleteEmotionRecognitionDataApi(emotionId.value);
 
 
           }
@@ -715,99 +952,10 @@ svg4.value = d3.select('.plot-area-neutral')
 
 
 
-        const rawDataTable = ref();
-
-        rawDataTable.value = "";
+      
 
 
 
-        //Start of printGameData function
-        const printGameData = () => {
-          
-          console.log("at the start of printGameData function");
-          
-          console.log("inside printGameData function, allGames.value is ");
-          console.log(allGames.value);
-          
-          rawDataTable.value += "Raw Data: \n";
-
-          
-          
-          for(var i = 0; i < allGames.value.length; i++) {
-            
-
-            console.log("inside for loop of printGameData, trying to add to rawDataTable");
-            var game = allGames.value[i];
-
-            var formattedDate = new Date(game.GameFin).toLocaleString();
-
-            
-            rawDataTable.value += "Game " + (i+1) + "\n";
-            rawDataTable.value += "   Date: " + formattedDate + "\n";
-            rawDataTable.value += "   Number of faces shown: " + game.NumPlays + "\n";
-
-            var correctTotal = 0;
-            var wrongTotal = 0;
-
-            rawDataTable.value += "             Happy     Sad   Angry Neutral    All\n";
-
-            rawDataTable.value += "   Correct "; 
-            for(var j = 0; j < game.Correct.length; j++) {
-
-              rawDataTable.value += (game.Correct[j] + " ").padStart(8,' ');
-              correctTotal += game.Correct[j];
-
-            }//End of for(game.correct.length)
-
-            rawDataTable.value += (correctTotal + " ").padStart(7, ' ');
-
-            rawDataTable.value += "\n";
-
-            rawDataTable.value += "   Wrong   "; 
-            for(var k = 0; k < game.Wrong.length; k++) {
-
-              rawDataTable.value += (game.Wrong[k] + " ").padStart(8,' ');
-              wrongTotal += game.Wrong[k];
-
-            }//End of for(game.wrong.length)
-
-            rawDataTable.value += (wrongTotal + " ").padStart(7, ' ');
-
-
-            rawDataTable.value += "\n";
-
-            var accuracyPercentage = -1;
-            var overallAccuracy = -1;
-
-            rawDataTable.value += "   Ratio   "; 
-            for(var r = 0; r < (game.Correct.length); r++) {
-
-              accuracyPercentage = (Math.round((game.Correct[r] / (game.Correct[r] + game.Wrong[r])) * 100));
-
-              rawDataTable.value += (accuracyPercentage + "" + "%").padStart(8,' ');
-
-            }//End of for(ratio)
-
-            console.log("outside loop, correct total is " + correctTotal);
-            console.log("outside loop, wrong total is " + wrongTotal);
-            accuracyPercentage = Math.round((correctTotal / (correctTotal + wrongTotal)) * 100); 
-            rawDataTable.value += (accuracyPercentage + "" + "%").padStart(7, ' ');
-
-
-
-            rawDataTable.value += "\n";
-
-
-            
-            
-          }//End of for loop
-          
-          rawDataTable.value += "addition from after the for loop";
-          
-          console.log("at the end of printGameData function");
-          
-          
-        }//End of printGameData function
         
         
        
