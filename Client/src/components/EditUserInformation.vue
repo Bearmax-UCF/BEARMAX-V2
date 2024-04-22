@@ -44,17 +44,7 @@
 
     </div>
 
-    <br><br>
-
-    <!-- <div style="position: relative; left: 35%;">
-
-        <p>New email is: {{ userData.email }}</p>
-        <p>New first name is: {{ userData.firstName }}</p>
-        <p>New last name is: {{ userData.lastName }}</p>
-        <p>New password is: {{ userData.password }}</p>
-
-    </div> -->
-    
+    <br><br>  
     
     <button @click = "saveChanges" class="button" style="position: absolute; left: 43%; bottom:5%; 
         width: 150px;">

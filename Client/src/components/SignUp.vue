@@ -35,7 +35,6 @@
 
         <br>
 
-        <!-- <input type="text" class="textField" placeholder="Repeat Password"/> -->
 
         <br>
         <br>
