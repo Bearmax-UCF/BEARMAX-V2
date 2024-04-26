@@ -85,4 +85,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1QiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTUxNDA3O
  * [SensoryOverloadAid](documentation/sensoryAidServerSocket.md)
  * [GSR](documentation/gsrServerSocket.md)
 
-
+ ## Other words
+ While you can try to run the individual sockets on Postman with the use of information in the socket documentation, it is much easier to test the sockets or new sockets with the test-client.ts file. You can add new server-side sockets to the index.ts file under BEARMAX-VS > Server > src > eventHandlers. Then, as a test client, test the connection between client-side sockets and the index.ts file's server-side sockets. Lots of outputs from these sockets will either come from the ran Docker backend, console of the test-client.ts program, or a different client source (e.g., Raspberry Pi) if your testing client-side sockets from there.

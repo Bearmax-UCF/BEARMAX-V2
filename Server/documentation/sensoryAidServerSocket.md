@@ -14,7 +14,7 @@ Sending user-selected Azure blob media to the Raspberry Pi to be played to the c
 
 **Data Constraints** : 
 
-```json
+```text / stringified json 
 {
     "mediaURL": "Metal pipe falling sound effect but it’s more violent.mp4"
 }

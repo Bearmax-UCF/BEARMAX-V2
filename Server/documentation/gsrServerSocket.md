@@ -36,7 +36,7 @@ Send child's GSR to client.
 
 **Data Constraints** : 
 
-```json
+```text / stringified json
 {
     "value": 3,
     "ts": "2024-03-16T22:38:24.000Z"

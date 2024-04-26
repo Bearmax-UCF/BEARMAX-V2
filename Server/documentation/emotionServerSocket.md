@@ -46,7 +46,7 @@ Saving emotion game statistics to MongoDB.
 
 **Data Constraints** : 
 
-```json
+```text / stringified json
 {
     "Correct": [1, 1, 1, 1],
     "Wrong": [0, 0, 0, 0],
