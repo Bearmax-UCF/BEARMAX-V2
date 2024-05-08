@@ -6,13 +6,6 @@
         <font-awesome-icon icon="arrow-left" size="2x" style=""/>
     </router-link>
 
-    <!-- <p>Head back to View Patient Notes page</p>
-
-    <router-link to="/viewpatientnotes">
-
-        <font-awesome-icon icon="plus" size="2x" style=""/>
-
-    </router-link> -->
 
     <br>
 
@@ -25,9 +18,6 @@
     <input type="text" class="textField" placeholder="Date" v-model="newNote.date"/>
 
     <br><br>
-
-    <!-- <input type="text" class="textField" placeholder="Note" v-model="newNote.note" 
-    style="width:600px; height:300px; align-items:flex-start; display:flex;" /> -->
 
     <textarea v-model="newNote.note" placeholder="Note" style="width:600px; height:300px; position:relative; 
         resize:none;">

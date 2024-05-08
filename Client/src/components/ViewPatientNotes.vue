@@ -4,12 +4,10 @@
         <font-awesome-icon icon="arrow-left" size="2x" style=""/>
     </router-link>
     
-    <!-- <h1>This is the View Patient Notes page</h1> -->
-    <!-- <div id="wrapper"> -->
+    
 
     <div style="position: absolute; top: 0%; left:36%;">
 
-        <!-- <p style="position: absolute; top: 0%; left: 30%;"> -->
         <h2>
             Please select a note from the left side bar
         </h2>
@@ -68,11 +66,6 @@
 
     </textarea> 
 
-    <!-- <button @click="getAllNotes">
-    
-        Get All Notes
-    
-    </button> -->
     
     <br>
 
@@ -322,12 +315,6 @@
 
 <style>
 
-
-/* #wrapper {
-    margin-left:auto;
-    margin-right:auto;
-    width:1300px;
-} */
 
     
 </style>
